@@ -7,6 +7,10 @@
 set mouse=a
 set ttymouse=xterm2
 
+" switch ' and `
+nnoremap ' `
+nnoremap ` '
+
 " enable syntax highlighting
 syntax on
 
@@ -63,14 +67,24 @@ set highlight+=sr
 set highlight+=Sr
 set laststatus=2
 
+" set the terminal title
+set title
+
 " show cursor line and column, if no statusline
 set ruler
+
+" shorten command-line text and other info tokens
+set shortmess=atI
 
 " don't jump between matching brackets while typing
 set noshowmatch
 
 " display mode INSERT/REPLACE/...
 set showmode
+
+
+" remember more commands and search patterns
+set history=1000
 
 " changes special characters in search patterns (default)
 " set magic
