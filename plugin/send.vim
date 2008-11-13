@@ -1,18 +1,22 @@
-let sendToProgramName=""
+let sendToProgramName="pbcopy"
 
 python << EOF
 import subprocess
 import vim
 
-def send():
-    try:
-        program_name = vim.eval("sendToProgramName")
-    except:
-        program_name = ""
+def send(program_name=None):
+    if program_name is None:
+        try:
+            program_name = vim.eval("sendToProgramName")
+        except:
+            program_name = ""
     if program_name == "":
         print "Please set the 'sendToProgramName' variable."
-        print "E.g. :let sendToProgramName=\"~/.vim/scripts/send2screen.py -p 1\""
+        print "E.g."
+        print "for ipython: let sendToProgramName=\"~/.vim/scripts/send2screen.py -p 1\""
+        print "for MacOS clibpoard: let sendToProgramName=\"pbcopy\""
         return 1
+    print ( "sendToProgramName=%s" % program_name )[:80]
     r = vim.current.range
     text = ""
     for line in r:
