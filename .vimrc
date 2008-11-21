@@ -69,6 +69,7 @@ set laststatus=2
 
 " set the terminal title
 set title
+set titleold=xterm
 
 " show cursor line and column, if no statusline
 set ruler
