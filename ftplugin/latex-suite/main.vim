@@ -110,7 +110,8 @@ if !exists('s:doneMappings')
 	call IMAP(g:Tex_Leader.'u', '\upsilon', 'tex')
 	call IMAP(g:Tex_Leader.'v', '\varsigma', 'tex')
 	call IMAP(g:Tex_Leader.'w', '\omega', 'tex')
-	call IMAP(g:Tex_Leader.'w', '\wedge', 'tex')  " AUCTEX style
+	call IMAP(g:Tex_Leader.'o', '\omega', 'tex')
+	"call IMAP(g:Tex_Leader.'w', '\wedge', 'tex')  " AUCTEX style
 	call IMAP(g:Tex_Leader.'x', '\xi', 'tex')
 	call IMAP(g:Tex_Leader.'y', '\psi', 'tex')
 	call IMAP(g:Tex_Leader.'z', '\zeta', 'tex')
