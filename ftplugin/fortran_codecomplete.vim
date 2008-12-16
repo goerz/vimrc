@@ -63,6 +63,10 @@ def fortran_complete():
     syntax_elements = [
         SyntaxElement(re.compile(r'^\s*program\s+(?P<name>[a-zA-Z0-9_]+)'),
                       'end program ${name}' ),
+        SyntaxElement(re.compile(r'^\s*type\s+(?P<name>[a-zA-Z0-9_]+)'),
+                      'end type ${name}' ),
+        SyntaxElement(re.compile(r'^\s*interface\s+'),
+                      'end interface' ),
         SyntaxElement(re.compile(r'^\s*module\s+(?P<name>[a-zA-Z0-9_]+)'),
                       'end module ${name}' ),
         SyntaxElement(re.compile(r'^\s*subroutine\s+(?P<name>[a-zA-Z0-9_]+)'),
