@@ -4,7 +4,7 @@
 " * Interface Settings {{{1
 
 " use the mouse in xterm (or other terminals that support it)
-set mouse=a
+"set mouse=a
 set ttymouse=xterm2
 
 " switch ' and `
@@ -164,6 +164,9 @@ colorscheme goerz
 autocmd FileType tex hi! texSectionTitle gui=bold term=bold cterm=bold
 autocmd FileType tex hi! Statement gui=none term=none cterm=none
 
+" Implement clibpoard copy/paste 
+cabbr cbcopy w ! ~/.vimclipboard
+cabbr cbpaste r ~/.vimclipboard
 
 " * Text Formatting -- General {{{1
 
