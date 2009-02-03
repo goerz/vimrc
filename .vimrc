@@ -154,6 +154,10 @@ endif
 " Nerd_commenter plugin
 let g:NERDShutUp = 1
 
+" YankRing plugin
+let g:yankring_history_dir = '~/.vim/'
+let g:yankring_history_file = 'yankring.history'
+
 " Activate 256 colors independently of terminal. Most of my terms are 256
 " colors. For those cases where I'm running vim in a low-color terminal, this
 " is only safe if I'm using screen (which I always am).
@@ -163,10 +167,6 @@ set t_Co=256
 colorscheme goerz
 autocmd FileType tex hi! texSectionTitle gui=bold term=bold cterm=bold
 autocmd FileType tex hi! Statement gui=none term=none cterm=none
-
-" Implement clibpoard copy/paste 
-cabbr cbcopy w ! ~/.vimclipboard
-cabbr cbpaste r ~/.vimclipboard
 
 " * Text Formatting -- General {{{1
 
