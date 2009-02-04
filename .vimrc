@@ -11,6 +11,9 @@ set ttymouse=xterm2
 nnoremap ' `
 nnoremap ` '
 
+" use F1 for pastetoggle
+set pastetoggle=<F1> 
+
 " enable syntax highlighting
 syntax on
 
