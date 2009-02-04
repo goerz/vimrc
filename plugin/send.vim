@@ -1,5 +1,6 @@
-let sendToProgramName="pbcopy"
+let sendToProgramName=""
 
+if has("python")
 python << EOF
 import subprocess
 import vim
@@ -30,3 +31,6 @@ EOF
 
 nmap <F3> :. python send()<cr>
 vmap <F3> : python send()<cr>gv<esc>
+"else
+  "echo "Can't use send plugin: no python"
+endif
