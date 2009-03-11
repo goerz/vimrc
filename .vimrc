@@ -14,6 +14,28 @@ nnoremap ` '
 " use F1 for pastetoggle
 set pastetoggle=<F1> 
 
+" Up/down, j/k key behaviour {{{1
+" -- Changes up/down arrow keys to behave screen-wise, rather than file-wise.
+"    Behaviour is unchanged in operator-pending mode.
+if version >= 700
+    " Stop remapping from interfering with Omni-complete popup
+    inoremap <silent><expr><Up> pumvisible() ? "<Up>" : "<C-O>gk"
+    inoremap <silent><expr><Down> pumvisible() ? "<Down>" : "<C-O>gj"
+else
+    inoremap <silent><Up> <C-O>gk
+    inoremap <silent><Down> <C-O>gj
+endif
+
+nnoremap <silent>j gj
+nnoremap <silent>k gk
+nnoremap <silent><Up> gk
+nnoremap <silent><Down> gj
+vnoremap <silent>j gj
+vnoremap <silent>k gk
+vnoremap <silent><Up> gk
+vnoremap <silent><Down> gj
+
+
 " enable syntax highlighting
 syntax on
 
