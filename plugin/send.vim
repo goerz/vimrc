@@ -29,8 +29,8 @@ def send(program_name=None):
     pipe.close()
 EOF
 
-nmap <F3> :. python send()<cr>
-vmap <F3> : python send()<cr>gv<esc>
+nmap <leader>s :. python send()<cr>
+vmap <leader>s : python send()<cr>gv<esc>
 "else
   "echo "Can't use send plugin: no python"
 endif

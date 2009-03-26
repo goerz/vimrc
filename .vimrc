@@ -11,8 +11,8 @@ set ttymouse=xterm2
 nnoremap ' `
 nnoremap ` '
 
-" use F1 for pastetoggle
-set pastetoggle=<F1> 
+" pastetoggle
+set pastetoggle=<leader>p 
 
 " Up/down, j/k key behaviour {{{1
 " -- Changes up/down arrow keys to behave screen-wise, rather than file-wise.
@@ -156,7 +156,7 @@ set modelines=5
 let Tlist_Inc_Winwidth = 0 " Don't enlarge the terminal
 if has("gui_running")
         " In gvim, we don't need any specials for the taglist.
-        noremap <silent> <F2> :TlistToggle<CR><C-W>h
+        noremap <silent> <leader>t :TlistToggle<CR><C-W>h
     else
         " in the console version, however, I need to take into account my
         " personal STL
@@ -172,7 +172,7 @@ if has("gui_running")
             endif
             TlistToggle " This is the command provided by the plugin itself
         endfunction
-        noremap <silent> <F2> :call MyTlistToggle()<CR><C-W>h
+        noremap <silent> <leader>t :call MyTlistToggle()<CR><C-W>h
 endif
 
 
