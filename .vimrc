@@ -12,7 +12,7 @@ nnoremap ' `
 nnoremap ` '
 
 " pastetoggle
-set pastetoggle=<leader>p 
+set pastetoggle=<F1>
 
 " Up/down, j/k key behaviour {{{1
 " -- Changes up/down arrow keys to behave screen-wise, rather than file-wise.
