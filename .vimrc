@@ -254,6 +254,10 @@ augroup END
 autocmd BufWritePre *.py normal m`:%s/\s\+$//e ``
 autocmd BufWritePre *.pl normal m`:%s/\s\+$//e ``
 
+" Viki locations
+autocmd BufNewFile,BufRead *.viki set filetype=viki
+autocmd BufNewFile,BufRead */self_study/MathConcepts/* set filetype=viki
+
 
 " * Set terminal specific key mappings {{{1
 
