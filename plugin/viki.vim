@@ -213,7 +213,7 @@ endif
 " x ... Commands
 " w ... "hyperwords"
 " f ... Filenames as "hyperwords"
-if !exists("g:vikiNameTypes")       | let g:vikiNameTypes = "csSeuixwf"  | endif "{{{2
+if !exists("g:vikiNameTypes")       | let g:vikiNameTypes = "sSeuixwf"  | endif "{{{2
 
 " Which directory explorer to use to edit directories
 if !exists("g:vikiExplorer")        | let g:vikiExplorer = "Sexplore"    | endif "{{{2
