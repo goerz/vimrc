@@ -193,6 +193,10 @@ colorscheme goerz
 autocmd FileType tex hi! texSectionTitle gui=bold term=bold cterm=bold
 autocmd FileType tex hi! Statement gui=none term=none cterm=none
 
+" Send plugin
+nmap <leader>s :. python send()<cr>
+vmap <leader>s : python send()<cr>gv<esc>
+
 " * Text Formatting -- General {{{1
 
 " don't make it look like there are line breaks where there aren't:
