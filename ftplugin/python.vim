@@ -6,6 +6,7 @@ setlocal formatoptions=croql
 setlocal textwidth=79 nofoldenable 
 setlocal omnifunc=pythoncomplete#Complete
 setlocal keywordprg='$HOME/.vim/scripts/python_help.pl'
+let b:sendToProgramMode="ipython"
 compiler pylint
 
 setlocal tags+=/usr/lib/python/tags
