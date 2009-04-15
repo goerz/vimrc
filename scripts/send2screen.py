@@ -54,7 +54,8 @@ def main(argv=None):
 
     for line in sys.stdin:
         line = line.replace(chr(92), chr(92)+chr(92)) # \ => \\
-        line = line.replace(r'"', chr(92) + '"') # " => \"
+        line = line.replace(r'"', chr(92) + '"')      # " => \"
+        line = line.replace(r'$', chr(92) + '$')      # $ => \$
         line_command = command + '"' + line + '"'
         os.system(line_command)
 
