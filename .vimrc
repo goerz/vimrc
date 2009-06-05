@@ -14,7 +14,7 @@ nnoremap ` '
 " pastetoggle
 set pastetoggle=<F1>
 
-" Up/down, j/k key behaviour {{{1
+" Up/down, j/k key behaviour
 " -- Changes up/down arrow keys to behave screen-wise, rather than file-wise.
 "    Behaviour is unchanged in operator-pending mode.
 if version >= 700
@@ -197,6 +197,11 @@ autocmd FileType tex hi! Statement gui=none term=none cterm=none
 nmap <leader>s :. python send()<cr>
 vmap <leader>s : python send()<cr>gv<esc>
 
+" abbreviations
+if exists("*strftime")
+    iab xxxtimestamp <c-r>=strftime("%a %D %H:%M:%S %Z")<cr>
+endif
+
 " * Text Formatting -- General {{{1
 
 " don't make it look like there are line breaks where there aren't:
@@ -260,7 +265,6 @@ autocmd BufWritePre *.pl normal m`:%s/\s\+$//e ``
 
 " Viki locations
 autocmd BufNewFile,BufRead *.viki set filetype=viki
-autocmd BufNewFile,BufRead */self_study/MathConcepts/* set filetype=viki
 
 
 " * Set terminal specific key mappings {{{1
