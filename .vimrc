@@ -266,6 +266,11 @@ autocmd BufWritePre *.pl normal m`:%s/\s\+$//e ``
 " Viki locations
 autocmd BufNewFile,BufRead *.viki set filetype=viki
 
+" Viki bugfix
+" Remove space from vikiMapKeys, which causes abbreviations not to work. Must
+" be set befor the viki plugin is loaded, i.e. here.
+let g:vikiMapKeys = "]).,;:!?\"'"
+
 
 " * Set terminal specific key mappings {{{1
 
