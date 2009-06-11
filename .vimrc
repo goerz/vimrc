@@ -260,6 +260,7 @@ augroup filetype
   autocmd BufNewFile,BufRead *.fionacms set filetype=html
   autocmd BufNewFile,BufRead README.* set filetype=human
   autocmd BufNewFile,BufRead INSTALL set filetype=human
+  autocmd BufNewFile,BufRead *vimperatorrc*,*.vimp set filetype=vimperator
 augroup END
 
 " For some programming languages, delete trailing spaces on save
