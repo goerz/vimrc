@@ -255,6 +255,7 @@ filetype plugin indent on
 augroup filetype
   autocmd BufNewFile,BufRead */.Postponed/* set filetype=mail textwidth=71
   autocmd BufNewFile,BufRead *.txt set filetype=human
+  autocmd BufNewFile,BufRead *.mail set filetype=mail
   autocmd BufNewFile,BufRead README.* set filetype=human
   autocmd BufNewFile,BufRead INSTALL set filetype=human
 augroup END
