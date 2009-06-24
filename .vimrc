@@ -151,6 +151,11 @@ set hidden                      "allows opening a new buffer in place of an exis
 " Search the first 5 lines for modelines
 set modelines=5
 
+" Folding settings
+set nofoldenable " Don't show folds by default
+autocmd BufWinLeave ?* mkview          " Store fold settings for all buffers ...
+autocmd BufWinEnter ?* silent loadview " ... and reload them
+
 
 " Taglist plugin
 let Tlist_Inc_Winwidth = 0 " Don't enlarge the terminal
@@ -235,8 +240,6 @@ inoremap # X<C-H>#
 set wildignore+=*.o,*.obj
 set wildignore+=*.bak,*~,*.tmp,*.backup
 
-" Open folds by default
-set nofoldenable
 
 " Printing settings
 set printoptions=paper:a4,number:y,left:25pt,right:40pt
