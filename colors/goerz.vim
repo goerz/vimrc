@@ -107,7 +107,7 @@ else
         hi Error            cterm=none       ctermfg=15   ctermbg=124
         hi ErrorMsg         cterm=none       ctermfg=15   ctermbg=124
         hi FoldColumn       cterm=none       ctermfg=18   ctermbg=250
-        hi Folded           cterm=none       ctermfg=18
+        hi Folded           cterm=none       ctermfg=18   ctermbg=15
         hi Identifier       cterm=none       ctermfg=24
         hi Ignore           cterm=none       ctermfg=7
         hi IncSearch        cterm=bold
@@ -171,7 +171,7 @@ else
         hi Error            cterm=none       ctermfg=15   ctermbg=64
         hi ErrorMsg         cterm=none       ctermfg=15   ctermbg=64
         hi FoldColumn       cterm=none       ctermfg=18   ctermbg=86
-        hi Folded           cterm=none       ctermfg=18
+        hi Folded           cterm=none       ctermfg=18   ctermbg=15
         hi Identifier       cterm=none       ctermfg=22
         hi Ignore           cterm=none       ctermfg=7
         hi IncSearch        cterm=bold
