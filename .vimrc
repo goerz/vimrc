@@ -154,7 +154,7 @@ set modelines=5
 " Folding settings
 set nofoldenable " Don't show folds by default
 autocmd BufWinLeave ?* mkview          " Store fold settings for all buffers ...
-autocmd BufWinEnter ?* silent loadview " ... and reload them
+"autocmd BufWinEnter ?* silent loadview " ... and reload them
 
 
 " Taglist plugin
