@@ -1,18 +1,16 @@
 setlocal cinwords=if,elif,else,for,while,try,except,finally,def,class 
-setlocal foldmethod=indent 
 setlocal foldnestmax=2
 setlocal ts=4 
 setlocal formatoptions=croql 
 setlocal textwidth=79 nofoldenable 
 setlocal omnifunc=pythoncomplete#Complete
 setlocal keywordprg='$HOME/.vim/scripts/python_help.pl'
-let b:sendToProgramMode="ipython"
-compiler pylint
 setlocal iskeyword +=.,(
-let &pumheight = 15
-let &completeopt = "menu,menuone"
-let g:pydiction_location = '~/.vim/pydiction_complete'
-let &dictionary = g:pydiction_location
+setlocal pumheight=15
+setlocal completeopt=menu,menuone
+setlocal dictionary=./pydiction
+compiler pylint
+let b:sendToProgramMode="ipython"
 let b:SuperTabDefaultCompletionType = "<c-x><c-k>"
 
 setlocal tags+=/usr/lib/python/tags

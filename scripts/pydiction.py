@@ -30,12 +30,13 @@ import os
 import sys
 import types
 import shutil
+import pydb
 
 
 # Path/filename of the vim dictionary file to write to:
-PYDICTION_DICT = r'complete-dict'
+PYDICTION_DICT = r'pydiction'
 # Path/filename of the vim dictionary backup file:
-PYDICTION_DICT_BACKUP = r'complete-dict.last'
+PYDICTION_DICT_BACKUP = r'pydiction.last'
 
 # Sentintal to test if we should only output to stdout:
 STDOUT_ONLY = False
@@ -80,20 +81,11 @@ def write_dictionary(module_name):
             prefix_on = '%s.%s'
         write_to.write(prefix_on % (module_name, mod_attr) + '\n')
 
-    # Generate non-fully-qualified module names: 
-    write_to.write('\n--- %(x)s module without "%(x)s." prefix ---\n' % 
-                   {'x': module_name})
-    for mod_attr in mod_attrs:
-        if callable(getattr(imported_module, mod_attr)):
-            prefix_off = '%s('
-        else:
-            prefix_off = '%s'
-        write_to.write(prefix_off % mod_attr + '\n')
-
 
 def my_import(name):
     """Make __import__ import "package.module" formatted names."""
     mod = __import__(name)
+    #pydb.set_trace()
     components = name.split('.')
     for comp in components[1:]:
         mod = getattr(mod, comp)
