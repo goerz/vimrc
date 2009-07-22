@@ -8,6 +8,12 @@ setlocal omnifunc=pythoncomplete#Complete
 setlocal keywordprg='$HOME/.vim/scripts/python_help.pl'
 let b:sendToProgramMode="ipython"
 compiler pylint
+setlocal iskeyword +=.,(
+let &pumheight = 15
+let &completeopt = "menu,menuone"
+let g:pydiction_location = '~/.vim/pydiction_complete'
+let &dictionary = g:pydiction_location
+let b:SuperTabDefaultCompletionType = "<c-x><c-k>"
 
 setlocal tags+=/usr/lib/python/tags
 

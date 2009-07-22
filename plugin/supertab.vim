@@ -68,7 +68,6 @@ endif
   " There is no need to escape this value as that will be done for you when
   " the type is set.
   " Ex.  let g:SuperTabDefaultCompletionType = "<c-x><c-u>"
-let g:SuperTabDefaultCompletionType = "<c-x><c-o>"
   "
   " Note that a special value of 'context' is supported which will result in
   " super tab attempting to use the text preceding the cursor to decide which
@@ -108,10 +107,10 @@ let g:SuperTabDefaultCompletionType = "<c-x><c-o>"
   " will be used.
   " Ex. To use omni or user completion when available, but fall back to the
   " global default otherwise:
-  "   let g:SuperTabDefaultCompletionTypeDiscovery = [
-  "       \ "&completefunc:<c-x><c-u>",
-  "       \ "&omnifunc:<c-x><c-o>",
-  "     \ ]
+  "  let g:SuperTabDefaultCompletionTypeDiscovery = [
+  "      \ "&completefunc:<c-x><c-u>",
+  "      \ "&omnifunc:<c-x><c-o>",
+  "    \ ]
   if !exists("g:SuperTabDefaultCompletionTypeDiscovery")
     let g:SuperTabDefaultCompletionTypeDiscovery = []
   endif
