@@ -3,15 +3,13 @@ setlocal foldnestmax=2
 setlocal ts=4 
 setlocal formatoptions=croql 
 setlocal textwidth=79 nofoldenable 
-setlocal omnifunc=pythoncomplete#Complete
+setlocal omnifunc=pysmell#Complete
 setlocal keywordprg='$HOME/.vim/scripts/python_help.pl'
-setlocal iskeyword +=.,(
 setlocal pumheight=15
 setlocal completeopt=menu,menuone
-setlocal dictionary=./pydiction
 compiler pylint
 let b:sendToProgramMode="ipython"
-let b:SuperTabDefaultCompletionType = "<c-x><c-k>"
+let b:SuperTabDefaultCompletionType = "<c-x><c-o>"
 
 setlocal tags+=/usr/lib/python/tags
 
