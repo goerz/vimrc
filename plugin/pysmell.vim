@@ -30,7 +30,10 @@ let g:pysmell_debug = 0
 let g:pysmell_matcher='case-insensitive'
 
 python << eopython
-from pysmell import vimhelper, idehelper
+try:
+    from pysmell import vimhelper, idehelper
+except ImportError:
+    pass
 import vim
 import string
 TRANSLATEQUOTES = string.maketrans("\'\"", "\"\'")
