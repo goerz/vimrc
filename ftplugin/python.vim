@@ -3,7 +3,6 @@ setlocal foldnestmax=2
 setlocal ts=4 
 setlocal formatoptions=croql 
 setlocal textwidth=79 nofoldenable 
-"setlocal omnifunc=pysmell#Complete
 setlocal omnifunc=pythoncomplete#Complete
 setlocal keywordprg='$HOME/.vim/scripts/python_help.pl'
 setlocal pumheight=15
