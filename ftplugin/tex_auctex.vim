@@ -8,7 +8,7 @@
 " "========================================================================="
 " Explanation and Customization   {{{
 
-let b:AMSLatex = 0
+let b:AMSLatex = 1
 let b:DoubleDollars = 0
 " prefix for the "Greek letter" macros (For personal macros, it is ';')
 let mapleader = '`'
@@ -113,6 +113,7 @@ function! s:TexInsertTabWrapper(direction)
     if getline(ln) =~ 'begin{\(eq\|arr\|align\|mult\)\|\\\['
 	let math = 1
     endif
+    let math = 0 " disable this math crap!!!!
 
     " Check to see if you're between brackets in \ref{} or \cite{}.
     " Inspired by RefTex.
@@ -368,10 +369,10 @@ endfunction
 " F2 inserts a minimal latex template
 " F3 inserts a letter template
 " F4 inserts an exam template
-execute "map <buffer> <F1> :if strpart(getline(1),0,9) != \"\\\\document\"<CR>0read " . b:template_1 . "<CR>call search(\"title\")<CR>endif<Esc><Space>f}i"
-execute "map <buffer> <F2> :if strpart(getline(1),0,9) != \"\\\\document\"<CR>0read " . b:template_2 . "<CR>call search(\"title\")<CR>endif<Esc><Space>f}i"
-execute "map <buffer> <F3> :if strpart(getline(1),0,9) != \"\\\\document\"<CR>0read " . b:template_3 . "<CR>call search(\"opening\")<CR>endif<Esc><Space>f}i"
-execute "map <buffer> <F4> :if strpart(getline(1),0,9) != \"\\\\document\"<CR>0read " . b:template_4
+"execute "map <buffer> <F1> :if strpart(getline(1),0,9) != \"\\\\document\"<CR>0read " . b:template_1 . "<CR>call search(\"title\")<CR>endif<Esc><Space>f}i"
+"execute "map <buffer> <F2> :if strpart(getline(1),0,9) != \"\\\\document\"<CR>0read " . b:template_2 . "<CR>call search(\"title\")<CR>endif<Esc><Space>f}i"
+"execute "map <buffer> <F3> :if strpart(getline(1),0,9) != \"\\\\document\"<CR>0read " . b:template_3 . "<CR>call search(\"opening\")<CR>endif<Esc><Space>f}i"
+"execute "map <buffer> <F4> :if strpart(getline(1),0,9) != \"\\\\document\"<CR>0read " . b:template_4
 
 "       dictionary
 " set dictionary+=(put filename and path here)
@@ -383,7 +384,7 @@ execute "map <buffer> <F4> :if strpart(getline(1),0,9) != \"\\\\document\"<CR>0r
 " Key Bindings  {{{
 
 " Run Latex;  change these bindings if you like.
-noremap <buffer><silent> K :call <SID>RunLatex()<CR><Esc>
+"noremap <buffer><silent> K :call <SID>RunLatex()<CR><Esc>
 noremap <buffer><silent> <C-K> :call <SID>NextTexError()<CR>
 noremap <buffer><silent> <S-Tab> :call <SID>NextTexError()<CR>
 noremap <buffer><silent> <C-Tab> :call <SID>RunLatex()<CR><Esc>
@@ -592,6 +593,8 @@ inoremap <buffer><silent> <F7> \textbf{Proof.}<CR><CR><CR>\qed<Up><Up>
 " But, typing <F5> at the beginning of the line results in a prompt
 " for the name of the environment.
 inoremap <buffer><silent> <F5> <Esc>:call <SID>DoEnvironment()<CR>
+noremap <silent> \e :call <SID>DoEnvironment()<CR>
+
 
 " Due to Ralf Arens <ralf.arens@gmx.net>
 "inoremap <buffer> <F5> <C-O>:call <SID>PutEnvironment(input('Environment? '))<CR>
@@ -749,11 +752,11 @@ function! s:PutEnvironment(indent, env)
   put! =a:indent . '\begin{' . a:env . '}'
   +put =a:indent . '\end{' . a:env . '}'
   normal! k$
-  if a:env=='array'
-    call <SID>ArgumentsForArray(input("{rlc}? "))
-  elseif a:env =~# '^\(theorem\|lemma\|equation\|eqnarray\|align\|multline\|gather\)$'
-    execute "normal! O\\label\<C-V>{" . input("Label? ") . "}\<Esc>j"
-  endif
+  "if a:env=='array'
+    "call <SID>ArgumentsForArray(input("{rlc}? "))
+  "elseif a:env =~# '^\(theorem\|lemma\|equation\|eqnarray\|align\|multline\|gather\)$'
+    "execute "normal! O\\label\<C-V>{" . input("Label? ") . "}\<Esc>j"
+  "endif
 endfunction
 
 function! s:ArgumentsForArray(arg)
@@ -817,8 +820,8 @@ inoremap <buffer> <Leader>a \alpha
 inoremap <buffer> <Leader>b \beta
 inoremap <buffer> <Leader>c \chi
 inoremap <buffer> <Leader>d \delta
-inoremap <buffer> <Leader>e \varepsilon
-inoremap <buffer> <Leader>f \varphi
+inoremap <buffer> <Leader>e \epsilon
+inoremap <buffer> <Leader>f \phi
 inoremap <buffer> <Leader>g \gamma
 inoremap <buffer> <Leader>h \eta
 inoremap <buffer> <Leader>i \int_{}^{}<Esc>F}i
@@ -869,8 +872,10 @@ inoremap <buffer> <Leader>* \times
 inoremap <buffer> <Leader>& \wedge
 inoremap <buffer> <Leader>- \bigcap
 inoremap <buffer> <Leader>+ \bigcup
-inoremap <buffer> <Leader>( \subset
-inoremap <buffer> <Leader>) \supset
+inoremap <buffer> <Leader>( \left(  \right)<Left><Left><Left><Left><Left><Left><Left><Left>
+inoremap <buffer> <Leader>[ \left[  \right]<Left><Left><Left><Left><Left><Left><Left><Left>
+inoremap <buffer> {} {}<Left>
+inoremap <buffer> () ()<Left>
 inoremap <buffer> <Leader>< \leq
 inoremap <buffer> <Leader>> \geq
 inoremap <buffer> <Leader>, \nonumber
@@ -899,25 +904,25 @@ inoremap <buffer> <Leader><CR> \nonumber\\<CR><HOME>&&<Left>
 " "========================================================================="
 " Emacs-type bindings  {{{
 " vi purists, feel free to delete these!  
-inoremap <buffer> <C-A> <Home>
-inoremap <buffer> <C-B> <Left>
-inoremap <buffer> <C-D> <Del>
-inoremap <buffer> <C-E> <End>
-inoremap <buffer> <C-F> <Right>
-inoremap <buffer> <C-K> <C-R>=<SID>EmacsKill()<CR>
-inoremap <buffer> <C-L> <C-O>zz
-inoremap <buffer> <C-N> <Down>
-inoremap <buffer> <C-P> <Up>
-inoremap <buffer> <C-Y> <C-R>"
+"inoremap <buffer> <C-A> <Home>
+"inoremap <buffer> <C-B> <Left>
+"inoremap <buffer> <C-D> <Del>
+"inoremap <buffer> <C-E> <End>
+"inoremap <buffer> <C-F> <Right>
+"inoremap <buffer> <C-K> <C-R>=<SID>EmacsKill()<CR>
+"inoremap <buffer> <C-L> <C-O>zz
+"inoremap <buffer> <C-N> <Down>
+"inoremap <buffer> <C-P> <Up>
+"inoremap <buffer> <C-Y> <C-R>"
 
-function! s:EmacsKill()
-    if col('.') == strlen(getline('.'))+1
-	let @" = "\<CR>"
-	return "\<Del>"
-    else
-	return "\<C-O>D"
-    endif
-endfunction
+"function! s:EmacsKill()
+    "if col('.') == strlen(getline('.'))+1
+	"let @" = "\<CR>"
+	"return "\<Del>"
+    "else
+	"return "\<C-O>D"
+    "endif
+"endfunction
 
 " }}}
 " "========================================================================="
@@ -1169,51 +1174,51 @@ inoremap <buffer> " <C-R>=<SID>TexQuotes()<CR>
 " Typing .. results in \ldots or \cdots   {{{
 
 " Use this if you want . to result in a just a period, with no spaces.
-"function! s:Dots(var)
-"    let column = col('.')
-"    let currentline = getline('.')
-"    let left = strpart(currentline ,column-3,2)
-"    let before = currentline[column-4]
-"    if left == '..'
-"    	if a:var == 0
-"	    if before == ','
-"		return "\<BS>\<BS>\\ldots"
-"	    else
-"		return "\<BS>\<BS>\\cdots"
-"	    endif
-"        else
-"	    return "\<BS>\<BS>\\dots"
-"	endif
-"    else
-"       return '.'
-"    endif
-"endfunction
-" Use this if you want . to result in a period followed by 2 spaces.
-" To get just one space, see the comment in the function below.
 function! s:Dots(var)
     let column = col('.')
     let currentline = getline('.')
-    let previous = currentline[column-2]
-    let before = currentline[column-3]
-    if strpart(currentline,column-4,3) == '.  '
-	return "\<BS>\<BS>"
-    elseif previous == '.'
-    	if a:var == 0
-	    if before == ','
-		return "\<BS>\\ldots"
-	    else
-		return "\<BS>\\cdots"
-	    endif
+    let left = strpart(currentline ,column-3,2)
+    let before = currentline[column-4]
+    if left == '..'
+        if a:var == 0
+        if before == ','
+        return "\<BS>\<BS>\\ldots"
         else
-	    return "\<BS>\\dots"
-	endif
-    elseif previous =~ '[\$A-Za-z]' && currentline !~ '@'
-	" To get just one space, replace '.  ' with '. ' below.
-	return <SID>TexFill(b:tw, '.  ')  "TexFill is defined in Auto-split
+        return "\<BS>\<BS>\\cdots"
+        endif
+        else
+        return "\<BS>\<BS>\\dots"
+    endif
     else
-	return '.'
+       return '.'
     endif
 endfunction
+" Use this if you want . to result in a period followed by 2 spaces.
+" To get just one space, see the comment in the function below.
+"function! s:Dots(var)
+    "let column = col('.')
+    "let currentline = getline('.')
+    "let previous = currentline[column-2]
+    "let before = currentline[column-3]
+    "if strpart(currentline,column-4,3) == '.  '
+	"return "\<BS>\<BS>"
+    "elseif previous == '.'
+        "if a:var == 0
+		"if before == ','
+		"return "\<BS>\\ldots"
+		"else
+		"return "\<BS>\\cdots"
+		"endif
+        "else
+		"return "\<BS>\\dots"
+	"endif
+    "elseif previous =~ '[\$A-Za-z]' && currentline !~ '@'
+	"" To get just one space, replace '.  ' with '. ' below.
+	"return <SID>TexFill(b:tw, '.  ')  "TexFill is defined in Auto-split
+    "else
+	"return '.'
+    "endif
+"endfunction
 " Uncomment the next line, and comment out the line after,
 " if you want the script to decide between latex and amslatex.
 " This slows down the macro.
@@ -1255,13 +1260,13 @@ inoremap <buffer><silent> ^ <C-R>=<SID>SuperBracket()<CR>
 
 " Typing the symbol a second time (for example, $$) will result in one
 " of the symbole (for instance, $).  With {, typing \{ will result in \{\}.
-inoremap <buffer><silent> ( <C-R>=<SID>Double('(',')')<CR>
+"inoremap <buffer><silent> ( <C-R>=<SID>Double('(',')')<CR>
 "inoremap <buffer><silent> [ <C-R>=<SID>Double('[',']')<CR>
-inoremap <buffer><silent> [ <C-R>=<SID>CompleteSlash('[',']')<CR>
-inoremap <buffer><silent> $ <C-R>=<SID>Double('$','$')<CR>
-inoremap <buffer><silent> & <C-R>=<SID>DoubleAmpersands()<CR>
-inoremap <buffer><silent> { <C-R>=<SID>CompleteSlash('{','}')<CR>
-inoremap <buffer><silent> \| <C-R>=<SID>CompleteSlash("\|","\|")<CR>
+"inoremap <buffer><silent> [ <C-R>=<SID>CompleteSlash('[',']')<CR>
+"inoremap <buffer><silent> $ <C-R>=<SID>Double('$','$')<CR>
+"inoremap <buffer><silent> & <C-R>=<SID>DoubleAmpersands()<CR>
+"inoremap <buffer><silent> { <C-R>=<SID>CompleteSlash('{','}')<CR>
+"inoremap <buffer><silent> \| <C-R>=<SID>CompleteSlash("\|","\|")<CR>
 
 " If you would rather insert $$ individually, the following macro by 
 " Charles Campbell will make the cursor blink on the previous dollar sign,
@@ -1568,22 +1573,6 @@ endfunction
 " "========================================================================="
 " Menus   {{{
 
-" Bracket Menus
-nnoremenu 40.401 Brackets.delete\ brackets\ \ \ Ctrl+Del,Ctrl+BS,Tab-x :call <SID>DeleteBrackets()<CR>
-inoremenu 40.402 Brackets.delete\ brackets\ \ \ Ctrl+Del,Ctrl+BS,Tab-x <Left><C-O>:call <SID>DeleteBrackets()<CR> nnoremenu 40.403 Brackets.change\ to\ () :call <SID>ChangeRound()<CR>
-nnoremenu 40.404 Brackets.change\ to\ () :call <SID>ChangeRound()<CR>
-inoremenu 40.404 Brackets.change\ to\ () <Esc>:call <SID>ChangeRound()<CR>a
-nnoremenu 40.405 Brackets.change\ to\ [] :call <SID>ChangeSquare()<CR>
-inoremenu 40.406 Brackets.change\ to\ [] <Esc>:call <SID>ChangeSquare()<CR>a
-nnoremenu 40.407 Brackets.change\ to\ \\{\\} :call <SID>ChangeCurly()<CR>
-inoremenu 40.408 Brackets.change\ to\ \\{\\} <Esc>:call <SID>ChangeCurly()<CR>a
-nnoremenu 40.409 Brackets.insert\ \\left,\\right :call <SID>PutLeftRight()<CR>
-inoremenu 40.410 Brackets.insert\ \\left,\\right <Esc>:call <SID>PutLeftRight()<CR>a
-nnoremenu 40.410 Brackets.insert\ (default\ \\Big) :call <SID>PutBigg()<CR>
-inoremenu 40.411 Brackets.insert\ (default\ \\Big) <Esc>:call <SID>PutBigg()<CR>a
-nnoremenu 40.412 Brackets.change\ \\left,\\right,\\big,\ etc\ to\ (default\ nothing) :call <SID>ChangeLeftRightBigg()<CR>
-inoremenu 40.413 Brackets.change\ \\left,\\right\,\\big,\ etc\ to\ (default\ nothing) <Esc>:call <SID>ChangeLeftRightBigg()<CR>a
-
 " Menus for running Latex, etc.
 nnoremenu 50.401 Latex.run\ latex\ \ \ \ Control-Tab :w<CR>:silent ! xterm -bg ivory -fn 7x14 -e latex % &<CR>
 inoremenu 50.401 Latex.run\ latex\ \ \ \ Control-Tab <Esc>:w<CR>:silent ! xterm -bg ivory -fn 7x14 -e latex % &<CR>
@@ -1606,15 +1595,15 @@ inoremenu 50.407 Latex.run\ ispell\ \ \ Shift-Ins <Esc>:w<CR>:silent ! xterm -bg
 " "========================================================================="
 " Math Abbreviations   {{{
 
-iab <buffer> \b \bigskip
-iab <buffer> \h \hspace{
-iab <buffer> \i \noindent
-iab <buffer> \l \newline
-iab <buffer> \m \medskip
-iab <buffer> \n \nonumber\\
-iab <buffer> \p \newpage
-iab <buffer> \q \qquad
-iab <buffer> \v \vfill
+"iab <buffer> \b \bigskip
+"iab <buffer> \h \hspace{
+"iab <buffer> \i \noindent
+"iab <buffer> \l \newline
+"iab <buffer> \m \medskip
+"iab <buffer> \n \nonumber\\
+"iab <buffer> \p \newpage
+"iab <buffer> \q \qquad
+"iab <buffer> \v \vfill
 
 " }}}
 " "========================================================================="
