@@ -257,8 +257,16 @@ function! s:wrap(string,char,type,...)
     elseif newchar ==# 'f' || newchar ==# 'F'
         let fnc = input('function: ')
         if fnc != ""
-            let before = substitute(fnc,'($','','').'('
-            let after  = ')'
+            if strpart(fnc, len(fnc)-1, 1) ==# '{'
+                let before = fnc
+                let after  = '}'
+            elseif strpart(fnc, len(fnc)-1, 1) ==# '['
+                let before = fnc
+                let after  = ']'
+            else
+                let before = substitute(fnc,'($','','').'('
+                let after  = ')'
+            endif
             if newchar ==# 'F'
                 let before = before . ' '
                 let after  = ' ' . after

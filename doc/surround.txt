@@ -140,6 +140,16 @@ attributes here and they will be stripped from the closing tag.  End your
 input by pressing <CR> or >.  If <C-T> is used, the tags will appear on lines
 by themselves.
 
+If f is used, Vim prompts for a function name to insert. The brackets used for
+the function depend on the last letter of your input. For example:
+
+  Old text                Command                   New text ~
+  *x, y                   ys3wffunc<CR>             func(x,y)
+  *x, y                   ys3wffunc(<CR>            func(x,y)
+  *x, y                   ys3wffunc[<CR>            func[x,y]
+  *word                   yswf\emph{<CR>            \emph{word}
+
+
 A deprecated replacement of a LaTeX environment is provided on \ and l.  The
 name of the environment and any arguments will be input from a prompt.  This
 will be removed once a more fully functional customization system is
