@@ -15,7 +15,7 @@ if exists("syntax_on")
   syntax reset
 endif
 
-let colors_name = "goerzcolors"
+let colors_name = "goerz"
 
 
 " Note on 256 color terminals:
@@ -29,7 +29,7 @@ let colors_name = "goerzcolors"
 if has("gui_running")
     " My settings for gvim are very similar to the settings for a 256 color
     " terminal
-    let colors_name = "goerzcolors_gui"
+    let colors_name = "goerz"
     hi Comment          gui=none       guifg=#808080
     hi Constant         gui=none       guifg=#000087   guibg=#ffffff
     hi CursorColumn     gui=none                       guibg=#bcbcbc
@@ -92,7 +92,6 @@ if has("gui_running")
     endif
 else
     if &t_Co >= 256
-        let colors_name = "goerzcolors_256"
         " this is for 256 color terminals
         " first, the colors that are compatible to a 88-color terminal
         hi Normal           cterm=none       ctermfg=0
@@ -156,7 +155,7 @@ else
             hi SpellRare    cterm=none                    ctermbg=225
         endif
     elseif &t_Co >= 88
-        let colors_name = "goerzcolors_88"
+        let colors_name = "goerz"
         " this is for 88 color terminals
         " first, the "compatible" colors: these were automatically converted
         " from the colors for 256-color terminals
@@ -223,7 +222,7 @@ else
     else
         " There's no point in setting anything for low color terminals
         " The defaults are good enough in that case
-        let colors_name = "goerzcolors_default"
+        let colors_name = "goerz"
     endif
 endif
 
