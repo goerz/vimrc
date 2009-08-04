@@ -58,16 +58,16 @@ let loaded_crefvim = 1
 
 " the mappings:
 if !hasmapto('<Plug>CRV_CRefVimVisual')
-    vmap <silent> <unique> <Leader>cr <Plug>CRV_CRefVimVisual
+    vmap <silent> <buffer> <Leader>cr <Plug>CRV_CRefVimVisual
 endif
 if !hasmapto('<Plug>CRV_CRefVimNormal')
-    nmap <silent> <unique> <Leader>cr <Plug>CRV_CRefVimNormal
+    nmap <silent> <buffer> <Leader>cr <Plug>CRV_CRefVimNormal
 endif
 if !hasmapto('<Plug>CRV_CRefVimAsk')
-    map <silent> <unique> <Leader>cw <Plug>CRV_CRefVimAsk
+    map <silent> <buffer> <Leader>cw <Plug>CRV_CRefVimAsk
 endif
 if !hasmapto('<Plug>CRV_CRefVimInvoke')
-    map <silent> <unique> <Leader>cc <Plug>CRV_CRefVimInvoke
+    map <silent> <buffer> <Leader>cc <Plug>CRV_CRefVimInvoke
 endif
 
 vmap <silent> <unique> <script> <Plug>CRV_CRefVimVisual  y:call <SID>CRV_CRefVimWord('<c-r>"')<CR>
