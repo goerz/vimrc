@@ -71,8 +71,8 @@ endfunction
 
 
 "mappings
-map  <leader>pw :call ShowPyDoc('<C-R><C-W>', 1)<CR> 
-map  <leader>pW :call ShowPyDoc('<C-R><C-A>', 1)<CR> 
+map <buffer><leader>pw :call ShowPyDoc('<C-R><C-W>', 1)<CR> 
+map <buffer><leader>pW :call ShowPyDoc('<C-R><C-A>', 1)<CR> 
 "commands
 command -nargs=1 Pydoc :call ShowPyDoc('<args>', 1)
 command -nargs=*  PydocSearch :call ShowPyDoc('<args>', 0)
