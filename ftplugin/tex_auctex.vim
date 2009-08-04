@@ -592,6 +592,7 @@ inoremap <buffer> <Leader>( \left(  \right)<Left><Left><Left><Left><Left><Left><
 inoremap <buffer> <Leader>[ \left[  \right]<Left><Left><Left><Left><Left><Left><Left><Left>
 inoremap <buffer> {} {}<Left>
 inoremap <buffer> () ()<Left>
+inoremap <buffer> $$ $$<Left>
 inoremap <buffer> <Leader>< \leq
 inoremap <buffer> <Leader>> \geq
 inoremap <buffer> <Leader>, \nonumber
