@@ -13,11 +13,11 @@
 "    GNU General Public License for more details.
 "
 " Description: 
-"    This maps the <F7> key to an xml tag inserter. When you press <F7> while
-"    to cursor is on or directly after a word, the that word is transformed
-"    into an xml tag, complete with closing tag. When the cusor is not over a
-"    word, you will be prompted for a tag name. This works in insert and
-"    comment mode.
+"    This maps the <leader>i key to an xml tag inserter. When you press
+"    <leader>i while the cursor is on or directly after a word, the that word
+"    is transformed into an xml tag, complete with closing tag. When the cusor
+"    is not over a word, you will be prompted for a tag name. In insert mode,
+"    the mapping <C-L>i is used.
 "
 "    This plugin depends on the imaps plugin that comes with the vim
 "    latex-suite (vim-latex)
@@ -72,6 +72,6 @@ function! XML_CreateTag()
 endfunction  
 
 
-imap <silent> <buffer> <F7>  <C-r>=XML_CreateTag()<cr>
-nmap <silent> <buffer> <F7>  i<C-r>=XML_CreateTag()<cr>
+imap <silent> <buffer> <C-L>i  <C-r>=XML_CreateTag()<cr>
+nmap <silent> <buffer> <leader>i  i<C-r>=XML_CreateTag()<cr>
 

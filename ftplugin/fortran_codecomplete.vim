@@ -13,7 +13,8 @@
 "    GNU General Public License for more details.
 "
 " Description: 
-"    This maps the <F7> key to complete Fortran 90 constructs"
+"    This maps the <leader>i key to complete Fortran 90 constructs. In insert
+"    mode <C-L>i is used"
 
 " Installation:
 "    Copy this file into your ftplugin directory. 
@@ -95,5 +96,5 @@ def fortran_complete():
             vim.current.window.cursor = (line+2, 1)
 EOF
 
-nmap <F7> :python fortran_complete()<cr>A
-imap <F7> :python fortran_complete()<cr>A
+nmap <leader>i :python fortran_complete()<cr>A
+imap <C-L>i :python fortran_complete()<cr>A
