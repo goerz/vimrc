@@ -8,6 +8,7 @@ setlocal wildignore+=*.aux,*.blg,*.log,*.out,*.snm,*.idx
 setlocal wildignore+=*.ilg,*.ind,*.nav,*.lot,*.lof,*.toc
 setlocal wildignore+=*.bbl,*.ent,*.pdf,*.svn
 setlocal keywordprg='$HOME/.vim/scripts/wn_dict.sh'
+setlocal autoindent
 
 " Tex files can use spell checking
 setlocal spell
