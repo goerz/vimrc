@@ -591,8 +591,8 @@ inoremap <buffer> <Leader>* \times
 inoremap <buffer> <Leader>& \wedge
 inoremap <buffer> <Leader>- \bigcap
 inoremap <buffer> <Leader>+ \bigcup
-inoremap <buffer> <Leader>( \left(  \right)<Left><Left><Left><Left><Left><Left><Left><Left>
-inoremap <buffer> <Leader>[ \left[  \right]<Left><Left><Left><Left><Left><Left><Left><Left>
+inoremap <buffer> <Leader>( \left(  \right)<++><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left>
+inoremap <buffer> <Leader>[ \left[  \right]<++><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left>
 inoremap <buffer> {} {}<Left>
 inoremap <buffer> () ()<Left>
 inoremap <buffer> $$ $$<Left>
@@ -604,21 +604,13 @@ inoremap <buffer> <Leader>~ \tilde{}<Left>
 inoremap <buffer> <Leader>^ \hat{}<Left>
 inoremap <buffer> <Leader>; \dot{}<Left>
 inoremap <buffer> <Leader>_ \bar{}<Left>
-inoremap <buffer> <Leader><M-c> \cos
 inoremap <buffer> <Leader><C-E> \exp\left(\right)<Esc>F(a
-inoremap <buffer> <Leader><C-I> \in
-inoremap <buffer> <Leader><C-J> \downarrow
-inoremap <buffer> <Leader><C-L> \log
-inoremap <buffer> <Leader><C-P> \uparrow
+inoremap <buffer> <Leader><C-L> \lim_{}<Left>
 inoremap <buffer> <Leader><Up> \uparrow
-inoremap <buffer> <Leader><C-N> \downarrow
 inoremap <buffer> <Leader><Down> \downarrow
+inoremap <buffer> <Leader><Right> \rightarrow
+inoremap <buffer> <Leader><Left> \leftarrow
 inoremap <buffer> <Leader><C-F> \to
-inoremap <buffer> <Leader><Right> \lim_{}<Left>
-inoremap <buffer> <Leader><C-S> \sin
-inoremap <buffer> <Leader><C-T> \tan
-inoremap <buffer> <Leader><M-l> \ell
-inoremap <buffer> <Leader><CR> \nonumber\\<CR><HOME>&&<Left>
 
 " }}}
 " "========================================================================="
