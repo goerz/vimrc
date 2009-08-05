@@ -373,23 +373,23 @@ endfunction
 
 " Run Latex;  change these bindings if you like.
 "noremap <buffer><silent> K :call <SID>RunLatex()<CR><Esc>
-noremap <buffer><silent> <C-K> :call <SID>NextTexError()<CR>
-noremap <buffer><silent> <S-Tab> :call <SID>NextTexError()<CR>
-noremap <buffer><silent> <C-Tab> :call <SID>RunLatex()<CR><Esc>
-inoremap <buffer><silent> <C-Tab> <C-O>:call <SID>RunLatex()<CR><Esc>
+"noremap <buffer><silent> <C-K> :call <SID>NextTexError()<CR>
+"noremap <buffer><silent> <S-Tab> :call <SID>NextTexError()<CR>
+"noremap <buffer><silent> <C-Tab> :call <SID>RunLatex()<CR><Esc>
+"inoremap <buffer><silent> <C-Tab> <C-O>:call <SID>RunLatex()<CR><Esc>
 
 noremap <buffer><silent> \lr :call <SID>CheckReferences('Reference', 'ref')<CR><Space>
 noremap <buffer><silent> \lc :call <SID>CheckReferences('Citation', 'cite')<CR><Space>
 noremap <buffer><silent> \lg :call <SID>LookAtLogFile()<CR>gg/LaTeX Warning\\|^!<CR>
 
 " Run the Latex viewer;  change these bindings if you like.
-noremap <buffer><silent> <S-Esc> :call <SID>Xdvi()<CR><Space>
-inoremap <buffer><silent> <S-Esc> <Esc>:call <SID>Xdvi()<CR><Space>
+"noremap <buffer><silent> <S-Esc> :call <SID>Xdvi()<CR><Space>
+"inoremap <buffer><silent> <S-Esc> <Esc>:call <SID>Xdvi()<CR><Space>
 
 " Run Ispell on either the buffer, or the visually selected word.
-noremap <buffer><silent> <S-Insert> :w<CR>:!xterm -bg ivory -fn 10x20 -e ispell %<CR><Space>:e %<CR>:redraw<CR>:echo "No (more) spelling errors."<CR>
-inoremap <buffer><silent> <S-Insert> <Esc>:w<CR>:!xterm -bg ivory -fn 10x20 -e ispell %<CR><Space>:e %<CR>:redraw<CR>:echo "No (more) spelling errors."<CR>
-vnoremap <buffer><silent> <S-Insert> <C-C>`<v`>s<Space><Esc>mq<C-W>s:e ispell.tmp<CR>i<C-R>"<Esc>:w<CR>:!xterm -bg ivory -fn 10x20 -e ispell %<CR><CR>:e %<CR><CR>ggVG<Esc>`<v`>s<Esc>:bwipeout!<CR>:!rm ispell.tmp*<CR>`q"_s<C-R>"<Esc>:redraw<CR>:echo "No (more) spelling errors."<CR>
+"noremap <buffer><silent> <S-Insert> :w<CR>:!xterm -bg ivory -fn 10x20 -e ispell %<CR><Space>:e %<CR>:redraw<CR>:echo "No (more) spelling errors."<CR>
+"inoremap <buffer><silent> <S-Insert> <Esc>:w<CR>:!xterm -bg ivory -fn 10x20 -e ispell %<CR><Space>:e %<CR>:redraw<CR>:echo "No (more) spelling errors."<CR>
+"vnoremap <buffer><silent> <S-Insert> <C-C>`<v`>s<Space><Esc>mq<C-W>s:e ispell.tmp<CR>i<C-R>"<Esc>:w<CR>:!xterm -bg ivory -fn 10x20 -e ispell %<CR><CR>:e %<CR><CR>ggVG<Esc>`<v`>s<Esc>:bwipeout!<CR>:!rm ispell.tmp*<CR>`q"_s<C-R>"<Esc>:redraw<CR>:echo "No (more) spelling errors."<CR>
 
 " Run Ispell (Thanks the Charles Campbell)
 " The first set is for vim, the second set for gvim.
@@ -402,8 +402,8 @@ vnoremap <buffer><silent> <S-Insert> <C-C>`<v`>s<Space><Esc>mq<C-W>s:e ispell.tm
 " To find the tex error, first run Latex (see the 2 previous maps).
 " If there is an error, press "x" or "r" to stop the Tex processing.
 " Then press Shift-Tab to go to the position of the error.
-noremap <buffer><silent> <S-Tab> :call <SID>NextTexError()<CR><Space>
-inoremap <buffer><silent> <S-Tab> <Esc>:call <SID>NextTexError()<CR><Space>
+"noremap <buffer><silent> <S-Tab> :call <SID>NextTexError()<CR><Space>
+"inoremap <buffer><silent> <S-Tab> <Esc>:call <SID>NextTexError()<CR><Space>
 
 " }}}
 
