@@ -65,6 +65,10 @@ let b:tw = 79
 " b:windows below equal to 1
 let b:windows = 0
 
+" Select which quotes should be used
+let b:leftquote = "``"
+let b:rightquote = "``"
+
 " }}}
 " "========================================================================="
 " Mapping for Xdvi Search   {{{
@@ -540,8 +544,7 @@ inoremap <buffer> <Leader>e \epsilon
 inoremap <buffer> <Leader>f \phi
 inoremap <buffer> <Leader>g \gamma
 inoremap <buffer> <Leader>h \eta
-inoremap <buffer> <Leader>i \int_{}^{}<Esc>F}i
-	    " Or \iota or \infty or \in
+inoremap <buffer> <Leader>i \iota
 inoremap <buffer> <Leader>k \kappa
 inoremap <buffer> <Leader>l \lambda
 inoremap <buffer> <Leader>m \mu
@@ -559,7 +562,7 @@ inoremap <buffer> <Leader>x \xi
 inoremap <buffer> <Leader>y \psi
 inoremap <buffer> <Leader>z \zeta
 inoremap <buffer> <Leader>D \Delta
-inoremap <buffer> <Leader>I \int_{}^{}<Esc>F}i
+inoremap <buffer> <Leader>I \int\limits_{}^{}<Esc>F}i
 inoremap <buffer> <Leader>F \Phi
 inoremap <buffer> <Leader>G \Gamma
 inoremap <buffer> <Leader>L \Lambda
@@ -567,7 +570,7 @@ inoremap <buffer> <Leader>N \nabla
 inoremap <buffer> <Leader>O \Omega
 inoremap <buffer> <Leader>Q \Theta
 inoremap <buffer> <Leader>R \varrho
-inoremap <buffer> <Leader>S \sum_{}^{}<Esc>F}i
+inoremap <buffer> <Leader>S \sum\limits_{}^{}<Esc>F}i
 inoremap <buffer> <Leader>U \Upsilon
 inoremap <buffer> <Leader>X \Xi
 inoremap <buffer> <Leader>Y \Psi
@@ -648,10 +651,10 @@ map <buffer><silent> gw :call <SID>TeX_par()<CR>
 " Smart quotes.   {{{
 " Thanks to Ron Aaron <ron@mossbayeng.com>.
 function! s:TexQuotes()
-    let insert = "''"
+    let insert = b:rightquote
     let left = getline('.')[col('.')-2]
     if left =~ '^\(\|\s\)$'
-	let insert = '``'
+	let insert = b:leftquote
     elseif left == '\'
 	let insert = '"'
     endif
