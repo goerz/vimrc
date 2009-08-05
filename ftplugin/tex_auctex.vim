@@ -608,7 +608,7 @@ inoremap <buffer> <Leader><C-E> \exp\left(\right)<Esc>F(a
 inoremap <buffer> <Leader><C-L> \lim_{}<Left>
 inoremap <buffer> <Leader><Up> \uparrow
 inoremap <buffer> <Leader><Down> \downarrow
-inoremap <buffer> <Leader><Right> \rightarrow
+inoremap <buffer> <Leader><Right> \longrightarrow
 inoremap <buffer> <Leader><Left> \leftarrow
 inoremap <buffer> <Leader><C-F> \to
 
