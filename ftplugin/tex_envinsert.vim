@@ -43,7 +43,7 @@ function! LATEX_PutEnv(com)
         endif
         return IMAP_PutTextWithMovement(strpart(a:com, 0, len(a:com)-1).append)
     else
-        return IMAP_PutTextWithMovement('\begin{'.a:com.'}<++>\end{'.a:com.'}<++>')
+        return IMAP_PutTextWithMovement('\begin{'.a:com.'}<++>\end{'.a:com.'}<++>')
     endif
 endfunction 
 
