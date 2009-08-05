@@ -203,6 +203,7 @@ if exists("*strftime")
     iab xxxtimestamp <c-r>=strftime("%a %D %H:%M:%S %Z")<cr>
 endif
 cabbr tidy !tidy -config ~/.vim/scripts/tidy/fragment.prf
+cabbr lipsum r!~/.vim/scripts/lipsum.pl
 
 " * Text Formatting -- General {{{1
 
