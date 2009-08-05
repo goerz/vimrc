@@ -167,7 +167,7 @@ else
 		let options = ''
 	endif
 	let &l:makeprg = current_compiler . ' ' . options .
-				\ escape(' \nonstopmode \input{$*}', escChars)
+				\ escape(' \nonstopmode \input{'.@%.'}', escChars)
 endif
 
 " }}}
