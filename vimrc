@@ -184,10 +184,6 @@ endif
 " Nerd_commenter plugin
 let g:NERDShutUp = 1
 
-" YankRing plugin
-let g:yankring_history_dir = '~/.vim/'
-let g:yankring_history_file = 'yankring.history'
-
 " Activate 256 colors independently of terminal. Most of my terms are 256
 " colors. For those cases where I'm running vim in a low-color terminal, this
 " is only safe if I'm using screen (which I always am).
@@ -251,10 +247,6 @@ set printoptions=paper:a4,number:y,left:25pt,right:40pt
 filetype plugin on
 filetype plugin indent on
 
-" recognize anything in my .Postponed directory as a news article, and anything
-" at all with a .txt extension as being human-language text [this clobbers the
-" `help' filetype, but that doesn't seem to prevent help from working
-" properly]:
 augroup filetype
   autocmd BufNewFile,BufRead */.Postponed/* set filetype=mail textwidth=71
   autocmd BufNewFile,BufRead *.txt set filetype=human
@@ -262,17 +254,16 @@ augroup filetype
   autocmd BufNewFile,BufRead *mailplane* set filetype=mail
   autocmd BufNewFile,BufRead *.wordpress set filetype=html
   autocmd BufNewFile,BufRead *.fionacms set filetype=html
+  autocmd BufNewFile,BufRead *.tikz set filetype=plaintex
   autocmd BufNewFile,BufRead README.* set filetype=human
   autocmd BufNewFile,BufRead INSTALL set filetype=human
   autocmd BufNewFile,BufRead *vimperatorrc*,*.vimp set filetype=vimperator
+  autocmd BufNewFile,BufRead *.viki set filetype=viki
 augroup END
 
 " For some programming languages, delete trailing spaces on save
 autocmd BufWritePre *.py normal m`:%s/\s\+$//e ``
 autocmd BufWritePre *.pl normal m`:%s/\s\+$//e ``
-
-" Viki locations
-autocmd BufNewFile,BufRead *.viki set filetype=viki
 
 " Viki bugfix
 " Remove space from vikiMapKeys, which causes abbreviations not to work. Must
