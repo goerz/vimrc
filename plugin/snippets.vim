@@ -18,65 +18,17 @@ endif
 let s:snippet_filetype = ""
 
 " Mappings {{{
-if !hasmapto('<Plug>SnippetsAddSnippet', 'n')
-	nmap <silent> <unique> <leader>ssa <Plug>SnippetsAddSnippet
-endif
-
-if !hasmapto('<Plug>SnippetsAddSnippet', 'v')
-	vmap <silent> <unique> <leader>ssa <Plug>SnippetsAddSnippet
-endif
-
-if !hasmapto('<Plug>SnippetsAppendSnippet', 'n')
-	nmap <silent> <unique> <leader>ssp <Plug>SnippetsAppendSnippet
-endif
-
-if !hasmapto('<Plug>SnippetsInsertSnippet', 'n')
-	nmap <silent> <unique> <leader>ssP <Plug>SnippetsInsertSnippet
-endif
-
-if !hasmapto('<Plug>SnippetsEditSnippet', 'n')
-	nmap <silent> <unique> <leader>sse <Plug>SnippetsEditSnippet
-endif
-
-if !hasmapto('<Plug>SnippetsDeleteSnippet', 'n')
-	nmap <silent> <unique> <leader>ssd <Plug>SnippetsDeleteSnippet
-endif
-
-if !hasmapto('<Plug>SnippetsListSnippets', 'n')
-	nmap <silent> <unique> <leader>ssl <Plug>SnippetsListSnippets
-endif
-
-nnoremap <unique> <script> <Plug>SnippetsAddSnippet    <SID>AddSnippet
-vnoremap <unique> <script> <Plug>SnippetsAddSnippet    <SID>AddSnippet
 nnoremap <unique> <script> <Plug>SnippetsAppendSnippet <SID>AppendSnippet
 nnoremap <unique> <script> <Plug>SnippetsInsertSnippet <SID>InsertSnippet
-nnoremap <unique> <script> <Plug>SnippetsEditSnippet   <SID>EditSnippet
-nnoremap <unique> <script> <Plug>SnippetsDeleteSnippet <SID>DeleteSnippet
 nnoremap <unique> <script> <Plug>SnippetsListSnippets  <SID>ListSnippets
 
-nnoremap <SID>AddSnippet    :%AddSnippet<cr>
-vnoremap <SID>AddSnippet    :AddSnippet<cr>
 nnoremap <SID>AppendSnippet :AppendSnippet<cr>
 nnoremap <SID>InsertSnippet :InsertSnippet<cr>
-nnoremap <SID>EditSnippet   :EditSnippet<cr>
-nnoremap <SID>DeleteSnippet :DeleteSnippet<cr>
 nnoremap <SID>ListSnippets  :ListSnippets<cr>
 
-command -bar -range AddSnippet    :<line1>,<line2>call s:AddSnippet()
 command -bar -range AppendSnippet :<line1>,<line2>call s:PutSnippet(0)
 command -bar -range InsertSnippet :<line1>,<line2>call s:PutSnippet(-1)
-
-command -bar EditSnippet   :call s:EditSnippet()
 command -bar ListSnippets  :call s:ListSnippets()
-command -bar DeleteSnippet :call s:DeleteSnippet()
-
-vnoremenu <script> &Plugin.&Snippets.&Add    <SID>AddSnippet
-nnoremenu <script> &Plugin.&Snippets.&Add    <SID>AddSnippet
-nnoremenu <script> &Plugin.&Snippets.&Edit   <SID>EditSnippet
-nnoremenu <script> &Plugin.&Snippets.&Delete <SID>DeleteSnippet
-nnoremenu <script> &Plugin.&Snippets.&List   <SID>ListSnippets
-nnoremenu <script> &Plugin.&Snippets.&Insert <SID>InsertSnippet
-nnoremenu <script> &Plugin.&Snippets.&Append <SID>AppendSnippet
 "}}}
 
 function s:SID() "{{{1
