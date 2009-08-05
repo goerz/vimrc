@@ -599,7 +599,7 @@ inoremap <buffer> $$ $$<Left>
 inoremap <buffer> <Leader>< \leq
 inoremap <buffer> <Leader>> \geq
 inoremap <buffer> <Leader>, \nonumber
-inoremap <buffer> <Leader>: \dots
+inoremap <buffer> <Leader>: \cdots
 inoremap <buffer> <Leader>~ \tilde{}<Left>
 inoremap <buffer> <Leader>^ \hat{}<Left>
 inoremap <buffer> <Leader>; \dot{}<Left>
