@@ -226,10 +226,7 @@ set textwidth=0
 " My default language is American English
 set spelllang=en_us
 
-" LaTeX: grep will sometimes skip displaying the file name if you
-" search in a singe file. This will confuse Latex-Suite. Set your grep
-" program to always generate a file-name.
-set grepprg=grep\ -nH\ $*
+set grepprg=~/.vim/scripts/ack
 
 " Use # without VIM moving it to the first column
 inoremap # X<C-H>#
