@@ -254,6 +254,7 @@ augroup filetype
   autocmd BufNewFile,BufRead *.wordpress set filetype=html
   autocmd BufNewFile,BufRead *.fionacms set filetype=html
   autocmd BufNewFile,BufRead *.tikz set filetype=plaintex
+  autocmd BufNewFile,BufRead *.sty set filetype=plaintex
   autocmd BufNewFile,BufRead README.* set filetype=human
   autocmd BufNewFile,BufRead INSTALL set filetype=human
   autocmd BufNewFile,BufRead *vimperatorrc*,*.vimp set filetype=vimperator
