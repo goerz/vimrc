@@ -18,6 +18,20 @@ endif
 let s:snippet_filetype = ""
 
 " Mappings {{{
+if !hasmapto('<Plug>SnippetsInsertSnippet', 'n')
+	nmap <silent> <unique> <leader>ni <Plug>SnippetsInsertSnippet
+	imap <silent> <unique> <C-L>ni <Plug>SnippetsInsertSnippet
+endif
+
+if !hasmapto('<Plug>SnippetsAppendSnippet', 'n')
+	nmap <silent> <unique> <leader>na <Plug>SnippetsAppendSnippet
+	imap <silent> <unique> <C-L>na <Plug>SnippetsAppendSnippet
+endif
+
+if !hasmapto('<Plug>SnippetsListSnippets', 'n')
+	nmap <silent> <unique> <leader>nl <Plug>SnippetsListSnippets
+	imap <silent> <unique> <C-L>nl <Plug>SnippetsListSnippet
+endif
 nnoremap <unique> <script> <Plug>SnippetsAppendSnippet <SID>AppendSnippet
 nnoremap <unique> <script> <Plug>SnippetsInsertSnippet <SID>InsertSnippet
 nnoremap <unique> <script> <Plug>SnippetsListSnippets  <SID>ListSnippets
