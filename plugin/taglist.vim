@@ -486,6 +486,9 @@ let s:tlist_def_verilog_settings = 'verilog;m:module;c:constant;P:parameter;' .
 " vim language
 let s:tlist_def_vim_settings = 'vim;a:autocmds;v:variable;f:function'
 
+" tex language
+let s:tlist_def_tex_settings = 'tex;s:section;c:chapter;l:label;r:ref'
+
 " yacc language
 let s:tlist_def_yacc_settings = 'yacc;l:label'
 
