@@ -28,16 +28,30 @@
 " Installation:
 "    Copy this file into your ftplugin directory. 
 
-function! LATEX_PutEnv(indent, com)
+function! LATEX_PutEnv(com)
     echo a:com
-    return IMAP_PutTextWithMovement('\begin{'.a:com.'}'.a:indent.'  <++>'.a:indent.'\end{'.a:com.'}<++>')
+    if matchstr(a:com, '^.') == '\'
+        "" Insert math function
+        let lastletter = matchstr(a:com, '.$')
+        let append = lastletter
+        if (lastletter == '(')
+            let append = '\left(<++>\right)<++>'
+        elseif (lastletter == '[')
+            let append = '\left[<++>\right]<++>'
+        else
+            let append = append.'\left(<++>\right)<++>'
+        endif
+        return IMAP_PutTextWithMovement(strpart(a:com, 0, len(a:com)-1).append)
+    else
+        return IMAP_PutTextWithMovement('\begin{'.a:com.'}<++>\end{'.a:com.'}<++>')
+    endif
 endfunction 
 
 function! LATEX_CreateEnv()
 	if getline('.') == ''
-		let com = input('Choose an environment to insert: ')
+		let com = input('Choose an environment or math function to insert: ')
 		if com != ''
-			return LATEX_PutEnv('', com)
+			return LATEX_PutEnv(com)
 		else
 			return ''
 		endif
@@ -47,7 +61,6 @@ function! LATEX_CreateEnv()
 		let presline = getline('.')
 		let c = col('.')
 
-		let indent = matchstr(presline, '^\s*')
 		let wordbef = matchstr(strpart(presline, 0, c-1), '\k\+\*\?$')
 		let wordaft = matchstr(strpart(presline, c-1), '^\k\+\*\?')
 
@@ -56,11 +69,11 @@ function! LATEX_CreateEnv()
 		if word != ''
 			return substitute(wordbef, '.', "\<Left>", 'g')
 				\ . substitute(word, '.', "\<Del>", 'g')
-				\ . LATEX_PutEnv(indent, word)
+				\ . LATEX_PutEnv(word)
 		else
-			let cmd = input('Choose an environment to insert: ')
+			let cmd = input('Choose an environment or math function to insert: ')
 			if cmd != ''
-				return LATEX_PutEnv(indent, cmd)
+				return LATEX_PutEnv(cmd)
 			else
 				return ''
 			endif
@@ -70,5 +83,5 @@ endfunction
 
 
 imap <silent> <buffer> <C-L>i  <C-r>=LATEX_CreateEnv()<cr>
-nmap <silent> <buffer> <leader>i  i<C-r>=LATEX_CreateEnv()<cr>
+nmap <silent> <buffer> \i  i<C-r>=LATEX_CreateEnv()<cr>
 
