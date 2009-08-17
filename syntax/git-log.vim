@@ -1,3 +1,3 @@
-syntax match gitLogCommit +^commit \x\{40}+
+syntax match gitLogCommit +^\W*commit \x\{40}+
 
 highlight link gitLogCommit Statement
