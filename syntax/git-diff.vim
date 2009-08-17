@@ -4,5 +4,5 @@ syntax match gitDiffStatLine /^ .\{-}\zs[+-]\+$/ contains=gitDiffStatAdd,gitDiff
 syntax match gitDiffStatAdd    /+/ contained
 syntax match gitDiffStatDelete /-/ contained
 
-highlight gitDiffStatAdd    ctermfg=2
-highlight gitDiffStatDelete ctermfg=5
+highlight diffAdded   ctermfg=2
+highlight diffRemoved ctermfg=1
