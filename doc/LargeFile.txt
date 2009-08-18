@@ -1,4 +1,4 @@
-*LargeFile.txt*	Editing Large Files Quickly			Sep 23, 2008
+*LargeFile.txt*          Editing Large Files Quickly 
 
 Author:  Charles E. Campbell, Jr.  <NdrOchip@ScampbellPfamily.AbizM>
 	  (remove NOSPAM from Campbell's email first)

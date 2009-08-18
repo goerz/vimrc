@@ -1,4 +1,4 @@
-*NERD_commenter.txt*         Plugin for commenting code
+*NERD_commenter.txt*     Plugin for commenting code
 
 
                         NERD COMMENTER REFERENCE MANUAL~

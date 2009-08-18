@@ -1,9 +1,10 @@
-*git-cheat.txt*       Git Cheat Sheet for Vim           *git-cheat*
+*git-cheat.txt*          Git Cheat Sheet for Vim
 
 Author :  Michael Goerz  <goerz@physik.fu-berlin.de>
 Version: Version 2  08/18/09
 Based on http://cheat.errtheblog.com/s/git
 
+*git-cheat*
 
  1. Setup                    |git-setup|
  2. Configuration            |git-config|

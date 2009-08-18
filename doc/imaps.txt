@@ -1,5 +1,5 @@
-                      IMAP -- A fluid replacement for :imap
-                                   *imaps.txt*
+*imaps.txt*              A fluid replacement for :imap
+
                  Srinath Avadhanula <srinath AT fastmail DOT fm>
                                         
 

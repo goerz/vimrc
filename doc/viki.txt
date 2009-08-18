@@ -1,4 +1,4 @@
-*viki.txt*              Viki - A Pseudo Local Wiki Tool
+*viki.txt*               Viki - A Pseudo Local Wiki Tool
 
                         Viki MANUAL
                         Thomas Link (micathom AT gmail com?subject=vim)

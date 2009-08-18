@@ -1,4 +1,4 @@
-*hookcursormoved.txt*  Call functions when the cursor position changed
+*hookcursormoved.txt*    Call functions when the cursor position changed
                        Author: Thomas Link, micathom at gmail com
 
 This experimental plugin provides some help with the definition of 

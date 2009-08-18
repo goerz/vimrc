@@ -1,4 +1,4 @@
-*ack.txt*   Plugin that integrates ack with Vim
+*ack.txt*                Plugin that integrates ack with Vim
 
 ==============================================================================
 Author:  Antoine Imbert <antoine.imbert+ackvim@gmail.com>         *ack-author*

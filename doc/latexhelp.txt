@@ -1,4 +1,4 @@
-*latexhelp.txt*    For Vim version 6.0.  Last change: 2001 Dec 20
+*latexhelp.txt*          Latex Help 1.6
 
 
 				LATEX HELP 1.6  

@@ -1,4 +1,4 @@
-*crefvimdoc.txt*         C-Reference Manual for Vim 
+*crefvimdoc.txt*         Vim Interface to C-Reference Manual
                                Vim version 6.0
 
 

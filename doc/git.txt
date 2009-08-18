@@ -1,4 +1,6 @@
-*git.txt*	Git Plugin for Vim				*Git* *git*
+*git.txt*                Git Plugin for Vim
+
+*Git* *git*
 
 This plugin provides commands for calling Git functions from Vim as well as
 syntax highlighting for various Git files.

@@ -1,4 +1,4 @@
-*taglist.txt*	Plugin for browsing source code
+*taglist.txt*            Plugin for browsing source code
 
 Author: Yegappan Lakshmanan  (yegappan AT yahoo DOT com)
 For Vim version 6.0 and above
