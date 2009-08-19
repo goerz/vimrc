@@ -1,7 +1,7 @@
 *git-cheat.txt*          Git Cheat Sheet for Vim
 
 Author :  Michael Goerz  <goerz@physik.fu-berlin.de>
-Version: Version 2  08/18/09
+Version: Version 2.1  08/19/09
 Based on http://cheat.errtheblog.com/s/git
 
 *git-cheat*
@@ -129,6 +129,12 @@ git show <rev>                                          *git-show*
   show the changeset (diff) of a commit specified by <rev>, which can be any
   SHA1 commit ID, branch name, or tag (shows the last commit (HEAD) by default)
 
+git show rev:path/to/file
+  cat file from the given revision
+
+git show HEAD:<dir>
+  show which files are part of the repository
+
 git blame <file>                                        *git-blame*
   show who authored each line in <file>
 
@@ -198,12 +204,6 @@ git commit -a
 git commit -v
   commit verbosely, i.e. includes the diff of the contents being committed in
   the commit message screen
-
-git commit --amend
-  edit the commit message of the most recent commit
-
-git commit --amend <file1> <file2> ...
-  redo previous commit, including changes made to <file1>, <file2>, etc...
 
 
 ==============================================================================
@@ -325,8 +325,8 @@ git pull                                                *git-pull*
 
 git push                                                *git-push*
   update the server with your commits across all branches that are COMMON
-  between your local copy and the server.  Local branches that were never pushed
-  to the server in the first place are not shared.
+  between your local copy and the server.  Local branches that were never
+  pushed to the server in the first place are not shared.
 
 git push origin <branch>
   update the server with your commits made to <branch> since your last push.
