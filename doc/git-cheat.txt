@@ -129,11 +129,11 @@ git show <rev>                                          *git-show*
   show the changeset (diff) of a commit specified by <rev>, which can be any
   SHA1 commit ID, branch name, or tag (shows the last commit (HEAD) by default)
 
-git show rev:path/to/file
+git show rev:<relative/to/repo/root/file>
   cat file from the given revision
 
-git show HEAD:<dir>
-  show which files are part of the repository
+git show HEAD:<dir/relative/to/repo/root/>
+  show which files are part of the repository.
 
 git blame <file>                                        *git-blame*
   show who authored each line in <file>
