@@ -205,6 +205,9 @@ endif
 cabbr tidy !tidy -config ~/.vim/scripts/tidy/fragment.prf
 cabbr lipsum r!~/.vim/scripts/lipsum.pl
 
+" Activate wildmenu
+set wildmenu
+
 " * Text Formatting -- General {{{1
 
 " don't make it look like there are line breaks where there aren't:
