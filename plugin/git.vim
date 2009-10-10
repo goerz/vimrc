@@ -22,7 +22,7 @@ nnoremap <Leader>gd :GitDiff<Enter>
 nnoremap <Leader>gD :GitDiff --cached<Enter>
 nnoremap <Leader>gs :GitStatus<Enter>
 nnoremap <Leader>gl :GitLog<Enter>
-nnoremap <Leader>ga :GitAdd<Enter>
+nnoremap <Leader>ga :GitAdd %<Enter>
 nnoremap <Leader>gA :GitAdd <cfile><Enter>
 nnoremap <Leader>gc :GitCommit<Enter>
 nnoremap <Leader>gp :GitPullRebase<Enter>
