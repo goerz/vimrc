@@ -198,10 +198,13 @@ autocmd FileType tex hi! Statement gui=none term=none cterm=none
 nmap <leader>s :. python send()<cr>
 vmap <leader>s : python send()<cr>gv<esc>
 
-" abbreviations
+" Datestamps
 if exists("*strftime")
-    iab xxxtimestamp <c-r>=strftime("%a %D %H:%M:%S %Z")<cr>
+    nmap <leader>d a<c-r>=strftime("%a %D %H:%M:%S %Z")<cr>
+    imap <C-L>d <c-r>=strftime("%a %D %H:%M:%S %Z")<cr>
 endif
+
+" abbreviations
 cabbr tidy !tidy -config ~/.vim/scripts/tidy/fragment.prf
 cabbr lipsum r!~/.vim/scripts/lipsum.pl
 
