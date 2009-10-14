@@ -18,16 +18,15 @@ endif
 let s:filter_filetype = ""
 
 " Mappings {{{
-nnoremap <unique> <script> <Plug>FiltersAppendFilter <SID>AppendFilter
-nnoremap <unique> <script> <Plug>FiltersInsertFilter <SID>InsertFilter
+"nnoremap <unique> <script> <Plug>FiltersAppendFilter <SID>AppendFilter
+"nnoremap <unique> <script> <Plug>FiltersInsertFilter <SID>InsertFilter
 nnoremap <unique> <script> <Plug>FiltersListFilters  <SID>ListFilters
 
-nnoremap <SID>AppendFilter :AppendFilter<cr>
-nnoremap <SID>InsertFilter :InsertFilter<cr>
+"nnoremap <SID>AppendFilter :AppendFilter<cr>
+"nnoremap <SID>InsertFilter :InsertFilter<cr>
 nnoremap <SID>ListFilters  :ListFilters<cr>
 
-command -bar -range AppendFilter :<line1>,<line2>call s:PutFilter(0)
-command -bar -range InsertFilter :<line1>,<line2>call s:PutFilter(-1)
+command -bar -range Filter :<line1>,<line2>call s:Filter()
 command -bar ListFilters  :call s:ListFilters()
 "}}}
 
@@ -60,7 +59,7 @@ function s:ListFilters() "{{{1
 	echo join(s:GetFilterNames(filter_files), "\n")
 endfunction
 
-function s:PutFilter(offset) range "{{{1
+function s:Filter() range "{{{1
 	if !s:InitFilters()
 		return
 	endif
@@ -92,8 +91,7 @@ function s:PutFilter(offset) range "{{{1
 	if strlen(filter_file) == 0
 		return
 	endif
-	let lines = readfile(filter_file)
-	call append(a:firstline+a:offset, lines)
+    execute a:firstline.','.a:lastline.'!'.filter_file
 endfunction
 
 function s:AddFilter() range "{{{1
