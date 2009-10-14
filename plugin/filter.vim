@@ -18,12 +18,8 @@ endif
 let s:filter_filetype = ""
 
 " Mappings {{{
-"nnoremap <unique> <script> <Plug>FiltersAppendFilter <SID>AppendFilter
-"nnoremap <unique> <script> <Plug>FiltersInsertFilter <SID>InsertFilter
 nnoremap <unique> <script> <Plug>FiltersListFilters  <SID>ListFilters
 
-"nnoremap <SID>AppendFilter :AppendFilter<cr>
-"nnoremap <SID>InsertFilter :InsertFilter<cr>
 nnoremap <SID>ListFilters  :ListFilters<cr>
 
 command -bar -range Filter :<line1>,<line2>call s:Filter()
@@ -92,107 +88,6 @@ function s:Filter() range "{{{1
 		return
 	endif
     execute a:firstline.','.a:lastline.'!'.filter_file
-endfunction
-
-function s:AddFilter() range "{{{1
-	if !s:InitFilters()
-		return
-	endif
-	let filetype = s:GetFiletype()
-	if !s:HasFiletype(filetype)
-		if s:GetConfirmation("Create filetype directory for '".filetype."'?")
-			call mkdir(g:filters_base_directory.'/'.filetype)
-		else
-			call s:Warn("Directory for filetype '".filetype."' does not exist")
-			return
-		endif
-	endif
-	let name = s:GetFilter(filetype)
-	if len(name) == 0
-		call s:Warn("No filter name entered")
-		return
-	endif
-	let filename = g:filters_base_directory.'/'.filetype.'/'.name
-	let filenames = s:GetFilterFiles(filetype, "")
-	if count(filenames, filename) > 0 && !s:GetConfirmation("Overwrite current '".name."' filter?")
-		return
-	endif
-	call writefile(getline(a:firstline, a:lastline), filename)
-	echo "Filter '".name."' added for filetype '".filetype."'"
-endfunction
-
-function s:EditFilter() "{{{1
-	if !s:InitFilters()
-		return
-	endif
-	let filetype = s:GetFiletype()
-	if len(filetype) == 0
-		call s:Warn("No filetype entered")
-		return
-	endif
-	if !s:HasFiletype(filetype)
-		call s:Warn("Filetype '".filetype."' does not exist")
-		return
-	endif
-	let filter_files = s:GetFilterFiles(filetype, "")
-	if len(filter_files) == 0
-		call s:Warn("No filters for filetype '".filetype."'")
-		return
-	endif
-	let filter_names = s:GetFilterNames(filter_files)
-	let name = s:GetFilter(filetype)
-	if len(name) == 0
-		call s:Warn("No filter name entered")
-		return
-	endif
-	if count(filter_names, name) == 0
-		call s:Warn("Filter '".name."' does not exist")
-		return
-	endif
-	let filter_file = filter_files[index(filter_names, name)]
-	if strlen(filter_file) == 0
-		return
-	endif
-	execute "tabedit ".filter_file." | set ft=".filetype
-endfunction
-
-function s:DeleteFilter() "{{{1
-	if !s:InitFilters()
-		return
-	endif
-	let filetype = s:GetFiletype()
-	if len(filetype) == 0
-		call s:Warn("No filetype entered")
-		return
-	endif
-	if !s:HasFiletype(filetype)
-		call s:Warn("Filetype '".filetype."' does not exist")
-		return
-	endif
-	let filter_files = s:GetFilterFiles(filetype, "")
-	if len(filter_files) == 0
-		call s:Warn("No filters for filetype '".filetype."'")
-		return
-	endif
-	let filter_names = s:GetFilterNames(filter_files)
-	let name = s:GetFilter(filetype)
-	if len(name) == 0
-		call s:Warn("No filter name entered")
-		return
-	endif
-	if count(filter_names, name) == 0
-		call s:Warn("Filter '".name."' does not exist")
-		return
-	endif
-	let filter_file = filter_files[index(filter_names, name)]
-	if strlen(filter_file) == 0
-		return
-	endif
-	if !s:GetConfirmation("Delete filter '".name."'?")
-		return
-	endif
-	call delete(filter_file)
-	echo "Filter '".name."' for filetype '".filetype."' deleted"
 endfunction
 
 function s:InitFilters() "{{{1
