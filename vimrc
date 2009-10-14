@@ -266,6 +266,7 @@ augroup filetype
   autocmd BufNewFile,BufRead INSTALL set filetype=human
   autocmd BufNewFile,BufRead *vimperatorrc*,*.vimp set filetype=vimperator
   autocmd BufNewFile,BufRead *.viki set filetype=viki
+  autocmd BufNewFile,BufRead *.dat set filetype=csv
 augroup END
 
 " For some programming languages, delete trailing spaces on save
