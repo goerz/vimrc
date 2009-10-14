@@ -293,7 +293,14 @@ function s:GetSnippetFiletypes(snippet_dirs) "{{{1
 endfunction
 
 function s:GetSnippetFiles(filetype, arg_lead) "{{{1
-	return split(glob(g:snippets_base_directory.'/'.a:filetype.'/'.a:arg_lead.'*'),"\n")
+    let snippet_files = []
+    for snippet_file in split(glob(g:snippets_base_directory.'/'.a:filetype.'/'.a:arg_lead.'*'),"\n")
+        call add(snippet_files, snippet_file)
+    endfor
+    for snippet_file in split(glob(g:snippets_base_directory.'/all/'.a:arg_lead.'*'),"\n")
+        call add(snippet_files, snippet_file)
+    endfor
+	return snippet_files
 endfunction
 
 function s:GetSnippetDirs(arg_lead) "{{{1
