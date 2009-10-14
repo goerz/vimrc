@@ -172,7 +172,14 @@ function s:GetFilterFiletypes(filter_dirs) "{{{1
 endfunction
 
 function s:GetFilterFiles(filetype, arg_lead) "{{{1
-	return split(glob(g:filters_base_directory.'/'.a:filetype.'/'.a:arg_lead.'*'),"\n")
+    let filter_files = []
+    for filter_file in split(glob(g:filters_base_directory.'/'.a:filetype.'/'.a:arg_lead.'*'),"\n")
+        call add(filter_files, filter_file)
+    endfor
+    for filter_file in split(glob(g:filters_base_directory.'/all/'.a:arg_lead.'*'),"\n")
+        call add(filter_files, filter_file)
+    endfor
+	return filter_files
 endfunction
 
 function s:GetFilterDirs(arg_lead) "{{{1
