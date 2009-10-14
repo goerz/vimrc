@@ -67,7 +67,11 @@ let b:windows = 0
 
 " Select which quotes should be used
 let b:leftquote = "``"
-let b:rightquote = "``"
+let b:rightquote = "''"
+if &spelllang == 'de_20'
+    let b:leftquote = '"`'
+    let b:rightquote = "\"'"
+endif
 
 " }}}
 " "========================================================================="
