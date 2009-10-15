@@ -1,9 +1,7 @@
 " Vim filetype plugin
 " Language:	LaTeX
-" Maintainer: Carl Mueller, math at carlm e4ward c o m
-" Last Change:	March 2, 2008
-" Version:  2.2
-" Website: http://www.math.rochester.edu/people/faculty/cmlr/Latex/index.html
+" Maintainer: Michael Goerz <goerz@physik.fu-berlin.de>
+" Last Change:	Thu 10/15/09 20:37:53 CEST
 
 " "========================================================================="
 " Explanation and Customization   {{{
@@ -24,7 +22,6 @@ let mapleader = '`'
 
 " Auctex-style macros for Latex typing.
 " You will have to customize the functions RunLatex(), Xdvi(), 
-" and the maps for inserting template files, on lines 168 - 169
 
 " Thanks to Peppe Guldberg for important suggestions.
 "
@@ -33,15 +30,6 @@ let mapleader = '`'
 " triggers a number of macros (see "Embrace the visual region" and 
 " "Greek letters".  For example, `a would result in \alpha.  
 " There are many other features;  read the file.
-"
-" The following templates are inserted with <F1> - <F4>, in normal mode.
-" The first 2 are for latex documents, which have "\title{}"
-let b:template_1 = '~/.Vim/latex'
-let b:template_2 = '~/.Vim/min-latex'
-" The next template is for a letter, which has "\opening{}"
-let b:template_3 = '~/.Vim/letter'
-" The next template is for a miscellaneous document.
-let b:template_4 = '~/Storage/Latex/exam.tex'
 
 " Vim commands to run latex and the dvi viewer.
 " Must be of the form "! ... % ..."
@@ -55,11 +43,6 @@ let b:dvi_viewer_command = "! xdvi -expert -s 6 -margins 2cm -geometry 750x950 %
 " Switch to the directory of the tex file.  Thanks to Fritz Mehner.
 " This is useful for starting xdvi, or going to the next tex error.
 " autocmd BufEnter *.tex :cd %:p:h
-
-" The following is necessary for TexFormatLine() and TexFill()
-set tw=0
-" substitute text width
-let b:tw = 79
 
 " If you are using Windows, modify b:latex_command above, and set 
 " b:windows below equal to 1
@@ -623,32 +606,6 @@ inoremap <buffer> <Leader><C-F> \to
 
 " }}}
 " "========================================================================="
-" Format the paragraph   {{{
-" Due to Ralf Aarons
-" In normal mode, gw formats the paragraph (without splitting dollar signs).
-function! s:TeX_par()
-    if (getline('.') != '')
-        let par_begin = '^$\|^\s*\\end{\|^\s*\\\]'
-        let par_end = '^$\|^\s*\\begin{\|^\s*\\\['
-        call search(par_begin, 'bW')
-        "call searchpair(par_begin, '', par_end, 'bW')
-        +
-	let l = line('.')
-        normal! V
-        call search(par_end, 'W')
-        "call searchpair(par_begin, '', par_end, 'W')
-        -
-	if l == line('.')
-	    normal! 
-	endif
-	normal Q
-	"normal! Q
-    endif
-endfun
-map <buffer><silent> gw :call <SID>TeX_par()<CR>
-
-" }}}
-" "========================================================================="
 " Smart quotes.   {{{
 " Thanks to Ron Aaron <ron@mossbayeng.com>.
 function! s:TexQuotes()
@@ -687,32 +644,6 @@ function! s:Dots(var)
        return '.'
     endif
 endfunction
-" Use this if you want . to result in a period followed by 2 spaces.
-" To get just one space, see the comment in the function below.
-"function! s:Dots(var)
-    "let column = col('.')
-    "let currentline = getline('.')
-    "let previous = currentline[column-2]
-    "let before = currentline[column-3]
-    "if strpart(currentline,column-4,3) == '.  '
-	"return "\<BS>\<BS>"
-    "elseif previous == '.'
-        "if a:var == 0
-		"if before == ','
-		"return "\<BS>\\ldots"
-		"else
-		"return "\<BS>\\cdots"
-		"endif
-        "else
-		"return "\<BS>\\dots"
-	"endif
-    "elseif previous =~ '[\$A-Za-z]' && currentline !~ '@'
-	"" To get just one space, replace '.  ' with '. ' below.
-	"return <SID>TexFill(b:tw, '.  ')  "TexFill is defined in Auto-split
-    "else
-	"return '.'
-    "endif
-"endfunction
 " Uncomment the next line, and comment out the line after,
 " if you want the script to decide between latex and amslatex.
 " This slows down the macro.
@@ -818,95 +749,6 @@ function! s:DoubleAmpersands()
 	return "\<Del>"
     else
 	return '&'
-    endif
-endfunction
-
-" }}}
-
-" }}}
-" "========================================================================="
-" Auto-split long lines.   {{{
-
-" Key Bindings                {{{
-
-noremap <buffer> gq :call <SID>TexFormatLine(b:tw,getline('.'),col('.'))<CR>
-noremap <buffer> Q :call <SID>TexFormatLine(b:tw,getline('.'),col('.'))<CR>
-vnoremap <buffer> Q J:call <SID>TexFormatLine(b:tw,getline('.'),col('.'))<CR>
-"  With this map, <Space> will split up a long line, keeping the dollar
-"  signs together (see the next function, TexFormatLine).
-inoremap <buffer><silent> <Space> <Space><BS><C-R>=<SID>TexFill(b:tw, ' ')<CR>
-" Note: <Space><BS> makes word completion work correctly.
-
-" }}}
-
-" Functions       {{{
-
-function! s:TexFill(width, string)
-    if col('.') > a:width
-	" For future use, record the current line and 
-	" the number of the current column.
-	let current_line = getline('.')
-	let current_column = col('.')
-	execute 'normal! i'.a:string.'##'
-	call <SID>TexFormatLine(a:width,current_line,current_column)
-	call search('##', 'b')
-	return "\<Del>\<Del>"
-    else
-	return a:string
-    endif
-endfunction
-
-function! s:TexFormatLine(width,current_line,current_column)
-    " Find the first nonwhitespace character.
-    let first = matchstr(a:current_line, '\S')
-    normal! $
-    let length = col('.')
-    let go = 1
-    while length > a:width+2 && go
-	let between = 0
-	let string = strpart(getline('.'),0,a:width)
-	" Count the dollar signs
-        let number_of_dollars = 0
-	let evendollars = 1
-	let counter = 0
-	while counter <= a:width-1
-	    " Pay attention to '$$'.
-	    "if string[counter] == '$' && string[counter-1] != '$'
-	    if string[counter] == '$' && string[counter-1] !~ '\$\|\\'
-	       let evendollars = 1 - evendollars
-	       let number_of_dollars = number_of_dollars + 1
-	    endif
-	    let counter = counter + 1
-	endwhile
-	" Get ready to split the line.
-	execute 'normal! ' . (a:width + 1) . '|'
-	if evendollars
-	" Then you are not between dollars.
-	    call search("\\$\\+\\| ", 'b')
-	    normal W
-	else
-	" Then you are between dollars.
-	    normal! F$
-	    " Move backward once more if you are at "$$".
-	    if getline('.')[col('.')-2] == '$'
-		normal h
-	    endif
-	    if col('.') == 1 || strpart(getline('.'),col('.')-1,1) != '$'
-	       let go = 0
-	    endif
-	endif
-	if first == '$' && number_of_dollars == 1
-	    let go = 0
-	else
-	    execute "normal! i\<CR>\<Esc>$"
-	    " Find the first nonwhitespace character.
-	    let first = matchstr(getline('.'), '\S')
-	endif
-	let length = col('.')
-    endwhile
-    if go == 0 && strpart(a:current_line,0,a:current_column) =~ '.*\$.\+\$.*'
-	execute "normal! ^f$a\<CR>\<Esc>"
-	call <SID>TexFormatLine(a:width,a:current_line,a:current_column)
     endif
 endfunction
 
