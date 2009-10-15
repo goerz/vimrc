@@ -30,6 +30,10 @@ def LatexFold():
 
     r = vim.current.range
     line_nr = r.start
+    if (r.start == r.end):
+        # if called without range, format entire buffer
+        r = vim.current.buffer
+        line_nr = 0
     ca = line_nr
     ea = line_nr
     sa = line_nr
@@ -141,5 +145,5 @@ def LatexFold():
 
     if debug: log.close()
 EOF
-cabbr LatexFold python LatexFold()
+command -bar -range LatexFold :<line1>,<line2> python LatexFold()
 endif

@@ -33,6 +33,10 @@ def FortranFold():
 
     r = vim.current.range
     line_nr = r.start
+    if (r.start == r.end):
+        # if called without range, format entire buffer
+        r = vim.current.buffer
+        line_nr = 0
     a = line_nr
     aa = line_nr
     aaa = line_nr
@@ -134,5 +138,5 @@ def FortranFold():
 
     if debug: log.close()
 EOF
-cabbr FortranFold python FortranFold()
+command -bar -range FortranFold :<line1>,<line2> python FortranFold()
 endif
