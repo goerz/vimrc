@@ -14,12 +14,14 @@ def LatexFold():
     import subprocess
     import vim
     import re
-    debug = False
+    debug = True
 
     if debug: log = open("foldlog.txt", 'w')
 
     latex_fold_patterns = {
+        'blank'          : re.compile(r'^\s*$'),
         'comment'        : re.compile(r'^\s*%'),
+        'begin_document' : re.compile(r'^\s*\\begin\{document\}'),
         'begin_env'      : re.compile(r'^\s*\\begin[\[{]'),
         'end_env'        : re.compile(r'^\s*\\end[\[{]'),
         'section'        : re.compile(r'^\s*\\section[\[{]'),
@@ -41,9 +43,27 @@ def LatexFold():
     in_section = False
     in_subsection = False
     open_env = 0
+    blank_block_start = line_nr
+    blank_block_end = line_nr
+    in_blank_block = False
     for line in r:
         line_nr = line_nr + 1
         if debug: log.write("%s:%s\n" % (line_nr, line))
+
+        if latex_fold_patterns['blank'].search(line):
+            if debug: log.write("*** blank line\n")
+            if in_blank_block:
+                blank_block_end = line_nr
+            else:
+                in_blank_block = True
+                blank_block_start = line_nr
+                blank_block_end = line_nr
+        else:
+            in_blank_block = False
+
+        if latex_fold_patterns['begin_document'].search(line):
+            vim.command("%s,%s fold" % (1,line_nr-1))
+            if debug: log.write("*** fold preamble\n")
 
         if latex_fold_patterns['comment'].search(line):
             if not in_comment:
@@ -56,7 +76,8 @@ def LatexFold():
                 vim.command("%s,%s fold" % (ca,cb))
                 if debug: log.write("*** %s,%s fold comment\n" % (ca,cb))
 
-        if latex_fold_patterns['begin_env'].search(line):
+        if (latex_fold_patterns['begin_env'].search(line) 
+        and "\\begin{document}" not in line):
             if debug: 
                 log.write("*** matched begin_env (open_env = %s)\n" 
                 % open_env)
@@ -64,7 +85,8 @@ def LatexFold():
                 ea = line_nr
                 if debug: log.write("*** store env\n")
             open_env = open_env + 1
-        if latex_fold_patterns['end_env'].search(line):
+        if (latex_fold_patterns['end_env'].search(line)
+        and "\\end{document}" not in line):
             open_env = open_env - 1
             if debug: 
                 log.write("*** matched end of env (open_env = %s)\n" 
@@ -80,11 +102,17 @@ def LatexFold():
                 log.write("*** matched section\n")
             if in_subsection:
                 ssb = line_nr-1
+                if ssb == blank_block_end:
+                    if debug: log.write("*** Setting ssb to before blank_block\n")
+                    ssb = blank_block_start-1
                 vim.command("%s,%s fold" % (ssa,ssb))
                 if debug: log.write("*** %s,%s fold subsection\n" % (ssa,ssb))
                 in_subsection = False
             if in_section:
                 sb = line_nr-1
+                if sb == blank_block_end:
+                    if debug: log.write("*** Setting sb to before blank_block\n")
+                    sb = blank_block_start-1
                 vim.command("%s,%s fold" % (sa,sb))
                 if debug: log.write("*** %s,%s fold section\n" % (sa,sb))
             in_section = True
@@ -95,17 +123,20 @@ def LatexFold():
                 log.write("*** matched subsection\n")
             if in_subsection:
                 ssb = line_nr-1
+                if ssb == blank_block_end:
+                    if debug: log.write("*** Setting ssb to before blank_block\n")
+                    ssb = blank_block_start-1
                 vim.command("%s,%s fold" % (ssa,ssb))
                 if debug: log.write("*** %s,%s fold subsection\n" % (ssa,ssb))
             in_subsection = True
             ssa = line_nr
 
+    if in_subsection:
+        vim.command("%s,$ fold" % ssa)
+        if debug: log.write("*** %s,$ fold subsection\n" % ssa)
     if in_section:
         vim.command("%s,$ fold" % sa)
         if debug: log.write("*** %s,$ fold section\n" % sa)
-    if in_subsection:
-        vim.command("%s,$ fold" % ssa)
-        if debug: log.write("*** %s,$ fold section\n" % ssa)
 
 
     if debug: log.close()
