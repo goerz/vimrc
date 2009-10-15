@@ -191,7 +191,7 @@ set t_Co=256
 
 " Default Color Scheme
 colorscheme goerz
-autocmd FileType tex hi! texSectionTitle gui=bold term=bold cterm=bold
+autocmd FileType tex hi! texSectionTitle gui=underline term=bold cterm=underline
 autocmd FileType tex hi! Statement gui=none term=none cterm=none
 
 " Send plugin
