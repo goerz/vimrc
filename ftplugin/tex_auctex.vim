@@ -1,7 +1,7 @@
 " Vim filetype plugin
-" Language:	LaTeX
-" Maintainer: Michael Goerz <goerz@physik.fu-berlin.de>
-" Last Change:	Thu 10/15/09 20:37:53 CEST
+" Language:    LaTeX
+" Maintainer:  Michael Goerz <goerz@physik.fu-berlin.de>
+" Last Change: Sat 10/17/09 20:57:45 CEST
 
 " "========================================================================="
 " Explanation and Customization   {{{
@@ -50,19 +50,19 @@ function! s:TexInsertTabWrapper(direction)
 
     let dollar = 0
     while n < strlen(ending)
-	if ending[n] == '$'
-	    let dollar = 1 - dollar
-	endif
-	let n = n + 1
+    if ending[n] == '$'
+        let dollar = 1 - dollar
+    endif
+    let n = n + 1
     endwhile
 
     let math = 0
     let ln = line('.')
     while ln > 1 && getline(ln) !~ '\\begin\|\\end\|\\\]\|\\\['
-	let ln = ln - 1
+    let ln = ln - 1
     endwhile
     if getline(ln) =~ 'begin{\(eq\|arr\|align\|mult\)\|\\\['
-	let math = 1
+    let math = 1
     endif
     let math = 0 " disable this math crap!!!!
 
@@ -76,153 +76,153 @@ function! s:TexInsertTabWrapper(direction)
     " Once the citation is shown, you type <CR> anywhere within the citation.
     " The bibtex files listed in \bibliography{} are the ones shown.
     if strpart(line,column-5,5) == '\ref{'
-	let name = bufname(1)
-	let short = substitute(name, ".*/", "", "")
-	let aux = strpart(short, 0, strlen(short)-3)."aux"
-	if filereadable(aux)
-	    let tmp = tempname()
-	    execute "below split ".tmp
-	    execute "0read ".aux
-	    g!/^\\newlabel{/delete
-	    g/.*/normal 3f{lyt}0Pf}D0f\cf{
-	    execute "write! ".tmp
+    let name = bufname(1)
+    let short = substitute(name, ".*/", "", "")
+    let aux = strpart(short, 0, strlen(short)-3)."aux"
+    if filereadable(aux)
+        let tmp = tempname()
+        execute "below split ".tmp
+        execute "0read ".aux
+        g!/^\\newlabel{/delete
+        g/.*/normal 3f{lyt}0Pf}D0f\cf{
+        execute "write! ".tmp
 
-	    noremap <buffer> <LeftRelease> <LeftRelease>:call <SID>RefInsertion("aux")<CR>a
-	    noremap <buffer> <CR> :call <SID>RefInsertion("aux")<CR>a
-	    noremap <buffer> q :bwipeout!<CR>i
-	    return "\<Esc>"
-	else
-	    let tmp = tempname()
-	    vertical 15split
-	    execute "write! ".tmp
-	    execute "edit ".tmp
-	    g!/\\label{/delete
-	    %s/.*\\label{//e
-	    %s/}.*//e
-	    noremap <buffer> <LeftRelease> <LeftRelease>:call <SID>RefInsertion(0)<CR>a
-	    noremap <buffer> <CR> :call <SID>RefInsertion(0)<CR>a
-	    noremap <buffer> q :bwipeout!<CR>i
-	    return "\<Esc>"
-	endif
+        noremap <buffer> <LeftRelease> <LeftRelease>:call <SID>RefInsertion("aux")<CR>a
+        noremap <buffer> <CR> :call <SID>RefInsertion("aux")<CR>a
+        noremap <buffer> q :bwipeout!<CR>i
+        return "\<Esc>"
+    else
+        let tmp = tempname()
+        vertical 15split
+        execute "write! ".tmp
+        execute "edit ".tmp
+        g!/\\label{/delete
+        %s/.*\\label{//e
+        %s/}.*//e
+        noremap <buffer> <LeftRelease> <LeftRelease>:call <SID>RefInsertion(0)<CR>a
+        noremap <buffer> <CR> :call <SID>RefInsertion(0)<CR>a
+        noremap <buffer> q :bwipeout!<CR>i
+        return "\<Esc>"
+    endif
     elseif match(strpart(line,0,column),'\\cite{[^}]*$') != -1
-	let m = matchstr(strpart(line,0,column),'[^{]*$')
-	let tmp = tempname()
+    let m = matchstr(strpart(line,0,column),'[^{]*$')
+    let tmp = tempname()
         execute "write! ".tmp
         execute "split ".tmp
 
-	if 0 != search('\\begin{thebibliography}')
-	    bwipeout!
-	    execute "below split ".tmp
-	    call search('\\begin{thebibliography}')
-	    normal kdgg
-	    noremap <buffer> <LeftRelease> <LeftRelease>:call <SID>BBLCiteInsertion('\\bibitem')<CR>a
-	    noremap <buffer> <CR> :call <SID>CiteInsertion('\\bibitem')<CR>a
-	    noremap \<buffer> q :bwipeout!<CR>i
-	    return "\<Esc>"
-	else
-	    let l = search('\\bibliography{')
-	    bwipeout!
-	    if l == 0
-		return ''
-	    else
-		let s = getline(l)
-		let beginning = matchend(s, '\\bibliography{')
-		let ending = matchend(s, '}', beginning)
-		let f = strpart(s, beginning, ending-beginning-1)
-		let tmp = tempname()
-		execute "below split ".tmp
-		let file_exists = 0
+    if 0 != search('\\begin{thebibliography}')
+        bwipeout!
+        execute "below split ".tmp
+        call search('\\begin{thebibliography}')
+        normal kdgg
+        noremap <buffer> <LeftRelease> <LeftRelease>:call <SID>BBLCiteInsertion('\\bibitem')<CR>a
+        noremap <buffer> <CR> :call <SID>CiteInsertion('\\bibitem')<CR>a
+        noremap \<buffer> q :bwipeout!<CR>i
+        return "\<Esc>"
+    else
+        let l = search('\\bibliography{')
+        bwipeout!
+        if l == 0
+        return ''
+        else
+        let s = getline(l)
+        let beginning = matchend(s, '\\bibliography{')
+        let ending = matchend(s, '}', beginning)
+        let f = strpart(s, beginning, ending-beginning-1)
+        let tmp = tempname()
+        execute "below split ".tmp
+        let file_exists = 0
 
-		let name = bufname(1)
-		let base = substitute(name, "[^/]*$", "", "")
-		while f != ''
-		    let comma = match(f, ',[^,]*$')
-		    if comma == -1
-			let file = base.f.'.bib'
-			if filereadable(file)
-			    let file_exists = 1
-			    execute "0r ".file
-			endif
-			let f = ''
-		    else
-			let file = strpart(f, comma+1)
-			let file = base.file.'.bib'
-			if filereadable(file)
-			    let file_exists = 1
-			    execute "0r ".file
-			endif
-			let f = strpart(f, 0, comma)
-		    endif
-		endwhile
+        let name = bufname(1)
+        let base = substitute(name, "[^/]*$", "", "")
+        while f != ''
+            let comma = match(f, ',[^,]*$')
+            if comma == -1
+            let file = base.f.'.bib'
+            if filereadable(file)
+                let file_exists = 1
+                execute "0r ".file
+            endif
+            let f = ''
+            else
+            let file = strpart(f, comma+1)
+            let file = base.file.'.bib'
+            if filereadable(file)
+                let file_exists = 1
+                execute "0r ".file
+            endif
+            let f = strpart(f, 0, comma)
+            endif
+        endwhile
 
-		if file_exists == 1
-		    if strlen(m) != 0
-			%g/author\c/call <SID>BibPrune(m)
-		    endif
-		    noremap <buffer> <LeftRelease> <LeftRelease>:call <SID>CiteInsertion("@")<CR>a
-		    noremap <buffer> <CR> :call <SID>CiteInsertion("@")<CR>a
-		    noremap \<buffer> q :bwipeout!<CR>i
-		    return "\<Esc>"
-		else
-		    bwipeout!
-		    return ''
-		endif
+        if file_exists == 1
+            if strlen(m) != 0
+            %g/author\c/call <SID>BibPrune(m)
+            endif
+            noremap <buffer> <LeftRelease> <LeftRelease>:call <SID>CiteInsertion("@")<CR>a
+            noremap <buffer> <CR> :call <SID>CiteInsertion("@")<CR>a
+            noremap \<buffer> q :bwipeout!<CR>i
+            return "\<Esc>"
+        else
+            bwipeout!
+            return ''
+        endif
 
-	    endif
-	endif
+        endif
+    endif
     elseif dollar == 1   " If you're in a $..$ environment
-	if ending[0] =~ ')\|]\||'
-	    return "\<Right>"
-	elseif ending =~ '^\\}'
-	    return "\<Right>\<Right>"
-	elseif ending =~ '^\\right\\'
-	    return "\<Esc>8la"
-	elseif ending =~ '^\\right'
-	    return "\<Esc>7la"
-	elseif ending =~ '^}\(\^\|_\|\){'
-	    return "\<Esc>f{a"
-	elseif ending[0] == '}'
-	    return "\<Right>"
-	else
-	    return "\<Esc>f$a"
-	end
-	"return "\<Esc>f$a"
+    if ending[0] =~ ')\|]\||'
+        return "\<Right>"
+    elseif ending =~ '^\\}'
+        return "\<Right>\<Right>"
+    elseif ending =~ '^\\right\\'
+        return "\<Esc>8la"
+    elseif ending =~ '^\\right'
+        return "\<Esc>7la"
+    elseif ending =~ '^}\(\^\|_\|\){'
+        return "\<Esc>f{a"
+    elseif ending[0] == '}'
+        return "\<Right>"
+    else
+        return "\<Esc>f$a"
+    end
+    "return "\<Esc>f$a"
     elseif math == 1    " If you're in a regular math environment.
-	if ending =~ '^\s*&'
-	    return "\<Esc>f&a"
+    if ending =~ '^\s*&'
+        return "\<Esc>f&a"
         elseif ending[0] =~ ')\|]\||'
-	    return "\<Right>"
-	elseif ending =~ '^\\}'
-	    return "\<Right>\<Right>"
-	elseif ending =~ '^\\right\\'
-	    return "\<Esc>8la"
-	elseif ending =~ '^\\right'
-	    return "\<Esc>7la"
-	elseif ending =~ '^}\(\^\|_\|\){'
-	    return "\<Esc>f{a"
-	elseif ending[0] == '}'
-	    if line =~ '\\label'
-		return "\<Down>"
-	    else
-		return "\<Esc>f}a"
-	    endif
-	elseif column == len    "You are at the end of the line.
-	    call search("\\\\end\\|\\\\]")
-	    return "\<Esc>o"
-	else
-	    return "\<C-O>$"
-	endif
+        return "\<Right>"
+    elseif ending =~ '^\\}'
+        return "\<Right>\<Right>"
+    elseif ending =~ '^\\right\\'
+        return "\<Esc>8la"
+    elseif ending =~ '^\\right'
+        return "\<Esc>7la"
+    elseif ending =~ '^}\(\^\|_\|\){'
+        return "\<Esc>f{a"
+    elseif ending[0] == '}'
+        if line =~ '\\label'
+        return "\<Down>"
+        else
+        return "\<Esc>f}a"
+        endif
+    elseif column == len    "You are at the end of the line.
+        call search("\\\\end\\|\\\\]")
+        return "\<Esc>o"
+    else
+        return "\<C-O>$"
+    endif
     else   " If you're not in a math environment.
-	" Thanks to Benoit Cerrina (modified)
-	if ending[0] =~ ')\|}'  " Go past right parentheses.
-	    return "\<Right>"
-	elseif !column || line[column - 1] !~ '\k'
-	    return "\<Tab>"
-	elseif a:direction == 'backward'
-	    return "\<C-P>"
-	else
-	    return "\<C-N>"
-	endif
+    " Thanks to Benoit Cerrina (modified)
+    if ending[0] =~ ')\|}'  " Go past right parentheses.
+        return "\<Right>"
+    elseif !column || line[column - 1] !~ '\k'
+        return "\<Tab>"
+    elseif a:direction == 'backward'
+        return "\<C-P>"
+    else
+        return "\<C-N>"
+    endif
 
     endif
 endfunction
@@ -230,23 +230,23 @@ endfunction
 " Inspired by RefTex
 function! s:RefInsertion(x)
     if a:x == "aux"
-	normal 0Wy$
+    normal 0Wy$
     else
-	normal 0y$
+    normal 0y$
     endif
     bwipeout!
     let thisline = getline('.')
     let thiscol  = col('.')
     if thisline[thiscol-1] == '{'
-	normal p
+    normal p
     else
-	normal P
-	if thisline[thiscol-1] == '}'
-	    normal l
-	    if thisline[thiscol] == ')'
-		normal l
-	    endif
-	endif
+    normal P
+    if thisline[thiscol-1] == '}'
+        normal l
+        if thisline[thiscol] == ')'
+        normal l
+        endif
+    endif
     endif
 endfunction
 
@@ -257,15 +257,15 @@ function! s:OldRefInsertion()
     let thisline = getline('.')
     let thiscol  = col('.')
     if thisline[thiscol-1] == '{'
-	normal p
+    normal p
     else
-	normal P
-	if thisline[thiscol-1] == '}'
-	    normal l
-	    if thisline[thiscol] == ')'
-		normal l
-	    endif
-	endif
+    normal P
+    if thisline[thiscol-1] == '}'
+        normal l
+        if thisline[thiscol] == ')'
+        normal l
+        endif
+    endif
     endif
 endfunction
 
@@ -275,23 +275,23 @@ function! s:CiteInsertion(x)
     +
     "if search('@','b') != 0
     if search(a:x, 'b') != 0
-	if a:x == "@"
-	    normal f{lyt,
-	else
-	    normal f{lyt}
-	endif
+    if a:x == "@"
+        normal f{lyt,
+    else
+        normal f{lyt}
+    endif
         bwipeout!
         let thisline = getline('.')
         let thiscol  = col('.')
         if thisline[thiscol-1] == '{'
-	    normal p
+        normal p
         else
-	    if thisline[thiscol-2] == '{'
-	         normal P
-	    else
-	         normal T{"_dt}P
-	    endif
-	    normal l
+        if thisline[thiscol-2] == '{'
+             normal P
+        else
+             normal T{"_dt}P
+        endif
+        normal l
         endif
     else
         bwipeout!
@@ -305,9 +305,9 @@ function! s:BibPrune(m)
         /@
         let lsecond = line('.')
         if lfirst < lsecond
-	    execute lfirst.','.(lsecond-1).'delete'
+        execute lfirst.','.(lsecond-1).'delete'
         else
-	    execute lfirst.',$delete'
+        execute lfirst.',$delete'
         endif
     endif
 endfunction
@@ -411,9 +411,9 @@ function! s:TexQuotes()
     let insert = b:rightquote
     let left = getline('.')[col('.')-2]
     if left =~ '^\(\|\s\)$'
-	let insert = b:leftquote
+    let insert = b:leftquote
     elseif left == '\'
-	let insert = '"'
+    let insert = '"'
     endif
     return insert
 endfunction
@@ -459,7 +459,7 @@ function! s:SubBracket()
     let insert = '_'
     let left = getline('.')[col('.')-2]
     if left == '_'
-	let insert = "{}\<Left>"
+    let insert = "{}\<Left>"
     endif
     return insert
 endfunction
@@ -470,7 +470,7 @@ function! s:SuperBracket()
     let insert = '^'
     let left = getline('.')[col('.')-2]
     if left == '^'
-	let insert = "{}\<Left>"
+    let insert = "{}\<Left>"
     endif
     return insert
 endfunction
@@ -504,9 +504,9 @@ inoremap <buffer><silent> ^ <C-R>=<SID>SuperBracket()<CR>
 " For () and $$
 function! s:Double(left,right)
     if strpart(getline('.'),col('.')-2,2) == a:left . a:right
-	return "\<Del>"
+    return "\<Del>"
     else
-	return a:left . a:right . "\<Left>"
+    return a:left . a:right . "\<Left>"
     endif
 endfunction
 
@@ -516,18 +516,18 @@ function! s:CompleteSlash(left,right)
     let first = getline('.')[column-2]
     let second = getline('.')[column-1]
     if first == "\\"
-	if a:left == '['
-	    return "\[\<CR>\<CR>\\]\<Up>"
-	else
-	    return a:left . "\\" . a:right . "\<Left>\<Left>"
-	endif
+    if a:left == '['
+        return "\[\<CR>\<CR>\\]\<Up>"
     else
-	if a:left =~ '\[\|{'
-	\ && strpart(getline('.'),col('.')-2,2) == a:left . a:right
-	    return "\<Del>"
+        return a:left . "\\" . a:right . "\<Left>\<Left>"
+    endif
+    else
+    if a:left =~ '\[\|{'
+    \ && strpart(getline('.'),col('.')-2,2) == a:left . a:right
+        return "\<Del>"
         else
             return a:left . a:right . "\<Left>"
-	endif
+    endif
     endif
 endfunction
 
@@ -536,18 +536,18 @@ function! s:DoubleAmpersands()
     let stop = 0
     let currentline = line('.')
     while stop == 0
-	let currentline = currentline - 1
-	let thisline = getline(currentline)
-	if thisline =~ '\\begin' || currentline == 0
-	    let stop = 1
-	endif
+    let currentline = currentline - 1
+    let thisline = getline(currentline)
+    if thisline =~ '\\begin' || currentline == 0
+        let stop = 1
+    endif
     endwhile
     if thisline =~ '\\begin{eqnarray\**}'
-	return "&&\<Left>"
+    return "&&\<Left>"
     elseif strpart(getline('.'),col('.')-2,2) == '&&'
-	return "\<Del>"
+    return "\<Del>"
     else
-	return '&'
+    return '&'
     endif
 endfunction
 
