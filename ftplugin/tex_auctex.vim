@@ -7,46 +7,12 @@
 " Explanation and Customization   {{{
 
 let b:AMSLatex = 1
-let b:DoubleDollars = 0
 " prefix for the "Greek letter" macros (For personal macros, it is ';')
 let mapleader = '`'
 
-" Set b:AMSLatex to 1 if you are using AMSlatex.  Otherwise, the program will 
-" attempt to automatically detect the line \usepackage{...amsmath...} 
-" (uncommented), which would indicate AMSlatex.  This is mainly for the 
-" function keys F1 - F5, which insert the most common environments, and 
-" C-F1 - C-F5, which change them.  See "Inserting and Changing Environments"
-" for information.
-" Set b:DoubleDollars to 1 if you use $$...$$ instead of \[...\]
-" With b:DoubleDollars = 1, C-F1 - C-F5 will not work in nested environments.
-
-" Auctex-style macros for Latex typing.
-" You will have to customize the functions RunLatex(), Xdvi(), 
-
-" Thanks to Peppe Guldberg for important suggestions.
-"
-" Please read the comments in the file for an explanation of all the features.
-" One of the main features is that the "mapleader" (set to "`" see above),
-" triggers a number of macros (see "Embrace the visual region" and 
-" "Greek letters".  For example, `a would result in \alpha.  
-" There are many other features;  read the file.
-
-" Vim commands to run latex and the dvi viewer.
-" Must be of the form "! ... % ..."
-" The following command may make xdvi automatically update.
-"let b:latex_command = "! xterm -bg ivory -fn 7x14 -e latex \\\\nonstopmode \\\\input\\{%\\}; cat %<.log"
-"let b:latex_command = "! xterm -e latex \\\\nonstopmode \\\\input\\{%\\}"
-let b:latex_command = "!latex \\\\nonstopmode \\\\input\\{%\\}"
-let b:dvi_viewer_command = "! xdvi -expert -s 6 -margins 2cm -geometry 750x950 %< &"
-"let b:dvi_viewer_command = "! kdvi %< &"
-
-" Switch to the directory of the tex file.  Thanks to Fritz Mehner.
-" This is useful for starting xdvi, or going to the next tex error.
-" autocmd BufEnter *.tex :cd %:p:h
-
-" If you are using Windows, modify b:latex_command above, and set 
-" b:windows below equal to 1
-let b:windows = 0
+" Set b:AMSLatex to 1 if you are using AMSlatex.  Otherwise, the program will
+" attempt to automatically detect the line \usepackage{...amsmath...}
+" (uncommented), which would indicate AMSlatex.
 
 " Select which quotes should be used
 let b:leftquote = "``"
@@ -58,19 +24,13 @@ endif
 
 " }}}
 " "========================================================================="
-" Mapping for Xdvi Search   {{{
-
-noremap <buffer> <C-LeftMouse> :execute "!xdvi -name -xdvi -sourceposition ".line(".").expand("%")." ".expand("%:r").".dvi"<CR><CR>
-
-" }}}
-" "========================================================================="
 " Tab key mapping   {{{
 " In a math environment, the tab key moves between {...} braces, or to the end
 " of the line or the end of the environment.  Otherwise, it does word
 " completion.  But if the previous character is a blank, or if you are at the
 " end of the line, you get a tab.  If the previous characters are \ref{
 " then a list of \label{...} completions are displayed.  Choose one by
-" clicking on it and pressing Enter.  q quits the display.  Ditto for 
+" clicking on it and pressing Enter.  q quits the display.  Ditto for
 " \cite{, except you get to choose from either the bibitem entries, if any,
 " or the bibtex file entries.
 " This was inspired by the emacs package Reftex.
@@ -79,7 +39,7 @@ inoremap <buffer><silent> <Tab> <C-R>=<SID>TexInsertTabWrapper('backward')<CR>
 inoremap <buffer><silent> <M-Space> <C-R>=<SID>TexInsertTabWrapper('backward')<CR>
 inoremap <buffer><silent> <C-Space> <C-R>=<SID>TexInsertTabWrapper('forward')<CR>
 
-function! s:TexInsertTabWrapper(direction) 
+function! s:TexInsertTabWrapper(direction)
 
     " Check to see if you're in a math environment.  Doesn't work for $$...$$.
     let line = getline('.')
@@ -124,7 +84,7 @@ function! s:TexInsertTabWrapper(direction)
 	    execute "below split ".tmp
 	    execute "0read ".aux
 	    g!/^\\newlabel{/delete
-	    g/.*/normal 3f{lyt}0Pf}D0f\cf{       
+	    g/.*/normal 3f{lyt}0Pf}D0f\cf{
 	    execute "write! ".tmp
 
 	    noremap <buffer> <LeftRelease> <LeftRelease>:call <SID>RefInsertion("aux")<CR>a
@@ -256,16 +216,16 @@ function! s:TexInsertTabWrapper(direction)
 	" Thanks to Benoit Cerrina (modified)
 	if ending[0] =~ ')\|}'  " Go past right parentheses.
 	    return "\<Right>"
-	elseif !column || line[column - 1] !~ '\k' 
-	    return "\<Tab>" 
+	elseif !column || line[column - 1] !~ '\k'
+	    return "\<Tab>"
 	elseif a:direction == 'backward'
-	    return "\<C-P>" 
-	else 
-	    return "\<C-N>" 
-	endif 
+	    return "\<C-P>"
+	else
+	    return "\<C-N>"
+	endif
 
     endif
-endfunction 
+endfunction
 
 " Inspired by RefTex
 function! s:RefInsertion(x)
@@ -354,169 +314,6 @@ endfunction
 
 " }}}
 " "========================================================================="
-" Run Latex, View, Ispell   {{{
-
-" Key Bindings  {{{
-
-" Run Latex;  change these bindings if you like.
-"noremap <buffer><silent> K :call <SID>RunLatex()<CR><Esc>
-"noremap <buffer><silent> <C-K> :call <SID>NextTexError()<CR>
-"noremap <buffer><silent> <S-Tab> :call <SID>NextTexError()<CR>
-"noremap <buffer><silent> <C-Tab> :call <SID>RunLatex()<CR><Esc>
-"inoremap <buffer><silent> <C-Tab> <C-O>:call <SID>RunLatex()<CR><Esc>
-
-noremap <buffer><silent> \lr :call <SID>CheckReferences('Reference', 'ref')<CR><Space>
-noremap <buffer><silent> \lc :call <SID>CheckReferences('Citation', 'cite')<CR><Space>
-noremap <buffer><silent> \lg :call <SID>LookAtLogFile()<CR>gg/LaTeX Warning\\|^!<CR>
-
-" Run the Latex viewer;  change these bindings if you like.
-"noremap <buffer><silent> <S-Esc> :call <SID>Xdvi()<CR><Space>
-"inoremap <buffer><silent> <S-Esc> <Esc>:call <SID>Xdvi()<CR><Space>
-
-" Run Ispell on either the buffer, or the visually selected word.
-"noremap <buffer><silent> <S-Insert> :w<CR>:!xterm -bg ivory -fn 10x20 -e ispell %<CR><Space>:e %<CR>:redraw<CR>:echo "No (more) spelling errors."<CR>
-"inoremap <buffer><silent> <S-Insert> <Esc>:w<CR>:!xterm -bg ivory -fn 10x20 -e ispell %<CR><Space>:e %<CR>:redraw<CR>:echo "No (more) spelling errors."<CR>
-"vnoremap <buffer><silent> <S-Insert> <C-C>`<v`>s<Space><Esc>mq<C-W>s:e ispell.tmp<CR>i<C-R>"<Esc>:w<CR>:!xterm -bg ivory -fn 10x20 -e ispell %<CR><CR>:e %<CR><CR>ggVG<Esc>`<v`>s<Esc>:bwipeout!<CR>:!rm ispell.tmp*<CR>`q"_s<C-R>"<Esc>:redraw<CR>:echo "No (more) spelling errors."<CR>
-
-" Run Ispell (Thanks the Charles Campbell)
-" The first set is for vim, the second set for gvim.
-"noremap <buffer> <S-Insert> :w<CR>:silent !ispell %<CR>:e %<CR><Space>
-"inoremap <buffer> <S-Insert> <Esc>:w<CR>:silent !ispell %<CR>:e %<CR><Space>
-"vnoremap <buffer> <S-Insert> <C-C>'<c'><Esc>:e ispell.tmp<CR>p:w<CR>:silent !ispell %<CR>:e %<CR><CR>ggddyG:bwipeout!<CR>:silent !rm ispell.tmp*<CR>pkdd
-"vnoremap <buffer> <S-Insert> <C-C>`<v`>s<Space><Esc>mq:e ispell.tmp<CR>i<C-R>"<Esc>:w<CR>:silent !ispell %<CR>:e %<CR><CR>ggVG<Esc>`<v`>s<Esc>:bwipeout!<CR>:!rm ispell.tmp*<CR>`q"_s<C-R>"<Esc>
-
-" Find Latex Errors
-" To find the tex error, first run Latex (see the 2 previous maps).
-" If there is an error, press "x" or "r" to stop the Tex processing.
-" Then press Shift-Tab to go to the position of the error.
-"noremap <buffer><silent> <S-Tab> :call <SID>NextTexError()<CR><Space>
-"inoremap <buffer><silent> <S-Tab> <Esc>:call <SID>NextTexError()<CR><Space>
-
-" }}}
-
-" Functions  {{{
-
-function! s:RunLatex()
-    update
-    execute 'silent ' . b:latex_command
-    if b:windows != 1
-	call <SID>NextTexError()
-    endif
-endfunction
-
-" Stop warnings, since the log file is modified externally and then 
-" read again.
-au BufRead *.log    set bufhidden=unload
-
-function! s:NextTexError()
-    silent only
-    let name = bufname(1)
-    let short = substitute(name, ".*/", "", "")
-    let log = strpart(short, 0, strlen(short)-3)."log"
-    execute "above split ".log
-    if search('^l\.\d') == 0
-        if search('LaTeX Warning: .* multiply') == 0
-	    bwipeout
-	    call input('No (More) Errors Found.')
-	else
-	    syntax clear
-	    syntax match err /^LaTeX Warning: .*/
-	    highlight link err ToDo
-
-	    if getline('.') =~ 'multiply'
-
-		let multiply = matchstr(getline('.'), 'Label .* multiply')
-		let multiply = strpart(multiply, 7, strlen(multiply)-17)
-		let command = "normal! \<C-W>w1G/\\label{" . multiply . "}\<CR>6l\<C-W>Kzz\<C-W>wzz\<C-W>w"
-	    else
-		let command = "normal! \<C-W>Kzz\<C-W>wzz\<C-W>w"
-	    endif
-
-	    execute command
-	endif
-    else
-	syntax clear
-	syntax match err /! .*/
-	syn match err /^ l\.\d.*\n.*$/
-	highlight link err ToDo
-	let linenumber = matchstr(getline('.'), '\d\+')
-	let errorposition = col('$') - strlen(linenumber) - 5
-	if errorposition < 1
-	    let command = 'normal! ' . linenumber . "Gzz\<C-W>wzz\<C-W>w"
-	else
-	    let command = 'normal! ' . linenumber . 'G' . errorposition . "lzz\<C-W>wzz\<C-W>w"
-	endif
-	    "Put a space in the .log file so that you can see where you were,
-	    "and move on to the next latex error.
-	s/^/ /
-	write
-	wincmd x
-	execute command
-    endif
-endfunction
-
-" Run xdvi
-function! s:Xdvi()
-    update
-    execute 'silent ' . b:latex_command
-    execute 'silent ' . b:latex_command
-    execute b:dvi_viewer_command 
-endfunction
-
-function! s:CheckReferences(name, ref)
-    "execute "noremap \<buffer> \<C-L> :call \<SID>CheckReferences(\"" . a:name . "\",\"" . a:ref . "\")\<CR>\<Space>"
-    only
-    edit +1 %<.log
-    syntax clear
-    syntax match err /LaTeX Warning/
-    highlight link err ToDo
-    if search('^LaTeX Warning: ' . a:name) == 0
-	edit #
-	redraw
-	call input('No (More) ' . a:name . ' Errors Found.')
-    else
-	let linenumber = matchstr(getline('.'), '\d\+\.$')
-	let linenumber = strpart(linenumber, 0, strlen(linenumber)-1)
-	let reference = matchstr(getline('.'), "`.*\'")
-	let reference = strpart(reference, 1, strlen(reference)-2)
-	    "Put a space in the .log file so that you can see where you were,
-	    "and move on to the next latex error.
-	s/^/ /
-	write
-	split #
-	execute "normal! " . linenumber . "Gzz\<C-W>wzz\<C-W>w"
-	execute "normal! /\\\\" . a:ref . "{" . reference . "}\<CR>"
-	execute "normal! /" . reference . "\<CR>"
-    endif
-endfunction
-
-function! s:LookAtLogFile()
-    only
-    edit +1 %<.log
-    syntax clear
-    syntax match err /LaTeX Warning/
-    syntax match err /! .*/
-    syntax match err /^Overfull/
-    syntax match err /^Underfull/
-    highlight link err ToDo
-    noremap <buffer> K :call <SID>GetLineFromLogFile()<CR>
-    split #
-    wincmd b
-    /LaTeX Warning\|^\s*!\|^Overfull\|^Underfull
-    let @/='LaTeX Warning\|^\s*!\|^Overfull\|^Underfull'
-    echo "\nGo to the line in the log file which mentions the error\nthen type K to go to the line\nn to go to the next warning\n"
-endfunction
-
-function! s:GetLineFromLogFile()
-    let line = matchstr(getline('.'), 'line \d\+')
-    wincmd t
-    execute strpart(line, 5, strlen(line)-5)
-endfunction
-
-" }}}
-
-" }}}
-" "========================================================================="
 " Greek letters, AucTex style bindings   {{{
 
 " No timeout.  Applies to mappings such as `a for \alpha
@@ -585,6 +382,8 @@ inoremap <buffer> <Leader>- \bigcap
 inoremap <buffer> <Leader>+ \bigcup
 inoremap <buffer> <Leader>( \left(  \right)<++><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left>
 inoremap <buffer> <Leader>[ \left[  \right]<++><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left>
+inoremap <buffer> <C-L>e \emph{}<Left>
+nmap <silent> <buffer> \e ysiwf\emph{<CR>
 inoremap <buffer> {} {}<Left>
 inoremap <buffer> () ()<Left>
 inoremap <buffer> $$ $$<Left>
@@ -693,7 +492,7 @@ inoremap <buffer><silent> ^ <C-R>=<SID>SuperBracket()<CR>
 "inoremap <buffer><silent> { <C-R>=<SID>CompleteSlash('{','}')<CR>
 "inoremap <buffer><silent> \| <C-R>=<SID>CompleteSlash("\|","\|")<CR>
 
-" If you would rather insert $$ individually, the following macro by 
+" If you would rather insert $$ individually, the following macro by
 " Charles Campbell will make the cursor blink on the previous dollar sign,
 " if it is in the same line.
 " inoremap <buffer> $ $<C-O>F$<C-O>:redraw!<CR><C-O>:sleep 500m<CR><C-O>f$<Right>
@@ -753,28 +552,6 @@ function! s:DoubleAmpersands()
 endfunction
 
 " }}}
-
-" }}}
-" "========================================================================="
-" Menus   {{{
-
-" Menus for running Latex, etc.
-nnoremenu 50.401 Latex.run\ latex\ \ \ \ Control-Tab :w<CR>:silent ! xterm -bg ivory -fn 7x14 -e latex % &<CR>
-inoremenu 50.401 Latex.run\ latex\ \ \ \ Control-Tab <Esc>:w<CR>:silent ! xterm -bg ivory -fn 7x14 -e latex % &<CR>
-nnoremenu 50.402 Latex.next\ math\ error\ \ \ Shift-Tab :call <SID>NextTexError()<CR><Space>
-inoremenu 50.402 Latex.next\ math\ error\ \ \ Shift-Tab <Esc>:call <SID>NextTexError()<CR><Space>
-nnoremenu 50.403 Latex.next\ ref\ error :call <SID>CheckReferences('Reference', 'ref')<CR><Space>
-inoremenu 50.403 Latex.next\ ref\ error <Esc>:call <SID>CheckReferences('Reference', 'ref')<CR><Space>
-nnoremenu 50.404 Latex.next\ cite\ error :call <SID>CheckReferences('Citation', 'cite')<CR><Space>
-inoremenu 50.404 Latex.next\ cite\ error <Esc>:call <SID>CheckReferences('Citation', 'cite')<CR><Space>
-nnoremenu 50.405 Latex.view\ log\ file :call <SID>LookAtLogFile()<CR>
-inoremenu 50.405 Latex.view\ log\ file <Esc>:call <SID>LookAtLogFile()<CR>
-nnoremenu 50.406 Latex.view\ dvi\ \ \ \ \ Alt-Tab :call <SID>Xdvi()<CR><Space>
-inoremenu 50.406 Latex.view\ dvi\ \ \ \ \ Alt-Tab <Esc>:call <SID>Xdvi()<CR><Space>
-nnoremenu 50.407 Latex.run\ ispell\ \ \ Shift-Ins :w<CR>:silent ! xterm -bg ivory -fn 10x20 -e ispell %<CR>:e %<CR><Space>
-inoremenu 50.407 Latex.run\ ispell\ \ \ Shift-Ins <Esc>:w<CR>:silent ! xterm -bg ivory -fn 10x20 -e ispell %<CR>:e %<CR><Space>
-"nnoremenu 50.405 Latex.run\ engspchk :so .Vim/engspchk.vim<CR>
-"inoremenu 50.405 Latex.run\ engspchk <C-O>:so .Vim/engspchk.vim<CR>
 
 " }}}
 " "========================================================================="
