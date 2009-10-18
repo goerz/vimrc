@@ -55,16 +55,13 @@ function s:ListSnippets() "{{{1
 	endif
 	if len(s:GetSnippetDirs("")) == 0
 		call s:Warn("No snippets available")
-		return
 	endif
 	let filetype = s:GetFiletype()
 	if len(filetype) == 0
 		call s:Warn("No filetype entered")
-		return
 	endif
 	if !s:HasFiletype(filetype)
 		call s:Warn("Filetype '".filetype."' does not exist")
-		return
 	endif
 	let snippet_files = s:GetSnippetFiles(filetype, "")
 	if len(snippet_files) == 0
@@ -81,11 +78,9 @@ function s:PutSnippet(offset) range "{{{1
 	let filetype = s:GetFiletype()
 	if len(filetype) == 0
 		call s:Warn("No filetype entered")
-		return
 	endif
 	if !s:HasFiletype(filetype)
 		call s:Warn("Filetype '".filetype."' does not exist")
-		return
 	endif
 	let snippet_files = s:GetSnippetFiles(filetype, "")
 	if len(snippet_files) == 0

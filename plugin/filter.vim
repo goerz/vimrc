@@ -18,6 +18,9 @@ endif
 let s:filter_filetype = ""
 
 " Mappings {{{
+nmap <silent> <unique> <leader>f :Filter<Enter>
+imap <silent> <unique> <C-L>f :Filter<Enter>
+
 nnoremap <unique> <script> <Plug>FiltersListFilters  <SID>ListFilters
 
 nnoremap <SID>ListFilters  :ListFilters<cr>
@@ -45,12 +48,10 @@ function s:ListFilters() "{{{1
 	endif
 	if !s:HasFiletype(filetype)
 		call s:Warn("Filetype '".filetype."' does not exist")
-		return
 	endif
 	let filter_files = s:GetFilterFiles(filetype, "")
 	if len(filter_files) == 0
 		call s:Warn("No filters for filetype '".filetype."'")
-		return
 	endif
 	echo join(s:GetFilterNames(filter_files), "\n")
 endfunction
@@ -62,16 +63,13 @@ function s:Filter() range "{{{1
 	let filetype = s:GetFiletype()
 	if len(filetype) == 0
 		call s:Warn("No filetype entered")
-		return
 	endif
 	if !s:HasFiletype(filetype)
 		call s:Warn("Filetype '".filetype."' does not exist")
-		return
 	endif
 	let filter_files = s:GetFilterFiles(filetype, "")
 	if len(filter_files) == 0
 		call s:Warn("No filters for filetype '".filetype."'")
-		return
 	endif
 	let filter_names = s:GetFilterNames(filter_files)
 	let name = s:GetFilter(filetype)
