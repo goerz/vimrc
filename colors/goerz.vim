@@ -44,7 +44,7 @@ if has("gui_running")
     hi Folded           gui=none       guifg=#000087   guibg=#ffffff
     hi Identifier       gui=none       guifg=#005f87
     hi Ignore           gui=none       guifg=#e5e5e5
-    hi IncSearch        gui=bold
+    hi IncSearch        gui=bold       guifg=#000000   guibg=#ffff00
     hi Label            gui=bold       guifg=#000087
     hi lCursor          gui=none       guifg=#000000   guibg=#00ffff
     hi MatchParen       gui=none                       guibg=#cdcd00
@@ -109,7 +109,7 @@ else
         hi Folded           cterm=none       ctermfg=18   ctermbg=15
         hi Identifier       cterm=none       ctermfg=24
         hi Ignore           cterm=none       ctermfg=7
-        hi IncSearch        cterm=bold
+        hi IncSearch        cterm=bold       ctermfg=0    ctermbg=11
         hi Label            cterm=bold       ctermfg=18
         hi lCursor          cterm=none       ctermfg=0    ctermbg=14
         hi MatchParen       cterm=none                    ctermbg=3
@@ -173,7 +173,7 @@ else
         hi Folded           cterm=none       ctermfg=18   ctermbg=15
         hi Identifier       cterm=none       ctermfg=22
         hi Ignore           cterm=none       ctermfg=7
-        hi IncSearch        cterm=bold
+        hi IncSearch        cterm=bold       ctermfg=0    ctermbg=11
         hi Label            cterm=bold       ctermfg=18
         hi lCursor          cterm=none       ctermfg=0    ctermbg=14
         hi MatchParen       cterm=none                    ctermbg=3
