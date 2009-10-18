@@ -138,5 +138,5 @@ def FortranFold():
 
     if debug: log.close()
 EOF
-command -bar -range FortranFold :<line1>,<line2> python FortranFold()
+command! -bar -range FortranFold :<line1>,<line2> python FortranFold()
 endif
