@@ -22,13 +22,13 @@ nnoremap <Leader>gd :GitDiff<Enter>
 nnoremap <Leader>gD :GitDiff --cached<Enter>
 nnoremap <Leader>gs :GitStatus<Enter>
 nnoremap <Leader>gl :GitLog<Enter>
+nnoremap <Leader>gL :Git log --all --graph --decorate<Enter>
 nnoremap <Leader>ga :GitAdd %<Enter>
 nnoremap <Leader>gA :GitCommit --amend<Enter>
 nnoremap <Leader>gc :GitCommit<Enter>
 nnoremap <Leader>gC :GitCommit -a<Enter>
-nnoremap <Leader>gp :GitPullRebase<Enter>
-nnoremap <Leader>gg :GitGrep -e '<C-R>=getreg('/')<Enter>'<Enter>
-
+nnoremap <Leader>gb :GitBlame<Enter>
+nnoremap <Leader>gp :GitPull<Enter>
 
 
 " Ensure b:git_dir exists.

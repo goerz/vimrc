@@ -63,10 +63,12 @@ All mappings use <Leader> to avoid conflicts with default commands.  See
 <Leader>gD		:GitDiff --cached
 <Leader>gs		:GitStatus
 <Leader>gl		:GitLog
-<Leader>ga		:GitAdd
-<Leader>gA		:GitAdd
+<Leader>gL		:GitLog --all --graph --decorate
+<Leader>ga		:GitAdd %
 <Leader>gc		:GitCommit
-<Leader>gp		:GitPullRebase
+<Leader>gC		:GitCommit -a
+<Leader>gA		:GitCommit --amend
+<Leader>gp		:GitPull
 
 ==============================================================================
  vim:tw=78:ts=8:ft=help:norl:noexpandtab
