@@ -382,8 +382,12 @@ inoremap <buffer> <Leader>- \bigcap
 inoremap <buffer> <Leader>+ \bigcup
 inoremap <buffer> <Leader>( \left(  \right)<++><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left>
 inoremap <buffer> <Leader>[ \left[  \right]<++><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left>
-inoremap <buffer> <C-L>e \emph{}<Left>
+imap <buffer> <C-L>o \op{}
+nmap <silent> <buffer> \o ysiwf\op{<CR>
+vmap <silent> <buffer> \o sf\op{<CR>
+imap <buffer> <C-L>e \emph{}
 nmap <silent> <buffer> \e ysiwf\emph{<CR>
+vmap <silent> <buffer> \e sf\emph{<CR>
 inoremap <buffer> {} {}<Left>
 inoremap <buffer> () ()<Left>
 inoremap <buffer> $$ $$<Left>
