@@ -1,7 +1,10 @@
 " Filename:      filter.vim
 " Description:   Simple filter storage and retrieval separated by filetype
 " Maintainer:    Michael Goerz <goerz@physik.fu-berlin.de>
-" Last Modified: Wed 10/14/09 16:16:11 CEST
+" Attribution: This script was started based on  Jeremy Cantrell's snippets
+" plugin (http://www.vim.org/scripts/script.php?script_id=2152) and shares a
+" lot of code with it.
+" Last Modified: Sat 10/24/09 20:53:50 CEST
 
 if exists('loaded_filter')
 	finish
@@ -73,6 +76,12 @@ function s:Filter() range "{{{1
 	endif
 	let filter_names = s:GetFilterNames(filter_files)
 	let name = s:GetFilter(filetype)
+    let params = ''
+    let sep = stridx(name, ' ')
+    if sep > 0
+        let params = strpart(name, sep)
+        let name = strpart(name, 0, sep)
+    endif
 	if len(name) == 0
 		call s:Warn("No filter name entered")
 		return
@@ -85,7 +94,11 @@ function s:Filter() range "{{{1
 	if strlen(filter_file) == 0
 		return
 	endif
-    execute a:firstline.','.a:lastline.'!'.filter_file
+    if params == ''
+        execute a:firstline.','.a:lastline.'!'.filter_file
+    else
+        execute a:firstline.','.a:lastline.'!'.filter_file.' '.params
+    endif
 endfunction
 
 function s:InitFilters() "{{{1
