@@ -1,7 +1,14 @@
 " Filename:      snippets.vim
 " Description:   Simple snippet storage and retrieval separated by filetype
-" Maintainer:    Jeremy Cantrell <jmcantrell@gmail.com>
-" Last Modified: Sat 2008-02-23 01:49:16 (-0500)
+" Maintainer:    Original: Jeremy Cantrell <jmcantrell@gmail.com>
+"                Modified: Michael Goerz <goerz@gmail.com>
+" Last Modified: Sun 10/25/09 16:18:40 CET
+"
+" Usage: 'InsertSnippet' inserts a snippet and sets the cursor to the end of
+" the snippet. 'AppendSnippet' inserts a snippet and leavs the cursor at the
+" current position (before the snippet). A snippet is always inserted beneath
+" the current line, except when the current line is empty, in which case the
+" snippet is inserted *at* the current line.
 
 if exists('loaded_snippets')
 	finish
@@ -40,8 +47,8 @@ nnoremap <SID>AppendSnippet :AppendSnippet<cr>
 nnoremap <SID>InsertSnippet :InsertSnippet<cr>
 nnoremap <SID>ListSnippets  :ListSnippets<cr>
 
-command -bar -range AppendSnippet :<line1>,<line2>call s:PutSnippet(0)
-command -bar -range InsertSnippet :<line1>,<line2>call s:PutSnippet(-1)
+command -bar -range AppendSnippet :<line1>,<line2>call s:PutSnippet(0, 0)
+command -bar -range InsertSnippet :<line1>,<line2>call s:PutSnippet(0, 1)
 command -bar ListSnippets  :call s:ListSnippets()
 "}}}
 
@@ -71,7 +78,7 @@ function s:ListSnippets() "{{{1
 	echo join(s:GetSnippetNames(snippet_files), "\n")
 endfunction
 
-function s:PutSnippet(offset) range "{{{1
+function s:PutSnippet(offset, put_cursor_after) range "{{{1
 	if !s:InitSnippets()
 		return
 	endif
@@ -103,6 +110,17 @@ function s:PutSnippet(offset) range "{{{1
 	endif
 	let lines = readfile(snippet_file)
 	call append(a:firstline+a:offset, lines)
+    let inserted = len(lines)
+    if a:offset == 0
+        let line = getline(".")
+        if line == ''
+            execute ".delete"
+            let inserted = inserted-1
+        endif
+    endif
+    if a:put_cursor_after == 1
+        call cursor(a:firstline+inserted, 0)
+    endif
 endfunction
 
 function s:AddSnippet() range "{{{1
