@@ -341,7 +341,7 @@ inoremap <buffer> <Leader>s \sigma
 inoremap <buffer> <Leader>t \tau
 inoremap <buffer> <Leader>u \upsilon
 inoremap <buffer> <Leader>v \vee
-inoremap <buffer> <Leader>w \wedge
+inoremap <buffer> <Leader>w \omega
 inoremap <buffer> <Leader>x \xi
 inoremap <buffer> <Leader>y \psi
 inoremap <buffer> <Leader>z \zeta
