@@ -386,6 +386,7 @@ imap <buffer> <C-L>o \op{}
 nmap <silent> <buffer> \o ysiwf\op{<CR>
 vmap <silent> <buffer> \o sf\op{<CR>
 imap <buffer> <C-L>e \emph{}
+imap <buffer> <C-L>t \text{}
 nmap <silent> <buffer> \e ysiwf\emph{<CR>
 vmap <silent> <buffer> \e sf\emph{<CR>
 inoremap <buffer> {} {}<Left>
