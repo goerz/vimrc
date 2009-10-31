@@ -1,7 +1,7 @@
 *git-cheat.txt*          Git Cheat Sheet for Vim
 
 Author :  Michael Goerz  <goerz@physik.fu-berlin.de>
-Version: Version 2.1  08/19/09
+Version: Version 2.2  10/31/09
 Based on http://cheat.errtheblog.com/s/git
 
 *git-cheat*
@@ -20,13 +20,12 @@ Based on http://cheat.errtheblog.com/s/git
 12. Sharing                  |git-share|
 13. Reverting                |git-revert|
 14. Fix mistakes / Undo      |git-undo|
-15. Plumbing                 |git-plumbing|
-16. Stashing                 |git-stashing|
-17. Remotes                  |git-remote|
-18. Submodules               |git-submodule|
-19. Git Instaweb             |git-instaweb|
-20. Environment Variables    |git-envvar|
-21. Git SVN                  |git-svn|
+15. Stashing                 |git-stashing|
+16. Remotes                  |git-remote|
+17. Submodules               |git-submodule|
+18. Git Instaweb             |git-instaweb|
+19. Environment Variables    |git-envvar|
+20. Git SVN                  |git-svn|
 
 
 ==============================================================================
@@ -38,7 +37,6 @@ git clone <repo>                                        *git-clone*
 
 git init                                                *git-init*
   Turn current folder into repository
-
 
 
 ==============================================================================
@@ -64,42 +62,6 @@ git config core.autocrlf true
 You can add "--global" after "git config" to any of these commands to make it
 apply to all git repos (writes to ~/.gitconfig).
 
-Add colors to your ~/.gitconfig file:
-
-  [color]
-    ui = auto
-  [color "branch"]
-    current = yellow reverse
-    local = yellow
-    remote = green
-  [color "diff"]
-    meta = yellow bold
-    frag = magenta bold
-    old = red bold
-    new = green bold
-  [color "status"]
-    added = yellow
-    changed = green
-    untracked = cyan
-
-Highlight whitespace in diffs
-
-  [color]
-    ui = true
-  [color "diff"]
-    whitespace = red reverse
-  [core]
-    whitespace=fix,-indent-with-non-tab,trailing-space,cr-at-eol
-
-Add aliases to your ~/.gitconfig file:
-
-  [alias]
-    st = status
-    ci = commit
-    br = branch
-    co = checkout
-    df = diff
-    lg = log -p
 
 ==============================================================================
 3. Info                                                 *git-info*
@@ -175,17 +137,14 @@ git rm --cached <file1> <file2> ...
 5. Staging                                              *git-stage*
 
 git add <file1> <file2> ...
-git stage <file1> <file2> ...
   add changes in <file1>, <file2> ... to the staging area (to be included in
   the next commit
 
 git add -p
-git stage --patch
   interactively walk through the current changes (hunks) in the working
   tree, and decide which changes to add to the staging area.
 
 git add -i
-git stage --interactive
   interactively add files/changes to the staging area. For a simpler
   mode (no menu), try `git add --patch` (above)
 
@@ -374,15 +333,7 @@ git commit --amend
 
 
 ==============================================================================
-15. Plumbing                                            *git-plumbing*
-
-test <sha1-A> = $(git merge-base <sha1-A> <sha1-B>)
-  determine if merging sha1-B into sha1-A is achievable as a fast forward;
-  non-zero exit status is false.
-
-
-==============================================================================
-16. Stashing                                            *git-stashing*
+15. Stashing                                            *git-stashing*
 
 git stash save <optional-name>
   save your local modifications to a new stash (so you can for example
@@ -413,7 +364,7 @@ git stash clear
 
 
 ==============================================================================
-17. Remotes                                             *git-remote*
+16. Remotes                                             *git-remote*
 
 git remote add <remote> <remote_URL>
   adds a remote repository to your git config.  Can be then fetched locally.
@@ -437,7 +388,7 @@ git remote prune <remote>
 
 
 ==============================================================================
-18. Submodules                                          *git-submodule*
+17. Submodules                                          *git-submodule*
 
 git submodule add <remote_repository> <path/to/submodule>
   add the given repository at the given path. The addition will be part of the
@@ -459,13 +410,13 @@ Remove submodules
 
 
 ==============================================================================
-19. Git Instaweb                                        *git-instaweb*
+18. Git Instaweb                                        *git-instaweb*
 
 git instaweb --httpd=webrick [--start | --stop | --restart]
 
 
 ==============================================================================
-20. Environment Variables                               *git-envvar*
+19. Environment Variables                               *git-envvar*
 
 GIT_AUTHOR_NAME, GIT_COMMITTER_NAME
   Your full name to be recorded in any newly created commits.  Overrides
@@ -477,7 +428,7 @@ GIT_AUTHOR_EMAIL, GIT_COMMITTER_EMAIL
 
 
 ==============================================================================
-21. Git SVN                                             *git-svn*
+20. Git SVN                                             *git-svn*
 
 git-svn clone http://svn.foo.org/project/trunk          *git-svn-clone*
   Clone a repo (like git clone):
