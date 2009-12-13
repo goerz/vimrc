@@ -1,20 +1,13 @@
-class Usage(Exception):
-    def __init__(self, msg):
-        self.msg = msg
-
 def main(argv=None):
     if argv is None:
         argv = sys.argv
-    try:
-        try:
-            opts, args = getopt.getopt(argv[1:], "h", ["help"])
-        except getopt.error, msg:
-             raise Usage(msg)
-        # more code, unchanged
-    except Usage, err:
-        print >>sys.stderr, err.msg
-        print >>sys.stderr, "for help use --help"
-        return 2
+        arg_parser = OptionParser(
+        usage = "",
+        description = __doc__)
+        arg_parser.add_option(
+          '--test', action='store_true', dest='test',
+          default=False, help="Test something")
+        options, args = arg_parser.parse_args(argv)
 
 if __name__ == "__main__":
     sys.exit(main())
