@@ -6,7 +6,7 @@ use strict;
 # addition, the first (comment) line of each block is used as a title
 
 foreach my $line (<STDIN>){
-    if ($line =~ /^plot "([^"]+)" (.*) index \d (.*)$/){
+    if ($line =~ /^plot "([^"]+)"(.*) index \d(.*)$/){
         chomp($line);
         my $filename = $1;
         my $before = $2;
@@ -39,5 +39,6 @@ foreach my $line (<STDIN>){
 
     } else {
         print $line;
+        print "NOT RECOGNIZED\n";
     }
 }
