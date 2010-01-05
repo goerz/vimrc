@@ -383,6 +383,7 @@ inoremap <buffer> <Leader>+ \bigcup
 inoremap <buffer> <Leader>( \left(  \right)<++><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left>
 inoremap <buffer> <Leader>[ \left[  \right]<++><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left>
 imap <buffer> <C-L>o \op{}
+imap <buffer> <C-L>k \ket{}
 nmap <silent> <buffer> \o ysiwf\op{<CR>
 vmap <silent> <buffer> \o sf\op{<CR>
 imap <buffer> <C-L>e \emph{}
