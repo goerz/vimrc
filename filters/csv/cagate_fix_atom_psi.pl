@@ -5,7 +5,12 @@ my $usage="fix_atomic_prop_psi.pl DATFILE\n";
 
 if (@ARGV >= 1){
     my $datfile = $ARGV[0];
-    open(STDIN, $datfile) or die("Couldn't open $datfile\n");
+    if (-e "$datfile~") {
+        die("$datfile~ already exists\n");
+    }
+    system("cp $datfile $datfile~");
+    open(STDIN, "$datfile~") or die("Couldn't open $datfile~\n");
+    open(STDOUT, ">$datfile") or die("Couldn't open $datfile\n");
 }
 
 print "#       time[au]            Re[Psi]             Im[Psi]            |Psi|^2              phase             population\n";
