@@ -145,5 +145,5 @@ def LatexFold():
 
     if debug: log.close()
 EOF
-command -bar -range LatexFold :<line1>,<line2> python LatexFold()
+command! -bar -range LatexFold :<line1>,<line2> python LatexFold()
 endif
