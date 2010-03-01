@@ -69,7 +69,13 @@ function! s:TexInsertTabWrapper(direction)
     " \cite{c.*mo<Tab>} will show articles by Mueller and Moolinar, for example.
     " Once the citation is shown, you type <CR> anywhere within the citation.
     " The bibtex files listed in \bibliography{} are the ones shown.
-    if strpart(line,column-5,5) == '\ref{'
+    if match(strpart(line,0,column),'\\ref{[^}]*$') != -1
+        let m = matchstr(strpart(line,0,column),'[^{]*$')
+        if strpart(line,column,1) == '}'
+            normal dF{i{
+        else
+            normal dF{a{
+        endif
         let name = bufname(1)
         let short = substitute(name, ".*/", "", "")
         let tmp = tempname()
@@ -78,16 +84,24 @@ function! s:TexInsertTabWrapper(direction)
         g!/^\\newlabel{/delete
         %s/}.*//g
         %s/.*{//g
-        execute "%!sort -u"
+        execute "% sort u"
+        if m != ''
+            execute "% g!/".m."/delete"
+        endif
         execute 0 "s/^/% press 'q' to close, 'f' to filter/"
         execute "write! ".tmp
         noremap <buffer> <LeftRelease> <LeftRelease>:call <SID>RefInsertion()<CR>a
         noremap <buffer> <CR> :call <SID>RefInsertion()<CR>a
-        noremap <buffer> q :bwipeout!<CR>i
+        noremap <buffer> q :bwipeout!<CR>a
         noremap <buffer> f :% ! ack
         return "\<Esc>"
     elseif match(strpart(line,0,column),'\\cite[tp*]*{[^}]*$') != -1
         let m = matchstr(strpart(line,0,column),'[^{]*$')
+        if strpart(line,column,1) == '}'
+            normal dF{i{
+        else
+            normal dF{a{
+        endif
         let tmp = tempname()
             execute "write! ".tmp
             execute "split ".tmp
@@ -154,9 +168,15 @@ function! s:TexInsertTabWrapper(direction)
                 if strlen(m) != 0
                     %g/author\c/call <SID>BibPrune(m)
                 endif
+                execute "g/^%/delete"
+                normal gg
+                while getline('.') == ""
+                    normal dd
+                endwhile
+                execute 0 "s/^/% press 'q' to close/"
                 noremap <buffer> <LeftRelease> <LeftRelease>:call <SID>CiteInsertion("@")<CR>a
                 noremap <buffer> <CR> :call <SID>CiteInsertion("@")<CR>a
-                noremap \<buffer> q :bwipeout!<CR>i
+                noremap <buffer> q :bwipeout!<CR>a
                 return "\<Esc>"
             else
                 bwipeout!
@@ -201,16 +221,11 @@ function! s:RefInsertion()
     let thisline = getline('.')
     let thiscol  = col('.')
     if thisline[thiscol-1] == '{'
-    normal p
+        normal p
     else
-    normal P
-    if thisline[thiscol-1] == '}'
-        normal l
-        if thisline[thiscol] == ')'
-        normal l
-        endif
+        normal P
     endif
-    endif
+    normal f}
 endfunction
 
 " Inspired by RefTex
@@ -219,24 +234,25 @@ function! s:CiteInsertion(x)
     +
     "if search('@','b') != 0
     if search(a:x, 'b') != 0
-    if a:x == "@"
-        normal f{lyt,
-    else
-        normal f{lyt}
-    endif
+        if a:x == "@"
+            normal f{lyt,
+        else
+            normal f{lyt}
+        endif
         bwipeout!
         let thisline = getline('.')
         let thiscol  = col('.')
         if thisline[thiscol-1] == '{'
-        normal p
+            normal p
         else
-        if thisline[thiscol-2] == '{'
-             normal P
-        else
-             normal T{"_dt}P
+            if thisline[thiscol-2] == '{'
+                normal P
+            else
+                normal T{"_dt}P
+            endif
+            normal l
         endif
         normal l
-        endif
     else
         bwipeout!
     endif
