@@ -86,7 +86,7 @@ function! s:TexInsertTabWrapper(direction)
         noremap <buffer> q :bwipeout!<CR>i
         noremap <buffer> f :% ! ack
         return "\<Esc>"
-    elseif match(strpart(line,0,column),'\\cite{[^}]*$') != -1
+    elseif match(strpart(line,0,column),'\\cite[tp*]*{[^}]*$') != -1
         let m = matchstr(strpart(line,0,column),'[^{]*$')
         let tmp = tempname()
             execute "write! ".tmp
@@ -105,50 +105,62 @@ function! s:TexInsertTabWrapper(direction)
             let l = search('\\bibliography{')
             bwipeout!
             if l == 0
-                return ''
+                let f = glob("*.bib")
             else
                 let s = getline(l)
                 let beginning = matchend(s, '\\bibliography{')
                 let ending = matchend(s, '}', beginning)
                 let f = strpart(s, beginning, ending-beginning-1)
-                let tmp = tempname()
-                execute "below split ".tmp
-                let file_exists = 0
+            endif
+            let tmp = tempname()
+            execute "below split ".tmp
+            let file_exists = 0
 
-                let name = bufname(1)
-                let base = substitute(name, "[^/]*$", "", "")
-                while f != ''
-                    let comma = match(f, ',[^,]*$')
-                    if comma == -1
-                        let file = base.f.'.bib'
-                        if filereadable(file)
-                            let file_exists = 1
-                            execute "0r ".file
-                        endif
-                        let f = ''
+            let name = bufname(1)
+            let base = substitute(name, "[^/]*$", "", "")
+            while f != ''
+                let comma = match(f, ',[^,]*$')
+                if comma == -1
+                    let file = base.f
+                    if filereadable(file)
+                        let file_exists = 1
+                        execute "0r ".file
                     else
-                        let file = strpart(f, comma+1)
-                        let file = base.file.'.bib'
+                        let file = file.'.bib'
                         if filereadable(file)
                             let file_exists = 1
                             execute "0r ".file
                         endif
-                        let f = strpart(f, 0, comma)
                     endif
-                endwhile
-
-                if file_exists == 1
-                    if strlen(m) != 0
-                        %g/author\c/call <SID>BibPrune(m)
-                    endif
-                    noremap <buffer> <LeftRelease> <LeftRelease>:call <SID>CiteInsertion("@")<CR>a
-                    noremap <buffer> <CR> :call <SID>CiteInsertion("@")<CR>a
-                    noremap \<buffer> q :bwipeout!<CR>i
-                    return "\<Esc>"
+                    let f = ''
                 else
-                    bwipeout!
-                    return ''
+                    let file = strpart(f, comma+1)
+                    let file = base.file
+                    if filereadable(file)
+                        let file_exists = 1
+                        execute "0r ".file
+                    else
+                        let file = file.'.bib'
+                        if filereadable(file)
+                            let file_exists = 1
+                            execute "0r ".file
+                        endif
+                    endif
+                    let f = strpart(f, 0, comma)
                 endif
+            endwhile
+
+            if file_exists == 1
+                if strlen(m) != 0
+                    %g/author\c/call <SID>BibPrune(m)
+                endif
+                noremap <buffer> <LeftRelease> <LeftRelease>:call <SID>CiteInsertion("@")<CR>a
+                noremap <buffer> <CR> :call <SID>CiteInsertion("@")<CR>a
+                noremap \<buffer> q :bwipeout!<CR>i
+                return "\<Esc>"
+            else
+                bwipeout!
+                return ''
             endif
         endif
     elseif dollar == 1   " If you're in a $..$ environment
