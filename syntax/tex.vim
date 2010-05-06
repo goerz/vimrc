@@ -2,22 +2,9 @@
 " Language:	TeX
 " Original Maintainer:	Dr. Charles E. Campbell, Jr. <NdrchipO@ScampbellPfamily.AbizM>
 " Modified by: Michael Goerz
-" Modification Date:	Mar 20, 2008
+" Modification Date:	Mar 20, 2010
 " Original Version:	37
 " Original URL:	http://mysite.verizon.net/astronaut/vim/index.html#vimlinks_syntax
-" Modifications: The modifications change the way the titles of sections,
-"     subsections, etc. are highlighted. I wanted to have the titles
-"     underlined, so that I can distinguish them more easily from the regular
-"     text.  To achieve this, I deleted the old patterns that split the
-"     document up into different zones, e.g. texSectionZone, and replaced them
-"     with patterns that only match the title. The normal text, which was
-"     formally in the zone, is now at the top level. To enable spell checking
-"     for it, I had to add 'syn spell toplevel' to the end of this document.
-"     My changes alter the structure of the whole syntax layout significantly,
-"     and will brake proper syntax folding. There may be other sideeffects.
-"     Use this file at your own risk. In addition to the change of title
-"     highlighting, I switched off spell checking in comments (I often comment
-"     out code, which is the seen as misspelled.
 "
 " Notes: {{{1
 "
@@ -421,12 +408,20 @@ else
 endif
 
 " Tex Reference Zones: {{{1
-" Modifications by Michael Goerz: add \url
 syn region texZone		matchgroup=texStatement start="@samp{"			end="}\|%stopzone\>"	contains=@texRefGroup
 syn region texRefZone		matchgroup=texStatement start="\\nocite{"		end="}\|%stopzone\>"	contains=@texRefGroup
 syn region texRefZone		matchgroup=texStatement start="\\bibliography{"		end="}\|%stopzone\>"	contains=@texRefGroup
 syn region texRefZone		matchgroup=texStatement start="\\label{"		end="}\|%stopzone\>"	contains=@texRefGroup
-syn region texRefZone		matchgroup=texStatement start="\\url{"	                end="}\|%stopzone\>"	contains=@texRefGroup
+syn region texRefZone		matchgroup=texStatement start="\\url{"			end="}\|%stopzone\>"	contains=@texRefGroup
+syn region texRefZone		matchgroup=texStatement start="\\Eq{"			end="}\|%stopzone\>"	contains=@texRefGroup
+syn region texRefZone		matchgroup=texStatement start="\\Eq\[\]{"		end="}\|%stopzone\>"	contains=@texRefGroup
+syn region texRefZone		matchgroup=texStatement start="\\Eqs{"			end="}\|%stopzone\>"	contains=@texRefGroup
+syn region texRefZone		matchgroup=texStatement start="\\Eqs\[\]{"		end="}\|%stopzone\>"	contains=@texRefGroup
+syn region texRefZone		matchgroup=texStatement start="\\Fig{"			end="}\|%stopzone\>"	contains=@texRefGroup
+syn region texRefZone		matchgroup=texStatement start="\\Fig\[\]{"		end="}\|%stopzone\>"	contains=@texRefGroup
+syn region texRefZone		matchgroup=texStatement start="\\Figs{" 		end="}\|%stopzone\>"	contains=@texRefGroup
+syn region texRefZone		matchgroup=texStatement start="\\Figs\[\]{"		end="}\|%stopzone\>"	contains=@texRefGroup
+syn region texRefZone		matchgroup=texStatement start="\\Table{"		end="}\|%stopzone\>"	contains=@texRefGroup
 syn region texRefZone		matchgroup=texStatement start="\\\(page\|eq\)ref{"	end="}\|%stopzone\>"	contains=@texRefGroup
 syn region texRefZone		matchgroup=texStatement start="\\v\=ref{"		end="}\|%stopzone\>"	contains=@texRefGroup
 syn match  texRefZone		'\\cite\%([tp]\*\=\)\=' nextgroup=texRefOption,texCite
