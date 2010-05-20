@@ -69,7 +69,11 @@ function! s:TexInsertTabWrapper(direction)
     " \cite{c.*mo<Tab>} will show articles by Mueller and Moolinar, for example.
     " Once the citation is shown, you type <CR> anywhere within the citation.
     " The bibtex files listed in \bibliography{} are the ones shown.
-    if match(strpart(line,0,column),'\\ref{[^}]*$') != -1
+    if (    match(strpart(line,0,column),'\\ref{[^}]*$')    != -1
+    \    || match(strpart(line,0,column),'\\Eq{[^}]*$')     != -1
+    \    || match(strpart(line,0,column),'\\Eqs{[^}]*$')    != -1
+    \    || match(strpart(line,0,column),'\\Fig{[^}]*$')    != -1
+    \    || match(strpart(line,0,column),'\\Table{[^}]*$')  != -1 )
         let m = matchstr(strpart(line,0,column),'[^{]*$')
         if strpart(line,column,1) == '}'
             normal dF{i{
@@ -168,6 +172,7 @@ function! s:TexInsertTabWrapper(direction)
                 if strlen(m) != 0
                     %g/author\c/call <SID>BibPrune(m)
                 endif
+                execute "g/^@string/delete"
                 execute "g/^%/delete"
                 normal gg
                 while getline('.') == ""
@@ -307,7 +312,7 @@ inoremap <buffer> <Leader>y \psi
 inoremap <buffer> <Leader>z \zeta
 inoremap <buffer> <Leader>D \Delta
 inoremap <buffer> <Leader>I \int\limits_{}^{}<Esc>F}i
-inoremap <buffer> <Leader>E \varepsilong
+inoremap <buffer> <Leader>E \varepsilon
 inoremap <buffer> <Leader>F \Phi
 inoremap <buffer> <Leader>G \Gamma
 inoremap <buffer> <Leader>G \varphi
@@ -324,9 +329,7 @@ inoremap <buffer> <Leader>U \Upsilon
 inoremap <buffer> <Leader>X \Xi
 inoremap <buffer> <Leader>Y \Psi
 inoremap <buffer> <Leader>0 \emptyset
-inoremap <buffer> <Leader>1 \left
-inoremap <buffer> <Leader>2 \right
-inoremap <buffer> <Leader>3 \Big
+inoremap <buffer> <Leader>1 \unity
 inoremap <buffer> <Leader>6 \difquo
 inoremap <buffer> <Leader>8 \infty
 inoremap <buffer> <Leader>/ \frac{}{}<Esc>F}i
@@ -343,7 +346,9 @@ inoremap <buffer> <Leader>+ \bigcup
 inoremap <buffer> <Leader>( \left(  \right)<++><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left>
 inoremap <buffer> <Leader>[ \left[  \right]<++><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left>
 imap <buffer> <C-L>o \op{}
+imap <buffer> <C-L>2 \sqrt{}
 imap <buffer> <C-L>k \ket{}
+imap <buffer> <C-L>v \vec{}
 nmap <silent> <buffer> \o ysiwf\op{<CR>
 vmap <silent> <buffer> \o sf\op{<CR>
 imap <buffer> <C-L>e \emph{}
