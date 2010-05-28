@@ -35,6 +35,15 @@ vnoremap <silent>k gk
 vnoremap <silent><Up> gk
 vnoremap <silent><Down> gj
 
+" windowing commands -- I prefer vertical splits
+" however, keep all CTRL-W CTRL-XX commands at the default!
+set splitright
+set splitbelow
+:map <c-w>f :vertical wincmd f<CR>
+:map <c-w>gf :vertical wincmd f<CR>
+:map <c-w>] :vertical wincmd ]<CR>
+:map <c-w>n :vnew<CR>
+
 
 " enable syntax highlighting
 syntax on
