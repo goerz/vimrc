@@ -50,6 +50,11 @@ if has("persistent_undo")
     au BufWritePre /tmp/* setlocal noundofile
 endif
 
+" indicate textwidth with color column
+if exists("+colorcolumn")
+    set colorcolumn=+1
+endif
+
 " enable syntax highlighting
 syntax on
 
