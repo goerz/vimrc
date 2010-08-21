@@ -46,6 +46,10 @@ Where “id” is the name of a defined image reference.
 
 [id]: url/to/image  "Optional title attribute"
 
+A link-image looks like this:
+
+[![alt text](/picture/pic.png "title")](http://some.url)
+
 
                                                         *markdown-blockquotes*
 
