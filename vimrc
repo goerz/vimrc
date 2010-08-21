@@ -46,6 +46,7 @@ set splitbelow
 
 " persistent undo
 if has("persistent_undo")
+    set undodir=~/.vim/undo/
     set undofile
     au BufWritePre /tmp/* setlocal noundofile
 endif
