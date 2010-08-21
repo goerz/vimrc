@@ -44,6 +44,11 @@ set splitbelow
 :map <c-w>] :vertical wincmd ]<CR>
 :map <c-w>n :vnew<CR>
 
+" persistent undo
+if has("persistent_undo")
+    set undofile
+    au BufWritePre /tmp/* setlocal noundofile
+endif
 
 " enable syntax highlighting
 syntax on
