@@ -26,7 +26,7 @@ function! Simplenote()
     nnoremap <buffer> <silent> <CR>
                 \ :call <SID>SimpleNote_OpenNote()<CR>
     nnoremap <buffer> <silent> q :bd<CR>
-    nnoremap <buffer> <silent> n
+    nnoremap <buffer> <silent> a
                 \ :call <SID>SimpleNote_NewFile()<CR>
     nnoremap <buffer> <silent> d
                 \ :call <SID>SimpleNote_DeleteNote()<CR>
