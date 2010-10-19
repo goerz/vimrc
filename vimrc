@@ -276,6 +276,7 @@ augroup filetype
   autocmd BufNewFile,BufRead */.Postponed/* set filetype=mail textwidth=71
   autocmd BufNewFile,BufRead *.txt set filetype=human
   autocmd BufNewFile,BufRead *.mail set filetype=mail
+  autocmd BufNewFile,BufRead Safari*Google*Mail*.txt set filetype=mail
   autocmd BufNewFile,BufRead *mailplane* set filetype=mail
   autocmd BufNewFile,BufRead *.wordpress set filetype=html
   autocmd BufNewFile,BufRead *.fionacms set filetype=html
