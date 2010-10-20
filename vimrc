@@ -200,6 +200,9 @@ if has("gui_running")
         noremap <silent> <leader>t :call MyTlistToggle()<CR><C-W>h
 endif
 
+" Gundo plugin
+nnoremap <silent> <leader>u :GundoToggle<CR>
+
 
 " Nerd_commenter plugin
 let g:NERDShutUp = 1
