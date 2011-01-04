@@ -1,9 +1,67 @@
 *markdown*               Reference Info for Markdown language
 
 Author :  Michael Goerz  <goerz@physik.fu-berlin.de>
-Based on http://warpedvisions.org/projects/markdown-cheat-sheet
 
-                                                             *markdown-header*
+
+==============================================================================
+Contents
+
+1. Standard Markdown Syntax
+
+   Headers                             |markdown-header|
+   Paragraphs                          |markdown-paragraph|
+   Links                               |markdown-links|
+   Inline Markup (italics, bold, code) |markdown-inline|
+   Pictures                            |markdown-pictures|
+   Block Quotes                        |markdown-blockquotes|
+   Lists                               |markdown-lists|
+   Code Blocks                         |markdown-code|
+   Manual Linebreaks                   |markdown-linebreaks|
+   Horizontal Rules                    |markdown-rules|
+
+2. Extensions defined in Multi-Markdown, Markdown Extra, _and_ Pandoc
+
+   Implicit Header ID                  |markdownextra-impl_header_id|
+   Footnotes                           |markdownextra-footnotes|
+   Definition Lists                    |markdownextra-definitionlists|
+   Markdown inside HTML                |markdownextra-html|
+
+3. Extensions defined _only_ in Markdown Extra
+
+   Explicit Header ID                  |markdownextra-header_id|
+   Fenced Code Blocks                  |markdownextra-fenced-code|
+   Abbreviations                       |markdownextra-abbr|
+   Tables                              |markdownextra-tables|
+
+4. Extensions defined _only_ in Multi-Markdown
+
+   Explicit Header ID                  |multimarkdown-header_id|
+   Anchor and Image Attributes         |multimarkdown-attributes|
+   Bibliography                        |multimarkdown-bibliography|
+   Tables                              |multimarkdown-tables|
+
+5. Extensions defined _only_ in Pandoc
+
+   Subscripts and Superscripts         |pandoc-subsuperscript|
+   Numbered Examples                   |pandoc-numexamples|
+   Tables                              |pandoc-tables|
+   Fenced Code Blocks                  |pandoc-fenced-code|
+   Images with Captions                |pandoc-images-captions|
+   Embedded LaTeX/ConTeXt              |pandoc-latex|
+
+
+
+==============================================================================
+1. Standard Markdown Syntax (cf http://daringfireball.net/)
+
+------------------------------------------------------------------------------
+Headers                                                      *markdown-header*
+
+Header 1
+========
+
+Header 2
+--------
 
 # Header 1 #
 ## Header 2 ##
@@ -11,16 +69,17 @@ Based on http://warpedvisions.org/projects/markdown-cheat-sheet
 #### Header 4 ####
 ##### Header 5 #####
 
-## Markdown plus h2 with a custom ID ##         {#id-goes-here}
-[Link back to H2](#id-goes-here)
 
-                                                          *markdown-paragraph*
+------------------------------------------------------------------------------
+Paragraphs                                                *markdown-paragraph*
 
 This is a paragraph, which is text surrounded by whitespace. 
 Paragraphs can be on one 
 line (or many), and can drone on for hours.  
 
-                                                              *markdown-links*
+
+------------------------------------------------------------------------------
+Links                                                         *markdown-links*
 
 This is [an example](http://example.com/ "Title") inline link.
 [This link](http://example.net/) has no title attribute.
@@ -31,12 +90,19 @@ This is an implicit link to [Google][]
 [id]: http://example.com/  "Optional Title Here"
 [Google]: http://google.com/
 
-                                                             *markdown-inline*
+You can also insert automatic links: <http://example.com/>, where the link text
+is identical with the link itself (generates mailto-links for email addresses).
+
+
+------------------------------------------------------------------------------
+Inline Markup (italic, bold, code)                           *markdown-inline*
 
 Now some inline markup like *italics*,  **bold**, and `code()`.
-Underscores in words are ignored in Markdown Extra.
+Instead of asterisks, you can also use underscores, but not inside of words.
 
-                                                           *markdown-pictures*
+
+------------------------------------------------------------------------------
+Pictures                                                   *markdown-pictures*
 
 ![picture alt](/images/photo.jpeg "Title is optional")     
 
@@ -51,12 +117,15 @@ A link-image looks like this:
 [![alt text](/picture/pic.png "title")](http://some.url)
 
 
-                                                        *markdown-blockquotes*
+------------------------------------------------------------------------------
+Block Quotes                                            *markdown-blockquotes*
 
 > Blockquotes are like quoted text in email replies
 >> And, they can be nested
 
-                                                              *markdown-lists*
+
+------------------------------------------------------------------------------
+Lists                                                         *markdown-lists*
 
 * Bullet lists are easy too
 - Another one
@@ -66,7 +135,72 @@ A link-image looks like this:
 2. Which is numbered
 3. With periods and a space
 
-## Markdown plus definition lists ##
+
+------------------------------------------------------------------------------
+Code Blocks                                                    *markdown-code*
+
+    // Code is just text indented by four spaces
+    which(is_easy) to_remember();
+
+
+------------------------------------------------------------------------------
+                                                         *markdown-linebreaks*
+
+Text with  
+two trailing spaces  
+(on the right)  
+can be used  
+for things like poems  
+
+
+------------------------------------------------------------------------------
+Inline HTML                                              *markdown-inlinehtml*
+
+If you embed HTML code in your document (no indent on first line!), it is left
+untouched by Markdown.
+
+<table>
+    <tr>
+        <td>Foo</td>
+    </tr>
+</table>
+
+Unlike block-level HTML tags, Markdown syntax is processed within span-level
+tags.
+
+
+------------------------------------------------------------------------------
+                                                              *markdown-rules*
+
+### Horizontal rules
+
+* * * *
+****
+--------------------------
+
+
+
+==============================================================================
+2. Extensions defined in Multi-Markdown, Markdown Extra, _and_ Pandoc
+
+------------------------------------------------------------------------------
+Implicit Header ID                              *markdownextra-impl_header_id*
+
+## Jumping Back to Headers ##
+
+All headers have an implicit ID based on their text.
+You can jump back to [the header](#jumpingbacktoheaders)
+
+
+------------------------------------------------------------------------------
+Footnotes                                            *markdownextra-footnotes*
+
+* footnotes[^foot]
+[^foot]: I really was missing those.
+
+
+------------------------------------------------------------------------------
+Definition Lists                               *markdownextra-definitionlists*
 
 Bottled water
 : $ 1.25
@@ -76,42 +210,15 @@ Milk
 Pop
 : $ 1.75
 
-* Multiple definitions and terms are possible
-* Definitions can include multiple paragraphs too
+- Multiple definitions and terms are possible
+- Definitions can include multiple paragraphs too
 
-                                                               *markdown-code*
-And now some code:
 
-    // Code is just text indented a bit
-    which(is_easy) to_remember();
+------------------------------------------------------------------------------
+Markdown inside HTML                                       *markdownextra-html*
 
-~~~
-
-// Markdown extra adds un-indented code blocks too
-
-if (this_is_more_code == true && !indented) {
-    // tild wrapped code blocks, also not indented
-}
-
-~~~
-
-                                                         *markdown-linebreaks*
-
-Text with  
-two trailing spaces  
-(on the right)  
-can be used  
-for things like poems  
-
-                                                              *markdown-rules*
-
-### Horizontal rules
-
-* * * *
-****
---------------------------
-
-                                                               *markdown-html*
+You can activate markdown processing inside HTML by putting a div with a
+markdown=1 attribute around the block.
 
 <div class="custom-class" markdown="1">
 This is a div wrapping some Markdown plus.  Without the DIV attribute, it
@@ -119,7 +226,53 @@ ignores the
 block. 
 </div>
 
-                                                             *markdown-tables*
+In Pandoc, markdown inside HTML is always active.
+
+
+
+==============================================================================
+3. Extensions defined _only_ in Markdown Extra                 *markdownextra*
+
+http://michelf.com/projects/php-markdown/extra/
+Maruku implements an extension of Markdown Extra
+
+
+------------------------------------------------------------------------------
+Explicit Header ID                                   *markdownextra-header_id*
+
+## Defining Headers ID's ##
+
+All headers have an implicit ID based on their text. Additionally you can
+define explicit header ID's.
+
+## Referencing header ID's ##           {#header2}
+
+You can got to [the first header](#definingheadersids) as well as the 
+[second header](#header2).
+
+
+------------------------------------------------------------------------------
+Fenced Code Blocks                                 *markdownextra-fenced-code*
+
+~~~
+
+// Markdown extra adds un-indented code blocks too
+
+if (this_is_more_code == true && !indented) {
+    // wrapped code blocks, also not indented
+}
+
+~~~
+
+
+------------------------------------------------------------------------------
+Abbreviations                                             *markdownextra-abbr*
+
+*[ABBR]: Markdown plus abbreviations (produces an <abbr> tag)
+
+
+------------------------------------------------------------------------------
+Tables                                                  *markdownextra-tables*
 
 ## Markdown plus tables ##
 
@@ -128,15 +281,178 @@ block.
 |  Cell  |  Cell  |   $10  |
 |  Cell  |  Cell  |   $20  |
 
-* Outer pipes on tables are optional
-* Colon used for alignment (right versus left)
+- Outer pipes on tables are optional
+- Colon used for alignment (right versus left)
 
 
-                                                               *markdown-abbr*
 
-*[ABBR]: Markdown plus abbreviations (produces an <abbr> tag)
+==============================================================================
+4. Extensions defined _only_ in Multi-Markdown                 *multimarkdown*
+
+Multi-Markdown Documentation is available at
+https://github.com/fletcher/MultiMarkdown/wiki/MultiMarkdown-Syntax-Guide
+
+Multi-Markdown is used in Notational Velocity
 
 
-                                                          *markdown-footnotes*
-* footnotes [^foot]
-[^foot]: I really was missing those.
+------------------------------------------------------------------------------
+Anchor and Image Attributes                         *multimarkdown-attributes*
+
+This is a formatted ![image][] and a [link][] with attributes.
+
+[image]: http://path.to/image "Image title" width=40px height=400px
+[link]:  http://path.to/link.html "Some Link" class=external
+         style="border: solid black 1px;"
+
+
+------------------------------------------------------------------------------
+Bibliography                                      *multimarkdown-bibliography*
+
+This is a statement that should be attributed to
+its source[p. 23][#Doe:2006].
+
+And following is the description of the reference to be
+used in the bibliography.
+
+[#Doe:2006]: John Doe. *Some Big Fancy Book*.  Vanity Press, 2006.
+
+
+------------------------------------------------------------------------------
+Tables                                                  *multimarkdown-tables*
+
+Multi-Markdown tables are an extension of Markdown Extra Tables
+
+
+|             |          Grouping           ||
+First Header  | Second Header | Third Header |
+ ------------ | :-----------: | -----------: |
+Content       |          *Long Cell*        ||
+Content       |   **Cell**    |         Cell |
+
+New section   |     More      |         Data |
+And more      |            And more          |
+[Prototype table]
+
+- Captions are optional
+
+
+
+==============================================================================
+5. Extensions defined _only_ in Pandoc                                *pandoc*
+
+Pandoc Documentation is available at
+http://johnmacfarlane.net/pandoc/README.html
+
+
+------------------------------------------------------------------------------
+Subscripts and Superscripts                            *pandoc-subsuperscript*
+
+H~2~O is a liquid.  2^10^ is 1024.
+
+
+------------------------------------------------------------------------------
+Numbered Examples                                         *pandoc-numexamples*
+
+This ~~is deleted text.~~
+
+
+(@)  My first example will be numbered (1).
+(@good)  My second example will be numbered (2).
+
+As (@good) illustrates, ...
+
+
+------------------------------------------------------------------------------
+Tables                                                         *pandoc-tables*
+
+Pandoc has three different kinds of tables
+
+1) Simple Table
+---------------
+
+  Right     Left     Center     Default
+-------     ------ ----------   -------
+     12     12        12            12
+    123     123       123          123
+      1     1          1             1
+
+Table:  Demonstration of simple table syntax.
+
+The table must end with a blank line, or a line of dashes followed by a blank
+line. A caption may optionally be provided (before or after the table) above).
+The column headers may be omitted, provided a dashed line is used to end the
+table.
+
+2) Multiline Table
+---------------
+
+-------------------------------------------------------------
+ Centered   Default           Right Left
+  Header    Aligned         Aligned Aligned
+----------- ------- --------------- -------------------------
+   First    row                12.0 Example of a row that
+                                    spans multiple lines.
+
+  Second    row                 5.0 Here's another one. Note
+                                    the blank line between
+                                    rows.
+-------------------------------------------------------------
+
+Table: Demonstration of a multiline table. The caption may span
+multiple lines.
+
+3) Grid Table
+
+: Sample grid table.
+
++---------------+---------------+--------------------+
+| Fruit         | Price         | Advantages         |
++===============+===============+====================+
+| Bananas       | $1.34         | - built-in wrapper |
+|               |               | - bright color     |
++---------------+---------------+--------------------+
+| Oranges       | $2.10         | - cures scurvy     |
+|               |               | - tasty            |
++---------------+---------------+--------------------+
+
+
+------------------------------------------------------------------------------
+Fenced Code Blocks                                        *pandoc-fenced-code*
+
+Like |markdownextra-fenced-code|
+
+Optionally, you may specify the language of the code block using this syntax:
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ {.haskell .numberLines}
+qsort []     = []
+qsort (x:xs) = qsort (filter (< x) xs) ++ [x] ++
+               qsort (filter (>= x) xs) 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+------------------------------------------------------------------------------
+Images with Captions                                  *pandoc-images-captions*
+
+An image occurring by itself in a paragraph will be rendered as a figure with a
+caption (the image's alt text).
+
+If you just want a regular inline image, e.g. insert a nonbreaking space after
+the image:
+
+![This image won't be a figure](/url/of/image.png)\ 
+
+
+------------------------------------------------------------------------------
+Embedded LaTeX/ConTeXt                                          *pandoc-latex*
+
+Anything between two $ characters will be treated as TeX math
+Inline TeX or TeX environments are passed on unchanged.
+
+This result ($x=4$) was proved in \cite{jones.1967}.
+
+\begin{tabular}{|l|l|}\hline
+Age & Frequency \\ \hline
+18--25  & 15 \\
+26--35  & 33 \\ 
+36--45  & 22 \\ \hline
+\end{tabular}
