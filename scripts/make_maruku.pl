@@ -42,5 +42,5 @@ while (<INFILE>){
 close TMPFILE;
 close INFILE;
 
-system("maruku $options $tmpfile");
+system("maruku $options \"$tmpfile\"");
 unlink $tmpfile or die ("Couldn't remove $tmpfile\n");

@@ -11,7 +11,7 @@ if has("win32")
 	setlocal shellpipe=1>&2\ 2>
 endif
 
-setlocal makeprg=~/.vim/scripts/make_maruku.pl\ %
+setlocal makeprg=~/.vim/scripts/make_maruku.pl\ \"%\"
 
 " Sample errors:
 " Type of arg 1 to push must be array (not hash element) at NFrame.pm line 129, near ");"
