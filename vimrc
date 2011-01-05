@@ -293,6 +293,8 @@ augroup filetype
   autocmd BufNewFile,BufRead *.viki set filetype=viki
   autocmd BufNewFile,BufRead *.dat set filetype=csv
   autocmd BufNewFile,BufRead *.markdown set filetype=markdown
+  autocmd BufNewFile,BufRead *.pdc set filetype=pandoc
+  autocmd BufNewFile,BufRead *.pandoc set filetype=pandoc
 augroup END
 
 " For some programming languages, delete trailing spaces on save
