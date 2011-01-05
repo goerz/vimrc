@@ -62,6 +62,7 @@ syn match pdcBlankLine   /\(^\s*\n\|\%^\)/    nextgroup=pdcHeader,pdcCodeBlock,p
 """""""""""""""""""""""""""""""""""""""
 " Title Block:
 syn match pandocTitleBlock /\%^\(%.*\n\)\{1,3}$/ 
+syn match Comment /\%^---\_.\{-}---$/ contains=@Spell " YAML
 
 
 """""""""""""""""""""""""""""""""""""""
