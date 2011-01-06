@@ -35,21 +35,6 @@ syn match pdcHTML	/<\a[^>]\+>/	contains=@HTML
 syn region pdcHTMLComment   start=/<!--/ end=/-->/
 
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Set embedded LaTex (pandox extension) highlighting
-" Unset current_syntax so the 2nd include will work
-unlet b:current_syntax
-syn include @LATEX syntax/tex.vim
-
-"   Single Tex command
-syn match pdcLatex	/\\\w\+{[^}]\+}/	contains=@LATEX
-
-"   Tex Block (begin-end)
-syn region pdcLatex start=/\\begin{[^}]\+}\ze/ end=/\ze\\end{[^}]\+}/ contains=@LATEX 
-
-"   Math Tex
-syn match pdcLatex	/$[^$]\+\$/	   contains=@LATEX
-
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Block Elements
@@ -299,7 +284,7 @@ hi link pdcLinkTitle		Comment
 
 hi link pdcFootnoteID		Identifier
 hi link pdcFootnoteDef		Comment
-hi link pandocFootnoteCont 	Error
+hi link pandocFootnoteCont 	NonText
 
 hi link pdcCodeBlock		String
 hi link pdcCodeHTMLPre		String
@@ -320,7 +305,7 @@ hi link pdcTableCaption		Label
 hi link pdcTableMultiCaption	Label
 hi link pdcTableCaptionCont	Label
 
-hi link pdcNewLine		Error
+hi link pdcNewLine		NonText
 
 
 " For testing
