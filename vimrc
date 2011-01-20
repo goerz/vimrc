@@ -308,7 +308,12 @@ autocmd BufWritePre *.pl normal m`:%s/\s\+$//e ``
 let g:vikiMapKeys = "]).,;:!?\"'"
 
 
-" * Set terminal specific key mappings {{{1
+" * Terminal Specific Settings {{{1
+
+if &term =~ "linux$"
+    colorscheme default
+    set t_Co=8
+endif
 
 " Try to get the correct main terminal type
 if &term =~ "xterm"
