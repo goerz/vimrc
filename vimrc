@@ -71,6 +71,15 @@ set ignorecase
 set smartcase
 
 " set statusline"
+function ShowFileFormatFlag(var)
+  if ( a:var == 'dos' )
+    return ' [dos]'
+  elseif ( a:var == 'mac' )
+    return ' [mac]'
+  else
+    return ''
+  endif
+endfunction
 if has("gui_running")
     " In gvim, we can do with a fairly simple status line
     set stl=%f\ [%{(&fenc==\"\"?&enc:&fenc).((exists(\"+bomb\")\ &&\ &bomb)?\",B\":\"\")}%M%R%H%W]\ %y\ [%l/%L,%v]\ [%p%%]
@@ -78,9 +87,10 @@ else
     " In a regular console, I want to emulate a scroll bar
     func! STL()
         let stl_encodinginfo = '%{(&fenc==""?&enc:&fenc).((exists("+bomb") && &bomb)?",B":"")}'
-        let stl = '%f ['.stl_encodinginfo.'%M%R%H%W] %y [%l/%L,%2.v]'
+        let stl = '%f ['.stl_encodinginfo.'%M%R%H%W]%{ShowFileFormatFlag(&fileformat)} %y [%l/%L,%2.v]'
         let takenwidth = len(bufname(winbufnr(winnr()))) + len(&filetype) + 3 * &readonly
                     \ + len((&fenc==""?&enc:&fenc).((exists("+bomb") && &bomb)?",B":""))
+                    \ + len(ShowFileFormatFlag(&fileformat))
                     \ + 2 * ((&modified) || (!&modifiable)) + 2*len(line('$')) + 20
                     \ + g:stl_extraspace
         let barWidth = &columns - takenwidth
