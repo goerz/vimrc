@@ -2,7 +2,7 @@
 
 compiler ifort 
 
-set textwidth=80 " maximum texwidth allowed by F90 standard
+set textwidth=80
 
 " use indents of 2 spaces:
 setlocal tabstop=2

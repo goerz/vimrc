@@ -2,7 +2,7 @@
 " Description: This file contains my local settings for latex files.
 
 " General layout settings
-setlocal textwidth=79  formatoptions=tcl12
+setlocal textwidth=80  formatoptions=tcl12
 setlocal shiftwidth=2 tabstop=2
 setlocal wildignore+=*.aux,*.blg,*.log,*.out,*.snm,*.idx
 setlocal wildignore+=*.ilg,*.ind,*.nav,*.lot,*.lof,*.toc
