@@ -240,6 +240,8 @@ endif
 " abbreviations
 cabbr tidy !tidy -config ~/.vim/scripts/tidy/fragment.prf
 cabbr lipsum r!~/.vim/scripts/lipsum.pl
+cabbr german set spell spelllang=de_20
+cabbr english set spell spelllang=en
 
 " Activate wildmenu
 set wildmenu
