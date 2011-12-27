@@ -2,7 +2,7 @@ def main(argv=None):
     if argv is None:
         argv = sys.argv
         arg_parser = OptionParser(
-        usage = "",
+        usage = "usage: %prog [options] arg1 arg2",
         description = __doc__)
         arg_parser.add_option(
           '--test', action='store_true', dest='test',
