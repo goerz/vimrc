@@ -237,11 +237,11 @@ if exists("*strftime")
     imap <C-L>d <c-r>=strftime("%a %D %H:%M:%S %Z")<cr>
 endif
 
-" abbreviations
-cabbr tidy !tidy -config ~/.vim/scripts/tidy/fragment.prf
-cabbr lipsum r!~/.vim/scripts/lipsum.pl
-cabbr german set spell spelllang=de_20
-cabbr english set spell spelllang=en
+" abbreviations / commands
+command Tidy !tidy -config ~/.vim/scripts/tidy/fragment.prf
+command Lipsum r!~/.vim/scripts/lipsum.pl
+command German set spell spelllang=de_20
+command English set spell spelllang=en
 
 " Activate wildmenu
 set wildmenu
