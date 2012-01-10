@@ -242,6 +242,7 @@ command Tidy !tidy -config ~/.vim/scripts/tidy/fragment.prf
 command Lipsum r!~/.vim/scripts/lipsum.pl
 command German set spell spelllang=de_20
 command English set spell spelllang=en
+cabbr AB 'a,'b
 
 " Activate wildmenu
 set wildmenu
