@@ -345,9 +345,10 @@ inoremap <buffer> <Leader>- \bigcap
 inoremap <buffer> <Leader>+ \bigcup
 inoremap <buffer> <Leader>( \left(  \right)<++><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left>
 inoremap <buffer> <Leader>[ \left[  \right]<++><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left>
-imap <buffer> <C-L>o \op{}
+imap <buffer> <C-L>o \Op{}
 imap <buffer> <C-L>2 \sqrt{}
-imap <buffer> <C-L>k \ket{}
+imap <buffer> <C-L>k \Ket{}
+imap <buffer> <C-L>h \hat{}
 imap <buffer> <C-L>v \vec{}
 nmap <silent> <buffer> \o ysiwf\op{<CR>
 vmap <silent> <buffer> \o sf\op{<CR>
