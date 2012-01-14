@@ -11,6 +11,9 @@ set ttymouse=xterm2
 nnoremap ' `
 nnoremap ` '
 
+" Leader keys
+let mapleader = ","
+
 " pastetoggle
 set pastetoggle=<F1>
 
