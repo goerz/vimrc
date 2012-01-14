@@ -15,7 +15,9 @@ nnoremap ` '
 let mapleader = ","
 
 " pastetoggle
-set pastetoggle=<F1>
+set pastetoggle=<C-L>p
+nnoremap <Leader>p :set invpaste<CR>
+
 
 " Up/down, j/k key behaviour
 " -- Changes up/down arrow keys to behave screen-wise, rather than file-wise.
