@@ -13,6 +13,9 @@ nnoremap ` '
 
 " Leader keys
 let mapleader = ","
+let g:mapleader = ","
+let maplocalleader = "\\"
+let g:maplocalleader = "\\"
 
 " pastetoggle
 set pastetoggle=<C-L>p
