@@ -250,6 +250,7 @@ endif
 " abbreviations / commands
 command German set spell spelllang=de_20
 command English set spell spelllang=en
+command ManualFolding set foldenable foldmethod=manual
 cabbr AB 'a,'b
 
 " Activate wildmenu
