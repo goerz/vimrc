@@ -1,14 +1,12 @@
 " Vim filetype plugin
 " Language:    LaTeX
 " Maintainer:  Michael Goerz <goerz@physik.fu-berlin.de>
-" Last Change: Sat 10/17/09 20:57:45 CEST
+" Last Change: Sat 01/14/12 14:07:28 CET
 
 " "========================================================================="
 " Explanation and Customization   {{{
 
 let b:AMSLatex = 1
-" prefix for the "Greek letter" macros (For personal macros, it is ';')
-let mapleader = '`'
 
 " Set b:AMSLatex to 1 if you are using AMSlatex.  Otherwise, the program will
 " attempt to automatically detect the line \usepackage{...amsmath...}
@@ -284,96 +282,96 @@ endfunction
 " No timeout.  Applies to mappings such as `a for \alpha
 set notimeout
 
-inoremap <buffer> <Leader><Leader> <Leader>
-inoremap <buffer> <Leader>a \alpha
-inoremap <buffer> <Leader>b \beta
-inoremap <buffer> <Leader>c \chi
-inoremap <buffer> <Leader>d \delta
-inoremap <buffer> <Leader>e \epsilon
-inoremap <buffer> <Leader>f \phi
-inoremap <buffer> <Leader>g \gamma
-inoremap <buffer> <Leader>h \eta
-inoremap <buffer> <Leader>i \iota
-inoremap <buffer> <Leader>k \kappa
-inoremap <buffer> <Leader>l \lambda
-inoremap <buffer> <Leader>m \mu
-inoremap <buffer> <Leader>n \nu
-inoremap <buffer> <Leader>o \omega
-inoremap <buffer> <Leader>p \pi
-inoremap <buffer> <Leader>q \theta
-inoremap <buffer> <Leader>r \rho
-inoremap <buffer> <Leader>s \sigma
-inoremap <buffer> <Leader>t \tau
-inoremap <buffer> <Leader>u \upsilon
-inoremap <buffer> <Leader>v \vee
-inoremap <buffer> <Leader>w \omega
-inoremap <buffer> <Leader>x \xi
-inoremap <buffer> <Leader>y \psi
-inoremap <buffer> <Leader>z \zeta
-inoremap <buffer> <Leader>D \Delta
-inoremap <buffer> <Leader>I \int\limits_{}^{}<Esc>F}i
-inoremap <buffer> <Leader>E \varepsilon
-inoremap <buffer> <Leader>F \Phi
-inoremap <buffer> <Leader>G \Gamma
-inoremap <buffer> <Leader>G \varphi
-inoremap <buffer> <Leader>L \Lambda
-inoremap <buffer> <Leader>N \nabla
-inoremap <buffer> <Leader>O \Omega
-inoremap <buffer> <Leader>P \Pi
-inoremap <buffer> <Leader>Q \Theta
-inoremap <buffer> <Leader>R \varrho
-inoremap <buffer> <Leader>S \Sigma
-inoremap <buffer> <Leader>T \vartheta
-inoremap <buffer> <Leader>Z \sum\limits_{}^{}<Esc>F}i
-inoremap <buffer> <Leader>U \Upsilon
-inoremap <buffer> <Leader>X \Xi
-inoremap <buffer> <Leader>Y \Psi
-inoremap <buffer> <Leader>0 \emptyset
-inoremap <buffer> <Leader>1 \unity
-inoremap <buffer> <Leader>6 \difquo
-inoremap <buffer> <Leader>8 \infty
-inoremap <buffer> <Leader>/ \frac{}{}<Esc>F}i
-inoremap <buffer> <Leader>% \frac{}{}<Esc>F}i
-inoremap <buffer> <Leader>@ \circ
-inoremap <buffer> <Leader>\| \Big\|
-inoremap <buffer> <Leader>= \equiv
-inoremap <buffer> <Leader>\ \setminus
-inoremap <buffer> <Leader>. \cdot
-inoremap <buffer> <Leader>* \times
-inoremap <buffer> <Leader>& \wedge
-inoremap <buffer> <Leader>- \bigcap
-inoremap <buffer> <Leader>+ \bigcup
-inoremap <buffer> <Leader>( \left(  \right)<++><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left>
-inoremap <buffer> <Leader>[ \left[  \right]<++><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left>
+inoremap <buffer> `` `
+inoremap <buffer> `a \alpha
+inoremap <buffer> `b \beta
+inoremap <buffer> `c \chi
+inoremap <buffer> `d \delta
+inoremap <buffer> `e \epsilon
+inoremap <buffer> `f \phi
+inoremap <buffer> `g \gamma
+inoremap <buffer> `h \eta
+inoremap <buffer> `i \iota
+inoremap <buffer> `k \kappa
+inoremap <buffer> `l \lambda
+inoremap <buffer> `m \mu
+inoremap <buffer> `n \nu
+inoremap <buffer> `o \omega
+inoremap <buffer> `p \pi
+inoremap <buffer> `q \theta
+inoremap <buffer> `r \rho
+inoremap <buffer> `s \sigma
+inoremap <buffer> `t \tau
+inoremap <buffer> `u \upsilon
+inoremap <buffer> `v \vee
+inoremap <buffer> `w \omega
+inoremap <buffer> `x \xi
+inoremap <buffer> `y \psi
+inoremap <buffer> `z \zeta
+inoremap <buffer> `D \Delta
+inoremap <buffer> `I \int\limits_{}^{}<Esc>F}i
+inoremap <buffer> `E \varepsilon
+inoremap <buffer> `F \Phi
+inoremap <buffer> `G \Gamma
+inoremap <buffer> `G \varphi
+inoremap <buffer> `L \Lambda
+inoremap <buffer> `N \nabla
+inoremap <buffer> `O \Omega
+inoremap <buffer> `P \Pi
+inoremap <buffer> `Q \Theta
+inoremap <buffer> `R \varrho
+inoremap <buffer> `S \Sigma
+inoremap <buffer> `T \vartheta
+inoremap <buffer> `Z \sum\limits_{}^{}<Esc>F}i
+inoremap <buffer> `U \Upsilon
+inoremap <buffer> `X \Xi
+inoremap <buffer> `Y \Psi
+inoremap <buffer> `0 \emptyset
+inoremap <buffer> `1 \unity
+inoremap <buffer> `6 \difquo
+inoremap <buffer> `8 \infty
+inoremap <buffer> `/ \frac{}{}<Esc>F}i
+inoremap <buffer> `% \frac{}{}<Esc>F}i
+inoremap <buffer> `@ \circ
+inoremap <buffer> `\| \Big\|
+inoremap <buffer> `= \equiv
+inoremap <buffer> `\ \setminus
+inoremap <buffer> `. \cdot
+inoremap <buffer> `* \times
+inoremap <buffer> `& \wedge
+inoremap <buffer> `- \bigcap
+inoremap <buffer> `+ \bigcup
+inoremap <buffer> `( \left(  \right)<++><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left>
+inoremap <buffer> `[ \left[  \right]<++><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left>
 imap <buffer> <C-L>o \Op{}
 imap <buffer> <C-L>2 \sqrt{}
 imap <buffer> <C-L>k \Ket{}
 imap <buffer> <C-L>h \hat{}
 imap <buffer> <C-L>v \vec{}
-nmap <silent> <buffer> \o ysiwf\op{<CR>
-vmap <silent> <buffer> \o sf\op{<CR>
+nmap <silent> <buffer> <Leader>o ysiwf\op{<CR>
+vmap <silent> <buffer> <Leader>o sf\op{<CR>
 imap <buffer> <C-L>e \emph{}
 imap <buffer> <C-L>t \text{}
-nmap <silent> <buffer> \e ysiwf\emph{<CR>
-vmap <silent> <buffer> \e sf\emph{<CR>
+nmap <silent> <buffer> <Leader>e ysiwf\emph{<CR>
+vmap <silent> <buffer> <Leader>e sf\emph{<CR>
 inoremap <buffer> {} {}<Left>
 inoremap <buffer> () ()<Left>
 inoremap <buffer> $$ $$<Left>
-inoremap <buffer> <Leader>< \leq
-inoremap <buffer> <Leader>> \geq
-inoremap <buffer> <Leader>, \nonumber
-inoremap <buffer> <Leader>: \cdots
-inoremap <buffer> <Leader>~ \tilde{}<Left>
-inoremap <buffer> <Leader>^ \op{}<Left>
-inoremap <buffer> <Leader>; \dot{}<Left>
-inoremap <buffer> <Leader>_ \bar{}<Left>
-inoremap <buffer> <Leader><C-E> \exp\left(\right)<Esc>F(a
-inoremap <buffer> <Leader><C-L> \lim_{}<Left>
-inoremap <buffer> <Leader><Up> \uparrow
-inoremap <buffer> <Leader><Down> \downarrow
-inoremap <buffer> <Leader><Right> \longrightarrow
-inoremap <buffer> <Leader><Left> \leftarrow
-inoremap <buffer> <Leader><C-F> \to
+inoremap <buffer> `< \leq
+inoremap <buffer> `> \geq
+inoremap <buffer> `, \nonumber
+inoremap <buffer> `: \cdots
+inoremap <buffer> `~ \tilde{}<Left>
+inoremap <buffer> `^ \op{}<Left>
+inoremap <buffer> `; \dot{}<Left>
+inoremap <buffer> `_ \bar{}<Left>
+inoremap <buffer> `<C-E> \exp\left(\right)<Esc>F(a
+inoremap <buffer> `<C-L> \lim_{}<Left>
+inoremap <buffer> `<Up> \uparrow
+inoremap <buffer> `<Down> \downarrow
+inoremap <buffer> `<Right> \longrightarrow
+inoremap <buffer> `<Left> \leftarrow
+inoremap <buffer> `<C-F> \to
 
 " }}}
 " "========================================================================="
