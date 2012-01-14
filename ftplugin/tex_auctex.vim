@@ -348,12 +348,12 @@ imap <buffer> <C-L>2 \sqrt{}
 imap <buffer> <C-L>k \Ket{}
 imap <buffer> <C-L>h \hat{}
 imap <buffer> <C-L>v \vec{}
-nmap <silent> <buffer> <Leader>o ysiwf\op{<CR>
-vmap <silent> <buffer> <Leader>o sf\op{<CR>
+nmap <silent> <buffer> <LocalLeader>o ysiwf\Op{<CR>
+vmap <silent> <buffer> <LocalLeader>o sf\Op{<CR>
 imap <buffer> <C-L>e \emph{}
 imap <buffer> <C-L>t \text{}
-nmap <silent> <buffer> <Leader>e ysiwf\emph{<CR>
-vmap <silent> <buffer> <Leader>e sf\emph{<CR>
+nmap <silent> <buffer> <LocalLeader>e ysiwf\emph{<CR>
+vmap <silent> <buffer> <LocalLeader>e sf\emph{<CR>
 inoremap <buffer> {} {}<Left>
 inoremap <buffer> () ()<Left>
 inoremap <buffer> $$ $$<Left>

@@ -73,5 +73,5 @@ endfunction
 
 
 imap <silent> <buffer> <C-L>i  <C-r>=XML_CreateTag()<cr>
-nmap <silent> <buffer> <leader>i  i<C-r>=XML_CreateTag()<cr>
+nmap <silent> <buffer> <LocalLeader>i  i<C-r>=XML_CreateTag()<cr>
 

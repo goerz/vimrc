@@ -83,5 +83,5 @@ endfunction
 
 
 imap <silent> <buffer> <C-L>i  <C-r>=LATEX_CreateEnv()<cr>
-nmap <silent> <buffer> \i  i<C-r>=LATEX_CreateEnv()<cr>
+nmap <silent> <buffer> <LocalLeader>i  i<C-r>=LATEX_CreateEnv()<cr>
 
