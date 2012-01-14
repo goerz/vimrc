@@ -21,6 +21,8 @@ let g:maplocalleader = "\\"
 set pastetoggle=<C-L>p
 nnoremap <Leader>p :set invpaste<CR>
 
+" Save
+nnoremap <leader>w :w!<cr>
 
 " Up/down, j/k key behaviour
 " -- Changes up/down arrow keys to behave screen-wise, rather than file-wise.
