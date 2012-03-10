@@ -61,6 +61,10 @@ if has("persistent_undo")
     au BufWritePre /tmp/* setlocal noundofile
 endif
 
+" swap and backup
+set backupdir=~/.vim/backup/
+set directory=~/.vim/backup/
+
 " indicate textwidth with color column
 if exists("+colorcolumn")
     set colorcolumn=+1
