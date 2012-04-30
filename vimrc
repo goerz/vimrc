@@ -279,6 +279,10 @@ set wildmenu
 
 " don't make it look like there are line breaks where there aren't:
 set nowrap
+" but if we wrap, use a nice unicode character to indicate the linebreak, and
+" don't break in the middle of a word
+set showbreak=↪
+set linebreak
 
 " tab stops should be at 4 spaces
 set tabstop=4
