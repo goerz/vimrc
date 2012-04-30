@@ -308,6 +308,7 @@ set wildignore+=*.bak,*~,*.tmp,*.backup
 
 " Printing settings
 set printoptions=paper:a4,number:y,left:25pt,right:40pt
+set printheader=%<%f%h%m\ \ (%{strftime('%m/%d/%y\ %X')})%=Page\ %N
 
 
 " * Text Formatting -- Specific File Formats {{{1
