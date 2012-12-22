@@ -348,6 +348,7 @@ imap <buffer> <C-L>2 \sqrt{}
 imap <buffer> <C-L>k \Ket{}
 imap <buffer> <C-L>h \hat{}
 imap <buffer> <C-L>v \vec{}
+imap <buffer> <C-L>` \verb\|\|<Left>
 nmap <silent> <buffer> <LocalLeader>o ysiwf\Op{<CR>
 vmap <silent> <buffer> <LocalLeader>o sf\Op{<CR>
 imap <buffer> <C-L>e \emph{}
