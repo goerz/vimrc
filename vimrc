@@ -72,6 +72,7 @@ endif
 
 " enable syntax highlighting
 syntax on
+syntax sync fromstart
 
 " enable incremental search, but disable search highlighting by default
 set nohlsearch
