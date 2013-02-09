@@ -11,6 +11,9 @@
 "    Jobs can be marked with an 'X' in the first column and are then
 "    highlighted in red.
 "
+"    'Published' jobs (discussed in a paper/writeup) are marked with P and
+"    appear yellow
+"
 "    Comment lines are indicated by a 'C' in the first column
 "
 "    Every second line gets a light-gray background if it is not highlighted
@@ -28,12 +31,15 @@ function! s:RunLogHighlight()
     \ guifg=black guibg=green
     highlight RunLogXHL ctermfg=black ctermbg=202
     \ guifg=black guibg=#ff5f00
+    highlight RunLogPublishedHL ctermfg=black ctermbg=yellow
+    \ guifg=black guibg=yellow
     highlight RunLogEvenHL ctermfg=black ctermbg=255
     \ guifg=black guibg=#eeeeee
-    sign define RunLogRunningMark linehl=RunLogRunningHL
-    sign define RunLogCommentMark linehl=Comment
-    sign define RunLogXMark       linehl=RunLogXHL
-    sign define RunLogEvenMark    linehl=RunLogEvenHL
+    sign define RunLogRunningMark   linehl=RunLogRunningHL
+    sign define RunLogCommentMark   linehl=Comment
+    sign define RunLogXMark         linehl=RunLogXHL
+    sign define RunLogEvenMark      linehl=RunLogEvenHL
+    sign define RunLogPublishedMark linehl=RunLogPublishedHL
     for l:linenum in range(1, line('$'))
         if match(getline(l:linenum), '^\s*R\s') >= 0
             execute "sign place ".l:linenum." line=".l:linenum
@@ -41,6 +47,9 @@ function! s:RunLogHighlight()
         elseif match(getline(l:linenum), '^\s*X\s') >= 0
             execute "sign place ".l:linenum." line=".l:linenum
             \ ." name=RunLogXMark buffer=".l:b
+        elseif match(getline(l:linenum), '^\s*P\s') >= 0
+            execute "sign place ".l:linenum." line=".l:linenum
+            \ ." name=RunLogPublishedMark buffer=".l:b
         elseif match(getline(l:linenum), '^\s*C\s') >= 0
             execute "sign place ".l:linenum." line=".l:linenum
             \ ." name=RunLogCommentMark buffer=".l:b
