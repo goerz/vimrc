@@ -276,6 +276,12 @@ cabbr AB 'a,'b
 " Activate wildmenu
 set wildmenu
 
+" Hide Toolbar in Macvim
+if has("gui_running")
+    set guioptions=egmrt
+endif
+
+
 " * Text Formatting -- General {{{1
 
 " don't make it look like there are line breaks where there aren't:
