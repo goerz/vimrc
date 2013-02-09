@@ -410,6 +410,7 @@ endif
 " Tex Reference Zones: {{{1
 syn region texZone		matchgroup=texStatement start="@samp{"			end="}\|%stopzone\>"	contains=@texRefGroup
 syn region texRefZone		matchgroup=texStatement start="\\nocite{"		end="}\|%stopzone\>"	contains=@texRefGroup
+syn region texRefZone		matchgroup=texStatement start="\\textcite{"		end="}\|%stopzone\>"	contains=@texRefGroup
 syn region texRefZone		matchgroup=texStatement start="\\bibliography{"		end="}\|%stopzone\>"	contains=@texRefGroup
 syn region texRefZone		matchgroup=texStatement start="\\label{"		end="}\|%stopzone\>"	contains=@texRefGroup
 syn region texRefZone		matchgroup=texStatement start="\\url{"			end="}\|%stopzone\>"	contains=@texRefGroup
