@@ -1,5 +1,5 @@
 " Main VIM Configuration File
-" Author: Michael Goerz <goerz@physik.fu-berlin.de>
+" Author: Michael Goerz <goerz@physik.uni-kassel.de>
 
 " * Interface Settings {{{1
 
@@ -74,9 +74,15 @@ endif
 syntax on
 syntax sync fromstart
 
-" enable incremental search, but disable search highlighting by default
-set nohlsearch
+" enable incremental search, and search highlighting by default
+set hlsearch " opposite of set nohlsearch
 set incsearch
+" Disable search highlighting by pressing ESC in normal mode
+:nnoremap <esc> :nohlsearch<return><esc>
+" Note that the nohlsearch *command* is different from the nohlsearch
+" *option*: the command just switches off the hightlighting, but it will
+" appear again on the next search command. The option switches if off
+" permanently
 
 " Reload the file if it changes outside of vim
 set autoread
