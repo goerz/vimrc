@@ -24,46 +24,52 @@
 "    file
 "
 
-function! s:RunLogHighlight()
-    sign unplace *
-    let l:b = bufnr("%")
-    highlight RunLogRunningHL ctermfg=black ctermbg=green
-    \ guifg=black guibg=green
-    highlight RunLogXHL ctermfg=black ctermbg=202
-    \ guifg=black guibg=#ff5f00
-    highlight RunLogPublishedHL ctermfg=black ctermbg=yellow
-    \ guifg=black guibg=yellow
-    highlight RunLogEvenHL ctermfg=black ctermbg=255
-    \ guifg=black guibg=#eeeeee
-    sign define RunLogRunningMark   linehl=RunLogRunningHL
-    sign define RunLogCommentMark   linehl=Comment
-    sign define RunLogXMark         linehl=RunLogXHL
-    sign define RunLogEvenMark      linehl=RunLogEvenHL
-    sign define RunLogPublishedMark linehl=RunLogPublishedHL
-    for l:linenum in range(1, line('$'))
-        if match(getline(l:linenum), '^\s*R\s') >= 0
-            execute "sign place ".l:linenum." line=".l:linenum
-            \ ." name=RunLogRunningMark buffer=".l:b
-        elseif match(getline(l:linenum), '^\s*X\s') >= 0
-            execute "sign place ".l:linenum." line=".l:linenum
-            \ ." name=RunLogXMark buffer=".l:b
-        elseif match(getline(l:linenum), '^\s*P\s') >= 0
-            execute "sign place ".l:linenum." line=".l:linenum
-            \ ." name=RunLogPublishedMark buffer=".l:b
-        elseif match(getline(l:linenum), '^\s*C\s') >= 0
-            execute "sign place ".l:linenum." line=".l:linenum
-            \ ." name=RunLogCommentMark buffer=".l:b
-        elseif (l:linenum % 2 == 1)
-            execute "sign place ".l:linenum." line=".l:linenum
-            \ ." name=RunLogEvenMark buffer=".l:b
-        endif
-    endfor
-endfunction  
+if has('signs')
+    function! s:RunLogHighlight()
+        sign unplace *
+        let l:b = bufnr("%")
+        highlight RunLogRunningHL ctermfg=black ctermbg=green
+        \ guifg=black guibg=green
+        highlight RunLogXHL ctermfg=black ctermbg=202
+        \ guifg=black guibg=#ff5f00
+        highlight RunLogPublishedHL ctermfg=black ctermbg=yellow
+        \ guifg=black guibg=yellow
+        highlight RunLogEvenHL ctermfg=black ctermbg=255
+        \ guifg=black guibg=#eeeeee
+        sign define RunLogRunningMark   linehl=RunLogRunningHL
+        sign define RunLogCommentMark   linehl=Comment
+        sign define RunLogXMark         linehl=RunLogXHL
+        sign define RunLogEvenMark      linehl=RunLogEvenHL
+        sign define RunLogPublishedMark linehl=RunLogPublishedHL
+        for l:linenum in range(1, line('$'))
+            if match(getline(l:linenum), '^\s*R\s') >= 0
+                execute "sign place ".l:linenum." line=".l:linenum
+                \ ." name=RunLogRunningMark buffer=".l:b
+            elseif match(getline(l:linenum), '^\s*X\s') >= 0
+                execute "sign place ".l:linenum." line=".l:linenum
+                \ ." name=RunLogXMark buffer=".l:b
+            elseif match(getline(l:linenum), '^\s*P\s') >= 0
+                execute "sign place ".l:linenum." line=".l:linenum
+                \ ." name=RunLogPublishedMark buffer=".l:b
+            elseif match(getline(l:linenum), '^\s*C\s') >= 0
+                execute "sign place ".l:linenum." line=".l:linenum
+                \ ." name=RunLogCommentMark buffer=".l:b
+            elseif (l:linenum % 2 == 1)
+                execute "sign place ".l:linenum." line=".l:linenum
+                \ ." name=RunLogEvenMark buffer=".l:b
+            endif
+        endfor
+    endfunction  
+endif
 
 set nospell
 set textwidth=0
 set foldenable
 set foldmethod=manual
-au! BufWrite,BufRead,BufEnter,BufLeave,InsertLeave,CursorMoved <buffer>
-\ :call s:RunLogHighlight()
+if has('signs')
+    au! BufWrite,BufRead,BufEnter,BufLeave,InsertLeave,CursorMoved <buffer>
+    \ :call s:RunLogHighlight()
+else
+    echom "Vim was not compiled with the signs feature. Cannot highlith lines"
+endif
 
