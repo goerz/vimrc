@@ -59,13 +59,15 @@ if has('signs')
                 \ ." name=RunLogEvenMark buffer=".l:b
             endif
         endfor
-    endfunction  
+    endfunction
 endif
 
 set nospell
 set textwidth=0
 set foldenable
 set foldmethod=manual
+set printoptions=paper:a4,number:n,left:25pt,right:25pt,wrap:n,portrait:n
+set printheader=%<%f%h%m\ \ (%{strftime('%m/%d/%y\ %X')})%=Page\ %N
 if has('signs')
     au! BufWrite,BufRead,BufEnter,BufLeave,InsertLeave,CursorMoved <buffer>
     \ :call s:RunLogHighlight()
