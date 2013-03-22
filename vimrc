@@ -159,6 +159,8 @@ set noshowmatch
 " display mode INSERT/REPLACE/...
 set showmode
 
+" When selecting blocks, allow to move the cursor beyond the end of the line
+set virtualedit=block
 
 " remember more commands and search patterns
 set history=1000
