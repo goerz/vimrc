@@ -1,4 +1,4 @@
-*characterize.txt*  Unicode character metadata
+*characterize.txt*       Unicode character metadata
 
 Author:  Tim Pope <http://tpo.pe/>
 Repo:    https://github.com/tpope/vim-characterize

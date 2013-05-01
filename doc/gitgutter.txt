@@ -1,4 +1,4 @@
-*gitgutter.txt*              A Vim plugin which shows a git diff in the gutter.
+*gitgutter.txt*          A Vim plugin which shows a git diff in the gutter.
 
 
                            Vim Git Gutter

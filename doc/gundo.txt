@@ -1,4 +1,4 @@
-*gundo.txt*   Graph your undo tree so you can actually USE it.
+*gundo.txt*              Graph your undo tree so you can actually USE it.
 
 
                             CURRENT STATUS: BETA

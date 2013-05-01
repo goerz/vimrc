@@ -1,4 +1,4 @@
-*syntastic.txt*   Syntax checking on the fly has never been so pimp.
+*syntastic.txt*          Syntax checking on the fly has never been so pimp.
 *syntastic*
 
 
