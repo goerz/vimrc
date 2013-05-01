@@ -2038,4 +2038,15 @@ call s:add_methods('repo',['config', 'user'])
 
 " }}}1
 
+" Key Mappings {{{1
+nnoremap <Leader>gd :Gdiff<Enter>
+nnoremap <Leader>gD :Gdiff HEAD<Enter>
+nnoremap <Leader>gs :Gstatus<Enter>
+nnoremap <Leader>gl :Glog<Enter>
+nnoremap <Leader>gL :Git log --all --graph --decorate<Enter>
+nnoremap <Leader>ga :Gwrite<Enter>
+nnoremap <Leader>gc :Gcommit<Enter>
+nnoremap <Leader>gb :Gblame<Enter>
+" }}}1
+
 " vim:set ft=vim ts=8 sw=2 sts=2:
