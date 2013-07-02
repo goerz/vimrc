@@ -1,5 +1,5 @@
 let g:airline#themes#default#normal = {
-      \ 'mode':           [ '#00005f' , '#0078d9' , 17  , 27 , 'bold' ] ,
+      \ 'mode':           [ '#ffffff' , '#0078d9' , 255 , 27 , 'bold' ] ,
       \ 'mode_separator': [ '#0078d9' , '#444444' , 27 , 238 , 'bold' ] ,
       \ 'info':           [ '#ffffff' , '#444444' , 255 , 238 , ''     ] ,
       \ 'info_separator': [ '#444444' , '#202020' , 238 , 234 , 'bold' ] ,
@@ -13,11 +13,11 @@ let g:airline#themes#default#normal_modified.info_separator = [ '#444444' , '#5f
 let g:airline#themes#default#normal_modified.statusline     = [ '#ffffff' , '#5f005f' , 255 , 53 , '' ]
 
 let g:airline#themes#default#insert = {
-      \ 'mode':           [ '#00005f' , '#00dfff' , 17  , 45  , 'bold' ] ,
-      \ 'mode_separator': [ '#00dfff' , '#005fff' , 45  , 27  , 'bold' ] ,
-      \ 'info':           [ '#ffffff' , '#005fff' , 255 , 27  , ''     ] ,
-      \ 'info_separator': [ '#005fff' , '#000087' , 27  , 18  , 'bold' ] ,
-      \ 'statusline':     [ '#ffffff' , '#000080' , 15  , 17  , ''     ] ,
+      \ 'mode':           [ '#000000' , '#ffaf00' , 232 , 214 , 'bold' ] ,
+      \ 'mode_separator': [ '#ffaf00' , '#ff5f00' , 214 , 202 , 'bold' ] ,
+      \ 'info':           [ '#000000' , '#ff5f00' , 232 , 202 , ''     ] ,
+      \ 'info_separator': [ '#ff5f00' , '#5f0000' , 202 , 52  , 'bold' ] ,
+      \ 'statusline':     [ '#ffffff' , '#5f0000' , 15  , 52  , ''     ] ,
       \ }
 let g:airline#themes#default#insert_modified = copy(g:airline#themes#default#insert)
 let g:airline#themes#default#insert_modified.info_separator = [ '#005fff' , '#5f005f' , 27  , 53 , '' ]
