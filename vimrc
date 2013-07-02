@@ -91,54 +91,11 @@ set autoread
 set ignorecase
 set smartcase
 
-" set statusline"
-function ShowFileFormatFlag(var)
-  if ( a:var == 'dos' )
-    return ' [dos]'
-  elseif ( a:var == 'mac' )
-    return ' [mac]'
-  else
-    return ''
-  endif
-endfunction
-if has("gui_running")
-    " In gvim, we can do with a fairly simple status line
-    set stl=%f\ [%{(&fenc==\"\"?&enc:&fenc).((exists(\"+bomb\")\ &&\ &bomb)?\",B\":\"\")}%M%R%H%W]\ %y\ [%l/%L,%v]\ [%p%%]
-else
-    " In a regular console, I want to emulate a scroll bar
-    func! STL()
-        let stl_encodinginfo = '%{(&fenc==""?&enc:&fenc).((exists("+bomb") && &bomb)?",B":"")}'
-        let stl = '%f ['.stl_encodinginfo.'%M%R%H%W]%{ShowFileFormatFlag(&fileformat)} %y [%l/%L,%2.v]'
-        let takenwidth = len(bufname(winbufnr(winnr()))) + len(&filetype) + 3 * &readonly
-                    \ + len((&fenc==""?&enc:&fenc).((exists("+bomb") && &bomb)?",B":""))
-                    \ + len(ShowFileFormatFlag(&fileformat))
-                    \ + 2 * ((&modified) || (!&modifiable)) + 2*len(line('$')) + 20
-                    \ + g:stl_extraspace
-        let barWidth = &columns - takenwidth
-        let barWidth = barWidth < 3 ? 3 : barWidth
+" statusline is set by the airline plugin
+let g:airline_powerline_fonts=1
+let g:airline_enable_syntastic=0
 
-        if line('$') > 1
-            let progress = (line('.')-1) * (barWidth-1) / (line('$')-1)
-        else
-            let progress = barWidth/2
-        endif
-
-        if barWidth <=6
-            let bar = '[%p%%]'
-        else
-            let bar = ' [%0*%'.barWidth.'.'.barWidth.'('.repeat('-',progress ).'%0*0%0*'.repeat('-',barWidth - progress - 1).'%0*%)%<]'
-        endif
-
-        return stl.bar
-    endfun
-
-    let stl_extraspace = 0 " You can set this global variable in order to limit the
-    " space of the statusline. This is useful in case you
-    " have several windows open with vertical splits
-
-    set stl=%!STL()       " (when starting in console mode)
-endif
-" I also want special formatting of the scroll bar
+" I want special formatting of the scroll bar
 set highlight+=sr
 set highlight+=Sr
 set laststatus=2
