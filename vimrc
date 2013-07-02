@@ -92,7 +92,7 @@ set ignorecase
 set smartcase
 
 " statusline is set by the airline plugin
-let g:airline_powerline_fonts=1
+"let g:airline_powerline_fonts=1 " uncomment to activate
 let g:airline_enable_syntastic=0
 
 " I want special formatting of the scroll bar
