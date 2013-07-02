@@ -1,6 +1,6 @@
 let g:airline#themes#default#normal = {
-      \ 'mode':           [ '#00005f' , '#dfff00' , 17  , 190 , 'bold' ] ,
-      \ 'mode_separator': [ '#dfff00' , '#444444' , 190 , 238 , 'bold' ] ,
+      \ 'mode':           [ '#00005f' , '#0078d9' , 17  , 27 , 'bold' ] ,
+      \ 'mode_separator': [ '#0078d9' , '#444444' , 27 , 238 , 'bold' ] ,
       \ 'info':           [ '#ffffff' , '#444444' , 255 , 238 , ''     ] ,
       \ 'info_separator': [ '#444444' , '#202020' , 238 , 234 , 'bold' ] ,
       \ 'statusline':     [ '#9cffd3' , '#202020' , 85  , 234 , ''     ] ,
