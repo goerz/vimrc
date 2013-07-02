@@ -169,26 +169,7 @@ autocmd BufWinLeave ?* mkview          " Store fold settings for all buffers ...
 
 " Taglist plugin
 let Tlist_Inc_Winwidth = 0 " Don't enlarge the terminal
-if has("gui_running")
-        " In gvim, we don't need any specials for the taglist.
-        noremap <silent> <leader>t :TlistToggle<CR><C-W>h
-    else
-        " in the console version, however, I need to take into account my
-        " personal STL
-        let TlistIsOpen = 0 " personal variable: keep track if Taglist is open or not
-        function MyTlistToggle()
-            " This function is supposed to resize my personal status line in order to
-            " make room for the Tag List
-            let g:TlistIsOpen = !(g:TlistIsOpen)
-            if g:TlistIsOpen
-                let g:stl_extraspace = g:stl_extraspace + g:Tlist_WinWidth
-            else
-                let g:stl_extraspace = g:stl_extraspace - g:Tlist_WinWidth
-            endif
-            TlistToggle " This is the command provided by the plugin itself
-        endfunction
-        noremap <silent> <leader>t :call MyTlistToggle()<CR><C-W>h
-endif
+noremap <silent> <leader>t :TlistToggle<CR><C-W>h
 
 " Gundo plugin
 nnoremap <silent> <leader>u :GundoToggle<CR>
