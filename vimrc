@@ -92,8 +92,12 @@ set ignorecase
 set smartcase
 
 " statusline is set by the airline plugin
-let g:airline_enable_syntastic=0
+" You may only set the powerline fonts to 1 if you have insalled  the
+" powerline fonts, https://github.com/Lokaltog/powerline-fonts
 let g:airline_powerline_fonts=0
+"
+let g:airline_enable_syntastic=0
+let g:airline_modified_detection=0
 if (g:airline_powerline_fonts==0)
     let g:airline_left_sep=''
     let g:airline_right_sep=''
