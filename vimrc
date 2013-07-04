@@ -107,10 +107,10 @@ if (g:airline_powerline_fonts==0)
     let g:airline_fugitive_prefix = ''
 endif
 
-" I want special formatting of the scroll bar
-set highlight+=sr
-set highlight+=Sr
-set laststatus=2
+" Use proper highlighting for the active status line (otherwise font colors
+" are messed up)
+set highlight+=sr 
+set laststatus=2 " always show status line
 
 " set the terminal title
 set title
