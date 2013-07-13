@@ -94,6 +94,7 @@ set smartcase
 " statusline is set by the airline plugin
 " You may only set the powerline fonts to 1 if you have insalled  the
 " powerline fonts, https://github.com/Lokaltog/powerline-fonts
+let g:airline_theme='goerz'
 let g:airline_powerline_fonts=0
 "
 let g:airline_enable_syntastic=0
@@ -106,6 +107,7 @@ if (g:airline_powerline_fonts==0)
     let g:airline_linecolumn_prefix = '¶ '
     let g:airline_fugitive_prefix = ''
 endif
+let g:airline_section_z='%3p%% '.g:airline_linecolumn_prefix.'%3l/%L:%3c'
 
 " Use proper highlighting for the active status line (otherwise font colors
 " are messed up)
