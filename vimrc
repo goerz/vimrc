@@ -162,6 +162,10 @@ set backspace=indent,eol,start
 " (bash compatible behavior)
 set wildmode=longest,full
 
+" Make the pipe shell (:! commands) interacting, enabling aliases defined in
+" .bashrc
+set shellcmdflag=-ic
+
 " No bells
 set noerrorbells
 if has('autocmd')
