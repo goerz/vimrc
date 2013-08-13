@@ -91,6 +91,20 @@ set autoread
 set ignorecase
 set smartcase
 
+" Trailing whitespace detection
+function! WhitespaceCheck()
+  if &readonly || mode() != 'n'
+    return ''
+  endif
+  let trailing = search(' $', 'nw')
+  let indents = [search('^ ', 'nb'), search('^ ', 'n'), search('^\t', 'nb'), search('^\t', 'n')]
+  let mixed = indents[0] != 0 && indents[1] != 0 && indents[2] != 0 && indents[3] != 0
+  if trailing != 0 || mixed
+    return "(!) "
+  endif
+  return ''
+endfunction!
+
 " statusline is set by the airline plugin
 " You may only set the powerline fonts to 1 if you have insalled  the
 " powerline fonts, https://github.com/Lokaltog/powerline-fonts
@@ -108,6 +122,7 @@ if (g:airline_powerline_fonts==0)
     let g:airline_fugitive_prefix = ''
 endif
 let g:airline_section_z='%3p%% '.g:airline_linecolumn_prefix.'%3l/%L:%3c'
+let g:airline_section_c='%{WhitespaceCheck()}%f%m'
 
 " Use proper highlighting for the active status line (otherwise font colors
 " are messed up)
