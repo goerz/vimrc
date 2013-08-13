@@ -111,7 +111,7 @@ let g:airline_section_z='%3p%% '.g:airline_linecolumn_prefix.'%3l/%L:%3c'
 
 " Use proper highlighting for the active status line (otherwise font colors
 " are messed up)
-set highlight+=sr 
+set highlight+=sr
 set laststatus=2 " always show status line
 
 " set the terminal title
@@ -200,8 +200,8 @@ let g:syntastic_enable_balloons = 1
 let g:syntastic_enable_highlighting = 1
 let g:syntastic_auto_jump=0
 let g:syntastic_auto_loc_list=2
-let g:syntastic_mode_map = { 'mode': 'active',                             
-                           \ 'active_filetypes': [],          
+let g:syntastic_mode_map = { 'mode': 'active',
+                           \ 'active_filetypes': [],
                            \ 'passive_filetypes': [] }
 
 " pylint compiler settings
