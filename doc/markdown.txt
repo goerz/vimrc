@@ -137,6 +137,9 @@ Lists                                                         *markdown-lists*
 2. Which is numbered
 3. With periods and a space
 
+A list must be separated from a text block by one blank like. In lists with
+multiple lines (and especially multiple paragraphs), the subsequent lines and
+paragraphs must be indented with four spaces.
 
 ------------------------------------------------------------------------------
 Code Blocks                                                    *markdown-code*
@@ -167,8 +170,9 @@ untouched by Markdown.
     </tr>
 </table>
 
-Unlike block-level HTML tags, Markdown syntax is processed within span-level
-tags.
+Block-level HTML elements — e.g. <div>, <table>, <pre>, <p>, etc. — must be
+separated from surrounding content by blank lines.  Unlike block-level HTML
+tags, Markdown syntax is processed within span-level tags.
 
 
 ------------------------------------------------------------------------------
