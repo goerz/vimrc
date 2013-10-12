@@ -222,6 +222,10 @@ let g:pylint_cwindow = 0  " Don't open QuickFix Window automatically
 " Nerd_commenter plugin
 let g:NERDShutUp = 1
 
+" vmath plugin
+vmap <expr>  ++  VMATH_YankAndAnalyse()
+nmap         ++  vip++
+
 " Activate 256 colors independently of terminal. Most of my terms are 256
 " colors. For those cases where I'm running vim in a low-color terminal, this
 " is only safe if I'm using screen (which I always am).
