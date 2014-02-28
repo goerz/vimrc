@@ -15,14 +15,17 @@ foreach my $line (<STDIN>){
         print $line, "\n";
     } else {
         my $indent = '';
-        if ($line =~ /^(\s*)/){
+        if ($line =~ /^(\s*&?\s*)/){
             $indent = $1;
+        }
+        if ($indent !~ /&/){
+            $indent = $indent."& ";
         }
         while(length($line) > $line_length){
             my $splitpos = rindex($line, " ", $line_length-2);
             print substr($line, 0, $splitpos);
             print " "x($line_length-$splitpos-1), "&\n";
-            $line = $indent."& ".substr($line, $splitpos+1);
+            $line = $indent.substr($line, $splitpos+1);
         }
         print $line, "\n";
     }
