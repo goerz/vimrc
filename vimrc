@@ -24,6 +24,9 @@ nnoremap <Leader>p :set invpaste<CR>
 " Save
 nnoremap <leader>w :w!<cr>
 
+" paste without cutting
+vnoremap p "_dP
+
 " Up/down, j/k key behaviour
 " -- Changes up/down arrow keys to behave screen-wise, rather than file-wise.
 "    Behaviour is unchanged in operator-pending mode.
