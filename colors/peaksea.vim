@@ -62,7 +62,7 @@ if &background=='light'
   " NOTE THIS IS IN THE WARM SECTION
   hi Error		guifg=#c03000	guibg=NONE	gui=NONE
   hi Identifier		guifg=#a030a0	guibg=NONE	gui=NONE
-  hi ModeMsg		guifg=fg	guibg=#b0b0e0	gui=NONE
+  hi ModeMsg		guifg=fg	guibg=#e0e0e0	gui=NONE
   hi VisualNOS		guifg=fg	guibg=#b0b0e0	gui=NONE
   hi SpecialKey		guifg=#1050a0	guibg=NONE	gui=NONE
   hi NonText		guifg=#002090	guibg=#d0d0d0	gui=NONE
@@ -78,7 +78,7 @@ if &background=='light'
   hi DiffChange		guifg=NONE	guibg=#e0b0e0	gui=NONE
   hi DiffDelete		guifg=#002090	guibg=#d0d0d0	gui=NONE
   hi DiffText		guifg=NONE	guibg=#c0e080	gui=NONE
-  hi SignColumn		guifg=fg	guibg=#90e090	gui=NONE
+  hi SignColumn		guifg=fg	guibg=NONE	gui=NONE
 
   hi IncSearch		guifg=#f0f0f0	guibg=#806060	gui=NONE
   hi StatusLineNC	guifg=fg	guibg=#c0c0c0	gui=NONE
@@ -173,7 +173,7 @@ if &background=='light'
     " NOTE THIS IS IN THE WARM SECTION
     hi Error		ctermfg=130	ctermbg=NONE	cterm=NONE
     hi Identifier	ctermfg=133	ctermbg=NONE	cterm=NONE
-    hi ModeMsg		ctermfg=fg	ctermbg=146	cterm=NONE
+    hi ModeMsg		ctermfg=fg	ctermbg=254	cterm=NONE
     hi VisualNOS	ctermfg=fg	ctermbg=146	cterm=NONE
     hi SpecialKey	ctermfg=25	ctermbg=NONE	cterm=NONE
     hi NonText		ctermfg=18	ctermbg=252	cterm=NONE
@@ -191,7 +191,7 @@ if &background=='light'
     hi DiffChange	ctermfg=NONE	ctermbg=182	cterm=NONE
     hi DiffDelete	ctermfg=18	ctermbg=252	cterm=NONE
     hi DiffText		ctermfg=NONE	ctermbg=150	cterm=NONE
-    hi SignColumn	ctermfg=fg	ctermbg=114	cterm=NONE
+    hi SignColumn	ctermfg=fg	ctermbg=NONE	cterm=NONE
 
     hi IncSearch	ctermfg=255	ctermbg=95	cterm=NONE
     hi StatusLineNC	ctermfg=fg	ctermbg=250	cterm=NONE
@@ -274,7 +274,7 @@ elseif &background=='dark'
   hi StatusLine		guifg=#000000	guibg=#a6caf0	gui=NONE
   hi LineNr		guifg=#b0b0b0	guibg=NONE	gui=NONE
   hi Question		guifg=#000000	guibg=#d0d090	gui=NONE
-  hi ModeMsg		guifg=fg	guibg=#000080	gui=NONE
+  hi ModeMsg		guifg=fg	guibg=#202020	gui=NONE
   hi VisualNOS		guifg=fg	guibg=#000080	gui=NONE
   hi SpecialKey		guifg=#b0d0f0	guibg=NONE	gui=NONE
   hi NonText		guifg=#6080f0	guibg=#101010	gui=NONE
@@ -285,12 +285,12 @@ elseif &background=='dark'
   hi WarningMsg		guifg=#f08060	guibg=NONE	gui=NONE
   hi WildMenu		guifg=#000000	guibg=#d0d090	gui=NONE
   hi Folded		guifg=NONE	guibg=#004000	gui=NONE
-  hi FoldColumn		guifg=#e0e0e0	guibg=#008000	gui=NONE
+  hi FoldColumn		guifg=#e0e0e0	guibg=NONE	gui=NONE
   hi DiffAdd		guifg=NONE	guibg=#000080	gui=NONE
   hi DiffChange		guifg=NONE	guibg=#800080	gui=NONE
   hi DiffDelete		guifg=#6080f0	guibg=#202020	gui=NONE
   hi DiffText		guifg=#000000	guibg=#c0e080	gui=NONE
-  hi SignColumn		guifg=#e0e0e0	guibg=#008000	gui=NONE
+  hi SignColumn		guifg=#e0e0e0	guibg=NONE	gui=NONE
   hi IncSearch		guifg=#000000	guibg=#d0d0d0	gui=NONE
   hi StatusLineNC	guifg=#000000	guibg=#c0c0c0	gui=NONE
   hi VertSplit		guifg=#000000	guibg=#c0c0c0	gui=NONE
@@ -368,12 +368,12 @@ elseif &background=='dark'
     hi Question		ctermfg=Black	    ctermbg=DarkYellow
     hi Todo		ctermfg=DarkRed     ctermbg=DarkYellow
     hi Folded		ctermfg=White	    ctermbg=DarkGreen
-    hi ModeMsg		ctermfg=Grey	    ctermbg=DarkBlue
+    hi ModeMsg		ctermfg=Grey	    ctermbg=DarkCyan
     hi VisualNOS	ctermfg=Grey	    ctermbg=DarkBlue
     hi ErrorMsg		ctermfg=DarkYellow  ctermbg=DarkRed
     hi WildMenu		ctermfg=Black	    ctermbg=DarkYellow
     hi FoldColumn	ctermfg=White	    ctermbg=DarkGreen
-    hi SignColumn	ctermfg=White	    ctermbg=DarkGreen
+    hi SignColumn	ctermfg=White	    ctermbg=NONE
     hi DiffText		ctermfg=Black	    ctermbg=DarkYellow
 
     if v:version >= 700
@@ -510,7 +510,7 @@ elseif &background=='dark'
     hi StatusLine	ctermfg=16	ctermbg=153	cterm=NONE
     hi LineNr		ctermfg=249	ctermbg=NONE	cterm=NONE
     hi Question		ctermfg=16	ctermbg=186	cterm=NONE
-    hi ModeMsg		ctermfg=fg	ctermbg=18	cterm=NONE
+    hi ModeMsg		ctermfg=fg	ctermbg=234	cterm=NONE
     hi VisualNOS	ctermfg=fg	ctermbg=18	cterm=NONE
     hi SpecialKey	ctermfg=153	ctermbg=NONE	cterm=NONE
     hi NonText		ctermfg=69	ctermbg=233	cterm=NONE
@@ -528,7 +528,7 @@ elseif &background=='dark'
     hi DiffChange	ctermfg=NONE	ctermbg=90	cterm=NONE
     hi DiffDelete	ctermfg=69	ctermbg=234	cterm=NONE
     hi DiffText		ctermfg=16	ctermbg=150	cterm=NONE
-    hi SignColumn	ctermfg=254	ctermbg=28	cterm=NONE
+    hi SignColumn	ctermfg=254	ctermbg=NONE	cterm=NONE
     hi IncSearch	ctermfg=16	ctermbg=252	cterm=NONE
     hi StatusLineNC	ctermfg=16	ctermbg=250	cterm=NONE
     hi VertSplit	ctermfg=16	ctermbg=250	cterm=NONE
