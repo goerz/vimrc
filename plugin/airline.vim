@@ -64,6 +64,37 @@ function! s:airline_theme(...)
 endfunction
 command! -nargs=? -complete=customlist,<sid>get_airline_themes AirlineTheme call <sid>airline_theme(<f-args>)
 
+function! s:airline_toggle()
+  if exists("#airline")
+    augroup airline
+      au!
+    augroup END
+    augroup! airline
+
+    if exists("s:stl")
+      let &stl = s:stl
+    endif
+
+    silent doautocmd User AirlineToggledOff
+
+  else
+
+    let s:stl = &statusline
+    augroup airline
+      autocmd!
+
+      autocmd ColorScheme * call <sid>on_colorscheme_changed()
+
+      autocmd BufWritePost */autoload/airline/themes/*.vim
+            \ exec 'source '.split(globpath(&rtp, 'autoload/airline/themes/'.g:airline_theme.'.vim', 1), "\n")[0]
+            \ | call airline#load_theme()
+    augroup END
+    silent doautocmd User AirlineToggledOn
+
+  endif
+endfunction
+command! AirlineToggle call <sid>airline_toggle()
+
 augroup airline
   au!
   autocmd ColorScheme * call airline#highlight(['normal'])
