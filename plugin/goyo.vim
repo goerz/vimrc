@@ -133,6 +133,7 @@ function! s:goyo_on(width)
     \   'winheight':      &winheight,
     \   'statusline':     &statusline,
     \   'ruler':          &ruler,
+    \   'highlight':      &highlight,
     \   'sidescroll':     &sidescroll,
     \   'sidescrolloff':  &sidescrolloff
     \ }
@@ -196,6 +197,7 @@ function! s:goyo_on(width)
   set fillchars+=stlnc:\ 
   set sidescroll=1
   set sidescrolloff=0
+  set highlight-=sr
 
   " Hide left-hand scrollbars
   if has('gui_running')
