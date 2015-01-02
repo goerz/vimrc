@@ -17,3 +17,4 @@ setlocal autoindent
 " Tex files can use spell checking
 setlocal spell
 
+noremap <silent> <leader>t :Voom latex<CR>:vertical resize 80<CR>
