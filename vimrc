@@ -3,10 +3,6 @@
 
 " * Interface Settings {{{1
 
-" use the mouse in xterm (or other terminals that support it)
-"set mouse=a
-set ttymouse=xterm2
-
 " switch ' and `
 nnoremap ' `
 nnoremap ` '
@@ -16,6 +12,26 @@ let mapleader = ","
 let g:mapleader = ","
 let maplocalleader = "\\"
 let g:maplocalleader = "\\"
+
+" use the mouse in xterm (or other terminals that support it)
+" Toggle with ,m
+set mouse=
+set ttymouse=xterm2
+fun! s:ToggleMouse()
+    if !exists("s:old_mouse")
+        let s:old_mouse = "a"
+    endif
+
+    if &mouse == ""
+        let &mouse = s:old_mouse
+        echo "Mouse is for Vim (" . &mouse . ")"
+    else
+        let s:old_mouse = &mouse
+        let &mouse=""
+        echo "Mouse is for terminal"
+    endif
+endfunction
+nnoremap <Leader>m :call <SID>ToggleMouse()<CR>
 
 " pastetoggle
 set pastetoggle=<C-L>p
