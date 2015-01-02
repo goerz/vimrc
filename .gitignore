@@ -16,3 +16,4 @@ spell/en.utf-8.sug
 view/
 .simplenote.cache
 .simplenote.token
+autoload/voom/*.pyc
