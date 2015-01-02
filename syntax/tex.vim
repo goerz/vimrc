@@ -521,7 +521,7 @@ if did_tex_syntax_inits == 1
 
    " Basic TeX highlighting groups
   HiLink texCmdArgs		Number
-  HiLink texCmdName		Statement
+  HiLink texCmdName		Special
   HiLink texComment		Comment
   HiLink texDef			Statement
   HiLink texDefParm		Special
@@ -530,7 +530,7 @@ if did_tex_syntax_inits == 1
   HiLink texInputFile		Special
   HiLink texLength		Number
   HiLink texMath		Special
-  HiLink texMathDelim		Statement
+  HiLink texMathDelim		Special
   HiLink texMathOper		Operator
   HiLink texNewCmd		Statement
   HiLink texNewEnv		Statement
@@ -539,7 +539,7 @@ if did_tex_syntax_inits == 1
   HiLink texSection		PreCondit
   HiLink texSpaceCodeChar	Special
   HiLink texSpecialChar		SpecialChar
-  HiLink texStatement		Statement
+  HiLink texStatement		Special
   HiLink texString		String
   HiLink texTodo		Todo
   HiLink texType		Type
