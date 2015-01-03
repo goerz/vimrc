@@ -259,9 +259,6 @@ colorscheme goerz
 autocmd FileType tex hi! texSectionTitle gui=underline term=bold cterm=underline,bold
 autocmd FileType tex hi! Statement gui=none term=none cterm=none
 
-" Send plugin
-nmap <leader>s :. python send()<cr>
-vmap <leader>s : python send()<cr>gv<esc>
 
 " Datestamps
 if exists("*strftime")
