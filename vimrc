@@ -13,6 +13,9 @@ let g:mapleader = ","
 let maplocalleader = "\\"
 let g:maplocalleader = "\\"
 
+set exrc            " enable per-directory .vimrc files
+set secure          " disable unsafe commands in local .vimrc files
+
 " use the mouse in xterm (or other terminals that support it)
 " Toggle with ,m
 set mouse=
