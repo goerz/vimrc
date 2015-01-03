@@ -259,6 +259,8 @@ colorscheme goerz
 autocmd FileType tex hi! texSectionTitle gui=underline term=bold cterm=underline,bold
 autocmd FileType tex hi! Statement gui=none term=none cterm=none
 
+" Forward SyncTeX
+autocmd FileType tex nnoremap <Leader>s :w<CR>:silent !$SYNCTEXREADER -g <C-r>=line('.')<CR> %<.pdf %<CR><C-l>
 
 " Datestamps
 if exists("*strftime")
