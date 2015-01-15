@@ -370,7 +370,7 @@ inoremap <buffer> `<C-E> \exp\left(\right)<Esc>F(a
 inoremap <buffer> `<C-L> \lim_{}<Left>
 inoremap <buffer> `<Up> \uparrow
 inoremap <buffer> `<Down> \downarrow
-inoremap <buffer> `<Right> \longrightarrow
+inoremap <buffer> `<Right> \rightarrow
 inoremap <buffer> `<Left> \leftarrow
 inoremap <buffer> `<C-F> \to
 
