@@ -31,12 +31,12 @@ ENDPYTHON
 
     " Python version is too old
     if !s:has_supported_python
-        echo s:warning_string
+        "echo s:warning_string
         finish                                                                                                          
     endif
 else
     " no Python support
-    echo s:warning_string
+    "echo s:warning_string
     finish
 endif
 
