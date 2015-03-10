@@ -356,6 +356,7 @@ augroup filetype
   autocmd BufNewFile,BufRead *.md set filetype=markdown
   autocmd BufNewFile,BufRead *.pdc set filetype=pandoc
   autocmd BufNewFile,BufRead *.pandoc set filetype=pandoc
+  autocmd BufNewFile,BufRead *.ipynb set filetype=json
 augroup END
 
 " For some programming languages, delete trailing spaces on save
