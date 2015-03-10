@@ -359,6 +359,9 @@ augroup filetype
   autocmd BufNewFile,BufRead *.ipynb set filetype=json
 augroup END
 
+" Hiding of quotes in json files
+let g:vim_json_syntax_conceal=0
+
 " For some programming languages, delete trailing spaces on save
 autocmd BufWritePre *.py normal m`:%s/\s\+$//e ``
 autocmd BufWritePre *.pl normal m`:%s/\s\+$//e ``
