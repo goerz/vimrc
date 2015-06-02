@@ -273,8 +273,8 @@ command German set spell spelllang=de_20
 command English set spell spelllang=en
 command Python set nospell ft=python
 command ManualFolding set foldenable foldmethod=manual
-command WriteDark set background=dark | colorscheme peaksea | Goyo 80
-command WriteLight set background=light | colorscheme peaksea | Goyo 80
+command WriteDark set background=dark | colorscheme peaksea | Goyo 100
+command WriteLight set background=light | colorscheme peaksea | Goyo 100
 command Dark set background=dark | colorscheme peaksea
 cabbr AB 'a,'b
 
