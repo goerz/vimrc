@@ -67,6 +67,15 @@ vnoremap <silent>k gk
 vnoremap <silent><Up> gk
 vnoremap <silent><Down> gj
 
+" command mode mappings
+" Use emacs-style shortcuts, remap diagraph-insertion to <C-D>
+cnoremap <C-A> <Home>
+cnoremap <C-F> <Right>
+cnoremap <C-B> <Left>
+cnoremap <C-D> <C-K>
+cnoremap <C-K> <C-\>estrpart(getcmdline(),0,getcmdpos()-1)<CR>
+
+
 " windowing commands -- I prefer vertical splits
 " however, keep all CTRL-W CTRL-XX commands at the default!
 set splitright
