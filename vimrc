@@ -191,7 +191,7 @@ set nocompatible
 
 " Enabled XSMP connection. This seems to enable the X clipboard when vim
 " is called with the -X option
-call serverlist()
+"call serverlist()
 
 " allow backspacing over everything in insert mode
 set backspace=indent,eol,start
