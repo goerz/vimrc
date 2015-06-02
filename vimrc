@@ -153,8 +153,8 @@ set highlight+=sr
 set laststatus=2 " always show status line
 
 " set the terminal title
-set title
-set titleold=xterm
+"set title
+"set titleold=xterm
 
 " show cursor line and column, if no statusline
 set ruler
