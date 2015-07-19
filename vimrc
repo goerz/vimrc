@@ -139,13 +139,19 @@ function! WhitespaceCheck()
   return ''
 endfunction!
 
-" Return cwd if autochdir is on
-function! CwdAutochdir()
+" Return current working directory (in quotes) if either autochdir is on or a
+" symlink has been followed. Otherwise, return empty string. To be used for
+" display in the status line
+function! StatusCwd()
+  if exists("+autochdir")
     if &autochdir
-        return '"' . getcwd() . '"/'
-    else
-        return ''
-    end if
+      return '"' . getcwd() . '"/'
+    endif
+  endif
+  if exists("b:followed_symlink")
+    return '"' . getcwd() . '"/'
+  endif
+  return ''
 endfunction!
 
 
@@ -162,7 +168,8 @@ function! MyFollowSymlink(...)
   endif
   let resolvedfile = fnameescape(resolve(fname))
   exec 'file ' . resolvedfile
-  setlocal autochdir
+  lcd %:p:h
+  let b:followed_symlink = 1
 endfunction
 command! FollowSymlink call MyFollowSymlink()
 
@@ -183,7 +190,7 @@ if (g:airline_powerline_fonts==0)
     let g:airline_linecolumn_prefix = '¶ '
     let g:airline_fugitive_prefix = ''
 endif
-let g:airline_section_b='%{WhitespaceCheck()}%{CwdAutochdir()}%f%m'
+let g:airline_section_b='%{WhitespaceCheck()}%{StatusCwd()}%f%m'
 let g:airline_section_c='%3p%% '.g:airline_linecolumn_prefix.'%3l/%L:%3c'
 let g:airline_section_z='%{g:airline_externals_fugitive}'
 
