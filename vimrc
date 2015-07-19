@@ -19,7 +19,7 @@ set secure          " disable unsafe commands in local .vimrc files
 " use the mouse in xterm (or other terminals that support it)
 " Toggle with ,m
 set mouse=
-set ttymouse=xterm2
+"set ttymouse=xterm2
 fun! s:ToggleMouse()
     if !exists("s:old_mouse")
         let s:old_mouse = "a"
@@ -45,6 +45,9 @@ nnoremap <leader>w :w!<cr>
 
 " paste without cutting
 vnoremap p "_dP
+
+" Open file in external program
+nnoremap go :!open <cfile><CR>
 
 " Up/down, j/k key behaviour
 " -- Changes up/down arrow keys to behave screen-wise, rather than file-wise.
@@ -135,6 +138,24 @@ function! WhitespaceCheck()
   endif
   return ''
 endfunction!
+
+
+" Follow symlink for current file
+" Sources:
+"  - https://github.com/tpope/vim-fugitive/issues/147#issuecomment-7572351
+"  - http://www.reddit.com/r/vim/comments/yhsn6/is_it_possible_to_work_around_the_symlink_bug/c5w91qw
+" Echoing a warning does not appear to work:
+"   echohl WarningMsg | echo "Resolving symlink." | echohl None |
+function! MyFollowSymlink(...)
+  let fname = a:0 ? a:1 : expand('%')
+  if getftype(fname) != 'link'
+    return
+  endif
+  let resolvedfile = fnameescape(resolve(fname))
+  exec 'file ' . resolvedfile
+endfunction
+command! FollowSymlink call MyFollowSymlink()
+
 
 " statusline is set by the airline plugin
 " You may only set the powerline fonts to 1 if you have insalled  the
@@ -566,6 +587,9 @@ if has("autocmd")
     \ if line("'\"") > 0 && line("'\"") <= line("$") |
     \   exe "normal g`\"" |
     \ endif
+
+  " automatically follow symlinks
+  autocmd BufReadPost * call MyFollowSymlink(expand('<afile>'))
 
 endif " has("autocmd")
 
