@@ -153,6 +153,7 @@ function! MyFollowSymlink(...)
   endif
   let resolvedfile = fnameescape(resolve(fname))
   exec 'file ' . resolvedfile
+  setlocal autochdir
 endfunction
 command! FollowSymlink call MyFollowSymlink()
 
