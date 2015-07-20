@@ -302,7 +302,7 @@ nmap         ++  vip++
 set t_Co=256
 
 " Default Color Scheme
-colorscheme PaperColor
+colorscheme goerz
 autocmd FileType tex hi! texSectionTitle gui=underline term=bold cterm=underline,bold
 autocmd FileType tex hi! Statement gui=none term=none cterm=none
 
