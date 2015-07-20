@@ -1,252 +1,385 @@
-" Vim color file (goerzcolors.vim)
-" Maintainer:    Michael Goerz <goerz@physik.fu-berlin.de>
-" Last Change:    2008 May 25
-"
-" This color scheme uses a light grey background.  It is my personal variation
-" of the 256 automation color scheme.
-" As opposed to the original theme, this one draws attention away from
-" comments
-"
+" Theme: goerz
+" Author: Michael Goerz <mail@michaelgoerz.net>
+" License: MIT
 
-" First remove all existing highlighting.
-set background=light
-hi clear
-if exists("syntax_on")
-  syntax reset
-endif
-
-let colors_name = "goerz"
-
-
-" Note on 256 color terminals:
-" A decent compilation of xterm and other terminals should have support
-" for 256 colors, instead of the standard 16. Test this with the scripts
-" in the ~/.vim/scripts directory. If you have 256 colors, you can let vim
-" know by either setting $TERM to 'xterm-256color' or calling vim as
-" 'vim -T xterm-256color'. You might want to use that as an alias.
-" See http://www.frexx.de/xterm-256-notes/  for further information.
-
-if has("gui_running")
-    " My settings for gvim are very similar to the settings for a 256 color
-    " terminal
-    let colors_name = "goerz"
-    hi Comment          gui=none       guifg=#808080
-    hi Constant         gui=none       guifg=#000087   guibg=#ffffff
-    hi CursorColumn     gui=none                       guibg=#bcbcbc
-    hi Cursor           gui=none       guifg=#000000   guibg=#000000
-    hi CursorIM         gui=none                       guibg=#262626
-    hi CursorLine       gui=underline
-
-    hi Directory        gui=none       guifg=#000087
-    hi Error            gui=none       guifg=#ffffff   guibg=#af0000
-    hi ErrorMsg         gui=none       guifg=#ffffff   guibg=#af0000
-    hi FoldColumn       gui=none       guifg=#000087   guibg=#bcbcbc
-    hi Folded           gui=none       guifg=#000087   guibg=#ffffff
-    hi Identifier       gui=none       guifg=#005f87
-    hi Ignore           gui=none       guifg=#e5e5e5
-    hi IncSearch        gui=bold       guifg=#000000   guibg=#ffff00
-    hi Label            gui=bold       guifg=#000087
-    hi lCursor          gui=none       guifg=#000000   guibg=#00ffff
-    hi MatchParen       gui=none                       guibg=#cdcd00
-    hi ModeMsg          gui=bold
-    hi MoreMsg          gui=bold       guifg=#00875f
-    hi NonText          gui=bold       guifg=#005f00   guibg=#dadada
-    hi Normal           gui=none       guifg=#000000   guibg=#ffffff
-    hi PreProc          gui=none       guifg=#8700af
-    hi Question         gui=bold       guifg=#00ff00
-    hi Search           gui=none       guifg=#000000   guibg=#ffff00
-    hi SignColumn       gui=none       guifg=#626262   guibg=#dadada
-    hi Special          gui=none       guifg=#000087   guibg=#ffffff
-    hi SpecialKey       gui=none       guifg=#000087
-    hi StatusLine       gui=bold
-    hi StatusLineNC     gui=bold
-    hi String           gui=none       guifg=#00af00
-    hi TabLineFill      gui=reverse
-    hi TabLine          gui=none                       guibg=#e5e5e5
-    hi TabLineSel       gui=bold
-    hi Title            gui=bold       guifg=#000087
-    hi Todo             gui=none                       guibg=#ffff00
-    hi Type             gui=none       guifg=#005f00
-    hi Underlined       gui=underline
-    hi VertSplit        gui=bold
-    hi Visual           gui=bold       guifg=#808080   guibg=#e5e5e5
-    hi VisualNOS        gui=none       guifg=#808080   guibg=#e5e5e5
-    hi WarningMsg       gui=none       guifg=#ff0000
-    hi WildMenu         gui=none       guifg=#000000   guibg=#ffff00
-    hi Statement        gui=bold       guifg=#0000d7
-    " second, non-88color-compatible colors
-    hi DiffAdd      gui=none                       guibg=#d7ffd7
-    hi DiffChange   gui=none                       guibg=#ffafff
-    hi DiffDelete   gui=bold       guifg=#005f00   guibg=#dadada
-    hi DiffText     gui=bold                       guibg=#ff87ff
-    hi LineNr       gui=none       guifg=#626262   guibg=#eeeeee
-    if v:version >= 700
-        hi Pmenu        gui=none                   guibg=#ffafd7
-        hi PmenuSbar    gui=none                   guibg=#9e9e9e
-        hi PmenuSel     gui=none                   guibg=#9e9e9e
-        hi PmenuThumb   gui=reverse
-        hi spellbad     gui=none                   guibg=#ffd7ff
-        hi SpellCap     gui=none                   guibg=#d7ffff
-        hi SpellLocal   gui=none                   guibg=#ffd7ff
-        hi SpellRare    gui=none                   guibg=#ffd7ff
-    endif
+" Default GUI Colours
+"set background=light
+if &background=='light'
+    "light background is preferred
+    let s:foreground = ""
+    let s:background = ""
+    let s:gray40     = "666666"
+    let s:gray50     = "808080"
+    let s:gray75     = "bfbfbf"
+    let s:gray90     = "e5e5e5"
+    let s:black      = "000000"
+    let s:white      = "ffffff"
+    let s:red        = "af0000"
+    let s:lightred   = "d7005f"
+    let s:orange     = "d75f00"
+    let s:yellow     = "ffff00"
+    let s:green      = "718c00"
+    let s:darkgreen  = "008700"
+    let s:lightgreen = "d7ffd7"
+    let s:pink       = "5f0086"
+    let s:lightpink  = "b190a1"
+    let s:blue       = "4271ae"
+    let s:darkblue   = "005f87"
+    let s:purple     = "8959a8"
 else
-    if &t_Co >= 256
-        " this is for 256 color terminals
-        " first, the colors that are compatible to a 88-color terminal
-        hi Normal           cterm=none       ctermfg=0
-        hi Comment          cterm=none       ctermfg=244
-        hi Constant         cterm=none       ctermfg=18
-        hi CursorColumn     cterm=none                    ctermbg=250
-        hi Cursor           cterm=none       ctermfg=0    ctermbg=0
-        hi CursorIM         cterm=none                    ctermbg=235
-        hi CursorLine       cterm=underline
-
-        hi Directory        cterm=none       ctermfg=18
-        hi Error            cterm=none       ctermfg=15   ctermbg=124
-        hi ErrorMsg         cterm=none       ctermfg=15   ctermbg=124
-        hi FoldColumn       cterm=none       ctermfg=18   ctermbg=250
-        hi Folded           cterm=none       ctermfg=18   ctermbg=15
-        hi Identifier       cterm=none       ctermfg=24
-        hi Ignore           cterm=none       ctermfg=7
-        hi IncSearch        cterm=bold       ctermfg=0    ctermbg=11
-        hi Label            cterm=bold       ctermfg=18
-        hi lCursor          cterm=none       ctermfg=0    ctermbg=14
-        hi MatchParen       cterm=none                    ctermbg=3
-        hi ModeMsg          cterm=bold
-        hi MoreMsg          cterm=bold       ctermfg=29
-        hi NonText          cterm=bold       ctermfg=22   ctermbg=253
-        hi PreProc          cterm=none       ctermfg=91
-        hi Question         cterm=bold       ctermfg=10
-        hi Search           cterm=none       ctermfg=0    ctermbg=11
-        hi SignColumn       cterm=none       ctermfg=241  ctermbg=253
-        hi Special          cterm=none       ctermfg=18
-        hi SpecialKey       cterm=none       ctermfg=18
-        hi StatusLine       cterm=bold
-        hi StatusLineNC     cterm=bold
-        hi String           cterm=none       ctermfg=34
-        hi TabLineFill      cterm=reverse
-        hi TabLine          cterm=none                    ctermbg=7
-        hi TabLineSel       cterm=bold
-        hi Title            cterm=bold       ctermfg=18
-        hi Todo             cterm=none                    ctermbg=11
-        hi Type             cterm=none       ctermfg=22
-        hi Underlined       cterm=underline
-        hi VertSplit        cterm=bold
-        hi Visual           cterm=bold       ctermfg=244  ctermbg=7
-        hi VisualNOS        cterm=none       ctermfg=244  ctermbg=7
-        hi WarningMsg       cterm=none       ctermfg=9
-        hi WildMenu         cterm=none       ctermfg=0    ctermbg=11
-        hi Statement        cterm=bold       ctermfg=12
-        " second, non-88color-compatible colors
-        hi DiffAdd      cterm=none                    ctermbg=194
-        hi DiffChange   cterm=none                    ctermbg=219
-        hi DiffDelete   cterm=bold       ctermfg=22   ctermbg=253
-        hi DiffText     cterm=bold                    ctermbg=213
-        hi LineNr       cterm=none       ctermfg=241  ctermbg=255
-        if v:version >= 700
-            hi Pmenu        cterm=none                    ctermbg=218
-            hi PmenuSbar    cterm=none                    ctermbg=247
-            hi PmenuSel     cterm=none                    ctermbg=247
-            hi PmenuThumb   cterm=reverse
-            hi spellbad     cterm=none                    ctermbg=225
-            hi SpellCap     cterm=none                    ctermbg=195
-            hi SpellLocal   cterm=none                    ctermbg=225
-            hi SpellRare    cterm=none                    ctermbg=225
-        endif
-    elseif &t_Co >= 88
-        let colors_name = "goerz"
-        " this is for 88 color terminals
-        " first, the "compatible" colors: these were automatically converted
-        " from the colors for 256-color terminals
-        hi Comment          cterm=none       ctermfg=84
-        hi Constant         cterm=none       ctermfg=18
-        hi CursorColumn     cterm=none                    ctermbg=86
-        hi Cursor           cterm=none       ctermfg=0    ctermbg=0
-        hi CursorIM         cterm=none                    ctermbg=81
-        hi CursorLine       cterm=underline
-
-        hi Directory        cterm=none       ctermfg=18
-        hi Error            cterm=none       ctermfg=15   ctermbg=64
-        hi ErrorMsg         cterm=none       ctermfg=15   ctermbg=64
-        hi FoldColumn       cterm=none       ctermfg=18   ctermbg=86
-        hi Folded           cterm=none       ctermfg=18   ctermbg=15
-        hi Identifier       cterm=none       ctermfg=22
-        hi Ignore           cterm=none       ctermfg=7
-        hi IncSearch        cterm=bold       ctermfg=0    ctermbg=11
-        hi Label            cterm=bold       ctermfg=18
-        hi lCursor          cterm=none       ctermfg=0    ctermbg=14
-        hi MatchParen       cterm=none                    ctermbg=3
-        hi ModeMsg          cterm=bold
-        hi MoreMsg          cterm=bold       ctermfg=25
-        hi NonText          cterm=bold       ctermfg=20   ctermbg=87
-        hi Normal           cterm=none       ctermfg=0
-        hi PreProc          cterm=none       ctermfg=51
-        hi Question         cterm=bold       ctermfg=10
-        hi Search           cterm=none       ctermfg=0    ctermbg=11
-        hi SignColumn       cterm=none       ctermfg=83   ctermbg=87
-        hi Special          cterm=none       ctermfg=18
-        hi SpecialKey       cterm=none       ctermfg=18
-        hi StatusLine       cterm=bold
-        hi StatusLineNC     cterm=bold
-        hi String           cterm=none       ctermfg=28
-        hi TabLineFill      cterm=reverse
-        hi TabLine          cterm=none                    ctermbg=7
-        hi TabLineSel       cterm=bold
-        hi Title            cterm=bold       ctermfg=18
-        hi Todo             cterm=none                    ctermbg=11
-        hi Type             cterm=none       ctermfg=20
-        hi Underlined       cterm=underline
-        hi VertSplit        cterm=bold
-        hi Visual           cterm=bold       ctermfg=84   ctermbg=7
-        hi VisualNOS        cterm=none       ctermfg=84   ctermbg=7
-        hi WarningMsg       cterm=none       ctermfg=9
-        hi WildMenu         cterm=none       ctermfg=0    ctermbg=11
-        hi Statement        cterm=bold       ctermfg=12
-        " second, non-compatible colors, these were set manually
-        hi DiffAdd          cterm=none                    ctermbg=10
-        hi DiffChange       cterm=none                    ctermbg=13
-        hi DiffDelete       cterm=bold       ctermfg=20   ctermbg=87
-        hi DiffText         cterm=bold                    ctermbg=9
-        hi LineNr           cterm=none       ctermfg=83   ctermbg=87
-        if v:version >= 700
-            hi Pmenu        cterm=none                    ctermbg=74
-            hi PmenuSbar    cterm=none                    ctermbg=85
-            hi PmenuSel     cterm=none                    ctermbg=85
-            hi PmenuThumb   cterm=reverse
-            hi spellbad     cterm=none                    ctermbg=69
-            hi SpellCap     cterm=none                    ctermbg=87
-            hi SpellLocal   cterm=none                    ctermbg=69
-            hi SpellRare    cterm=none                    ctermbg=69
-        endif
-    else
-        " There's no point in setting anything for low color terminals
-        " The defaults are good enough in that case
-        let colors_name = "goerz"
-    endif
+    "adaptation of the "standard" colors to a dark background
+    let s:foreground = ""
+    let s:background = ""
+    let s:gray40     = "999999"
+    let s:gray50     = "808080"
+    let s:gray75     = "404040"
+    let s:gray90     = "1a1a1a"
+    let s:black      = "ffffff"
+    let s:white      = "000000"
+    let s:red        = "af0000"
+    let s:lightred   = "ba0052"
+    let s:orange     = "d75f00"
+    let s:yellow     = "b7b700"
+    let s:green      = "718c00"
+    let s:darkgreen  = "006e00"
+    let s:lightgreen = "8ea88e"
+    let s:pink       = "6c495a"
+    let s:lightpink  = "5f005f"
+    let s:blue       = "4271ae"
+    let s:darkblue   = "005f87"
+    let s:purple     = "8959a8"
 endif
 
-hi link Boolean Constant
-hi link Character Constant
-hi link Conditional Statement
-hi link Debug Special
-hi link Define PreProc
-hi link Delimiter Special
-hi link Exception Statement
-hi link Float Constant
-hi link Function Identifier
-hi link Include PreProc
-hi link Keyword Statement
-hi link Label Statement
-hi link Macro PreProc
-hi link Number Constant
-hi link Operator Statement
-hi link PreCondit PreProc
-hi link Repeat Statement
-hi link SpecialChar Special
-hi link SpecialComment Special
-hi link StorageClass Type
-hi link String Constant
-hi link Structure Type
-hi link Tag Special
-hi link Typedef Type
+hi clear
+syntax reset
+
+let g:colors_name = "PaperColor"
+
+if has("gui_running") || &t_Co == 88 || &t_Co == 256
+  " Returns an approximate grey index for the given grey level
+  fun <SID>grey_number(x)
+    if &t_Co == 88
+      if a:x < 23
+        return 0
+      elseif a:x < 69
+        return 1
+      elseif a:x < 103
+        return 2
+      elseif a:x < 127
+        return 3
+      elseif a:x < 150
+        return 4
+      elseif a:x < 173
+        return 5
+      elseif a:x < 196
+        return 6
+      elseif a:x < 219
+        return 7
+      elseif a:x < 243
+        return 8
+      else
+        return 9
+      endif
+    else
+      if a:x < 14
+        return 0
+      else
+        let l:n = (a:x - 8) / 10
+        let l:m = (a:x - 8) % 10
+        if l:m < 5
+          return l:n
+        else
+          return l:n + 1
+        endif
+      endif
+    endif
+  endfun
+
+  " Returns the actual grey level represented by the grey index
+  fun <SID>grey_level(n)
+    if &t_Co == 88
+      if a:n == 0
+        return 0
+      elseif a:n == 1
+        return 46
+      elseif a:n == 2
+        return 92
+      elseif a:n == 3
+        return 115
+      elseif a:n == 4
+        return 139
+      elseif a:n == 5
+        return 162
+      elseif a:n == 6
+        return 185
+      elseif a:n == 7
+        return 208
+      elseif a:n == 8
+        return 231
+      else
+        return 255
+      endif
+    else
+      if a:n == 0
+        return 0
+      else
+        return 8 + (a:n * 10)
+      endif
+    endif
+  endfun
+
+  " Returns the palette index for the given grey index
+  fun <SID>grey_colour(n)
+    if &t_Co == 88
+      if a:n == 0
+        return 16
+      elseif a:n == 9
+        return 79
+      else
+        return 79 + a:n
+      endif
+    else
+      if a:n == 0
+        return 16
+      elseif a:n == 25
+        return 231
+      else
+        return 231 + a:n
+      endif
+    endif
+  endfun
+
+  " Returns an approximate colour index for the given colour level
+  fun <SID>rgb_number(x)
+    if &t_Co == 88
+      if a:x < 69
+        return 0
+      elseif a:x < 172
+        return 1
+      elseif a:x < 230
+        return 2
+      else
+        return 3
+      endif
+    else
+      if a:x < 75
+        return 0
+      else
+        let l:n = (a:x - 55) / 40
+        let l:m = (a:x - 55) % 40
+        if l:m < 20
+          return l:n
+        else
+          return l:n + 1
+        endif
+      endif
+    endif
+  endfun
+
+  " Returns the actual colour level for the given colour index
+  fun <SID>rgb_level(n)
+    if &t_Co == 88
+      if a:n == 0
+        return 0
+      elseif a:n == 1
+        return 139
+      elseif a:n == 2
+        return 205
+      else
+        return 255
+      endif
+    else
+      if a:n == 0
+        return 0
+      else
+        return 55 + (a:n * 40)
+      endif
+    endif
+  endfun
+
+  " Returns the palette index for the given R/G/B colour indices
+  fun <SID>rgb_colour(x, y, z)
+    if &t_Co == 88
+      return 16 + (a:x * 16) + (a:y * 4) + a:z
+    else
+      return 16 + (a:x * 36) + (a:y * 6) + a:z
+    endif
+  endfun
+
+  " Returns the palette index to approximate the given R/G/B colour levels
+  fun <SID>colour(r, g, b)
+    " Get the closest grey
+    let l:gx = <SID>grey_number(a:r)
+    let l:gy = <SID>grey_number(a:g)
+    let l:gz = <SID>grey_number(a:b)
+
+    " Get the closest colour
+    let l:x = <SID>rgb_number(a:r)
+    let l:y = <SID>rgb_number(a:g)
+    let l:z = <SID>rgb_number(a:b)
+
+    if l:gx == l:gy && l:gy == l:gz
+      " There are two possibilities
+      let l:dgr = <SID>grey_level(l:gx) - a:r
+      let l:dgg = <SID>grey_level(l:gy) - a:g
+      let l:dgb = <SID>grey_level(l:gz) - a:b
+      let l:dgrey = (l:dgr * l:dgr) + (l:dgg * l:dgg) + (l:dgb * l:dgb)
+      let l:dr = <SID>rgb_level(l:gx) - a:r
+      let l:dg = <SID>rgb_level(l:gy) - a:g
+      let l:db = <SID>rgb_level(l:gz) - a:b
+      let l:drgb = (l:dr * l:dr) + (l:dg * l:dg) + (l:db * l:db)
+      if l:dgrey < l:drgb
+        " Use the grey
+        return <SID>grey_colour(l:gx)
+      else
+        " Use the colour
+        return <SID>rgb_colour(l:x, l:y, l:z)
+      endif
+    else
+      " Only one possibility
+      return <SID>rgb_colour(l:x, l:y, l:z)
+    endif
+  endfun
+
+  " Returns the palette index to approximate the 'rrggbb' hex string
+  fun <SID>rgb(rgb)
+    let l:r = ("0x" . strpart(a:rgb, 0, 2)) + 0
+    let l:g = ("0x" . strpart(a:rgb, 2, 2)) + 0
+    let l:b = ("0x" . strpart(a:rgb, 4, 2)) + 0
+
+    return <SID>colour(l:r, l:g, l:b)
+  endfun
+
+  " Sets the highlighting for the given group
+  fun <SID>X(group, fg, bg, attr)
+    if a:fg != ""
+      exec "hi " . a:group . " guifg=#" . a:fg . " ctermfg=" . <SID>rgb(a:fg)
+    endif
+    if a:bg != ""
+      exec "hi " . a:group . " guibg=#" . a:bg . " ctermbg=" . <SID>rgb(a:bg)
+    endif
+    if a:attr != ""
+      exec "hi " . a:group . " gui=" . a:attr . " cterm=" . a:attr
+    endif
+  endfun
+
+  "           type               foreground    background     attribute
+  call <SID>X("Comment",         s:gray50,     s:background,  "none")
+  call <SID>X("Constant",        s:darkblue,   s:background,  "none")
+  call <SID>X("Directory",       s:blue,       s:background,  "none")
+  call <SID>X("Error",           s:white,      s:red,         "none")
+  call <SID>X("ErrorMsg",        s:white,      s:red,         "none")
+  call <SID>X("FoldColumn",      s:darkblue,   s:gray75,      "none")
+  call <SID>X("Folded",          s:darkblue,   s:gray75,      "none")
+  call <SID>X("Identifier",      s:lightred,   s:background,  "none")
+  call <SID>X("Ignore",          s:gray90,     s:background,  "none")
+  call <SID>X("IncSearch",       s:foreground, s:yellow,      "none")
+  call <SID>X("Search",          s:foreground, s:yellow,      "none")
+  call <SID>X("Label",           s:blue,       s:background,  "none")
+  call <SID>X("MatchParen",      s:foreground, s:orange,      "none")
+  call <SID>X("ModeMsg",         s:foreground, s:background,  "bold")
+  call <SID>X("MoreMsg",         s:foreground, s:background,  "bold")
+  call <SID>X("NonText",         s:darkgreen,  s:gray90,      "none")
+  call <SID>X("PreProc",         s:blue,       s:background,  "none")
+  call <SID>X("Question",        s:green,      s:background,  "bold")
+  call <SID>X("Special",         s:darkblue,   s:background,  "none")
+  call <SID>X("SpecialKey",      s:darkblue,   s:background,  "none")
+  call <SID>X("StatusLine",      s:foreground, s:background,  "bold")
+  call <SID>X("StatusLineNC",    s:foreground, s:background,  "reverse")
+  call <SID>X("String",          s:darkgreen,  s:background,  "none")
+  call <SID>X("TabLineFill",     s:foreground, s:background,  "reverse")
+  call <SID>X("TabLine",         s:foreground, s:gray75,      "none")
+  call <SID>X("TabLineSel",      s:foreground, s:background,  "bold")
+  call <SID>X("Title",           s:black,      s:background,  "bold")
+  call <SID>X("Todo",            s:foreground, s:yellow,      "none")
+  call <SID>X("Type",            s:lightred,   s:background,  "bold")
+  call <SID>X("Underlined",      s:foreground, s:background,  "underline")
+  call <SID>X("VertSplit",       s:foreground, s:background,  "bold")
+  call <SID>X("Visual",          s:foreground, s:gray75,      "none")
+  call <SID>X("WarningMsg",      s:lightred,   s:background,  "none")
+  call <SID>X("Statement",       s:lightred,   s:background,  "none")
+  call <SID>X("DiffAdd",         s:foreground, s:lightgreen,  "none")
+  call <SID>X("DiffChange",      s:foreground, s:lightpink,   "none")
+  call <SID>X("DiffText",        s:foreground, s:pink,        "none")
+  call <SID>X("DiffDelete",      s:darkgreen,  s:gray75,      "bold")
+  call <SID>X("LineNr",          s:gray50,     s:gray90,      "none")
+  call <SID>X("Conditional",     s:purple,     s:background,  "bold")
+  call <SID>X("Repeat",          s:purple,     s:background,  "bold")
+  call <SID>X("Structure",       s:blue,       s:background,  "bold")
+  call <SID>X("Function",        s:lightred,   s:background,  "none")
+  call <SID>X("Keyword",         s:darkblue,   s:background,  "none")
+  call <SID>X("Global",          s:blue,       s:background,  "none")
+  call <SID>X("Operator",        s:lightred,   s:background,  "none")
+  call <SID>X("Define",          s:purple,     s:background,  "none")
+  call <SID>X("Include",         s:red,        s:background,  "none")
+  call <SID>X("PreCondit",       s:darkblue,   s:background,  "bold")
+  call <SID>X("StorageClass",    s:darkblue,   s:background,  "none")
+  if version >= 700
+    call <SID>X("CursorColumn",    s:foreground, s:gray90,      "none")
+    call <SID>X("CursorLine",      s:foreground, s:gray90,      "none")
+    call <SID>X("SignColumn",      s:gray50,     s:gray90,      "none")
+    call <SID>X("PMenu",           s:foreground, s:gray90,      "none")
+    call <SID>X("PMenuSbar",       s:foreground, s:gray90,      "reverse")
+    call <SID>X("PMenuThumb",      s:foreground, s:gray90,      "none")
+    call <SID>X("PMenuSel",        s:foreground, s:gray90,      "reverse")
+  endif
+  if version >= 703
+    call <SID>X("ColorColumn",     s:foreground, s:lightpink,    "none")
+    call <SID>X("CursorLineNr",    s:gray50,     s:gray90,      "bold")
+  end
+
+
+  " Makefile Highlighting
+  call <SID>X("makeIdent",       s:blue,       s:background,  "none")
+  call <SID>X("makeSpecTarget",  s:green,      s:background,  "none")
+  call <SID>X("makeTarget",      s:red,        s:background,  "bold")
+  call <SID>X("makeStatement",   s:darkblue,   s:background,  "bold")
+
+  " HTML Highlighting
+  call <SID>X("htmlH1",          s:black,      s:background,  "none")
+  call <SID>X("htmlH2",          s:darkblue,   s:background,  "none")
+  call <SID>X("htmlH3",          s:purple,     s:background,  "none")
+  call <SID>X("htmlH4",          s:lightred,   s:background,  "none")
+  call <SID>X("htmlTag",         s:lightred,   s:background,  "none")
+  call <SID>X("htmlBold",        s:black,      s:background,  "none")
+  call <SID>X("htmlItalic",      s:gray50,     s:background,  "none")
+  call <SID>X("htmlBoldItalic",  s:darkblue,   s:background,  "none")
+
+  " Markdown Highlighting
+  call <SID>X("mkdCode",         s:foreground, s:gray90,      "none")
+  call <SID>X("mkdLink",         s:blue,       s:background,  "bold")
+  call <SID>X("mkdURL",          s:gray50,     s:background,  "none")
+  call <SID>X("mkdIndentCode",   s:darkgreen,  s:background,  "none")
+
+  " LaTeX Highlighting
+  call <SID>X("bibKey",          s:darkblue,   s:background,  "bold")
+
+
+   " Plugin: Netrw
+   call <SID>X("netrwVersion",   s:red,        s:background,  "none")
+   call <SID>X("netrwList",      s:lightred,   s:background,  "none")
+   call <SID>X("netrwHidePat",   s:green,      s:background,  "none")
+   call <SID>X("netrwQuickHelp", s:blue,       s:background,  "none")
+   call <SID>X("netrwHelpCmd",   s:blue,       s:background,  "none")
+   call <SID>X("netrwDir",       s:darkblue,   s:background,  "bold")
+   call <SID>X("netrwClassify",  s:lightred,   s:background,  "none")
+   call <SID>X("netrwExe",       s:darkgreen,  s:background,  "none")
+   call <SID>X("netrwSuffixes",  s:gray50,     s:background,  "none")
+
+   " Plugin: gitgutter
+  call <SID>X("GitGutterAdd",          s:darkgreen,     s:gray90,      "none")
+  call <SID>X("GitGutterChange",       s:red,           s:gray90,      "none")
+  call <SID>X("GitGutterDelete",       s:darkblue,      s:gray90,      "none")
+  call <SID>X("GitGutterChangeDelete", s:gray50,        s:gray90,      "none")
+
+  " Delete Functions
+  delf <SID>X
+  delf <SID>rgb
+  delf <SID>colour
+  delf <SID>rgb_colour
+  delf <SID>rgb_level
+  delf <SID>rgb_number
+  delf <SID>grey_colour
+  delf <SID>grey_level
+  delf <SID>grey_number
+endif
