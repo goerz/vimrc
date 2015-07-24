@@ -11,3 +11,5 @@ setlocal expandtab
 setlocal spell
 
 noremap <silent> <leader>t :Voom markdown<CR>:vertical resize 80<CR>
+inoremap -- –
+inoremap --- —
