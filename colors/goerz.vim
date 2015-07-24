@@ -336,20 +336,27 @@ if has("gui_running") || &t_Co == 88 || &t_Co == 256
   call <SID>X("makeStatement",   s:darkblue,   s:background,  "bold")
 
   " HTML Highlighting
-  call <SID>X("htmlH1",          s:black,      s:background,  "none")
-  call <SID>X("htmlH2",          s:darkblue,   s:background,  "none")
-  call <SID>X("htmlH3",          s:purple,     s:background,  "none")
-  call <SID>X("htmlH4",          s:lightred,   s:background,  "none")
+  call <SID>X("htmlH1",          s:black,      s:background,  "bold")
+  call <SID>X("htmlH2",          s:darkblue,   s:background,  "bold")
+  call <SID>X("htmlH3",          s:purple,     s:background,  "bold")
+  call <SID>X("htmlH4",          s:lightred,   s:background,  "bold")
   call <SID>X("htmlTag",         s:lightred,   s:background,  "none")
   call <SID>X("htmlBold",        s:black,      s:background,  "none")
   call <SID>X("htmlItalic",      s:gray50,     s:background,  "none")
   call <SID>X("htmlBoldItalic",  s:darkblue,   s:background,  "none")
 
-  " Markdown Highlighting
-  call <SID>X("mkdCode",         s:foreground, s:gray90,      "none")
-  call <SID>X("mkdLink",         s:blue,       s:background,  "bold")
-  call <SID>X("mkdURL",          s:gray50,     s:background,  "none")
-  call <SID>X("mkdIndentCode",   s:darkgreen,  s:background,  "none")
+  " Markdown/Pandox Highlighting
+  call <SID>X("markdownH1",        s:black,      s:background,  "bold")
+  call <SID>X("markdownH2",        s:darkblue,   s:background,  "bold")
+  call <SID>X("markdownH3",        s:purple,     s:background,  "bold")
+  call <SID>X("markdownH4",        s:lightred,   s:background,  "bold")
+  call <SID>X("markdownCode",      s:foreground, s:gray90,      "none")
+  call <SID>X("pandocNoFormatted", s:foreground, s:gray90,      "none")
+  call <SID>X("markdownItalic",    s:foreground, s:background,  "underline")
+  call <SID>X("markdownLinkText",  s:blue,       s:background,  "bold")
+  call <SID>X("markdownURL",       s:gray50,     s:background,  "none")
+  call <SID>X("markdownCodeBlock", s:foreground, s:background,  "none")
+  hi def link markdownError Normal
 
   " LaTeX Highlighting
   call <SID>X("bibKey",          s:darkblue,   s:background,  "bold")
