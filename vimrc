@@ -285,6 +285,15 @@ let g:syntastic_mode_map = { 'mode': 'active',
                            \ 'active_filetypes': [],
                            \ 'passive_filetypes': [] }
 
+" vim-textobj-quote plugin
+augroup textobj_quote
+  autocmd!
+  autocmd FileType markdown call textobj#quote#init()
+augroup END
+map <silent> <leader>qc <Plug>ReplaceWithCurly
+map <silent> <leader>qs <Plug>ReplaceWithStraight
+
+
 " pylint compiler settings
 let g:pylint_onwrite = 0  " Don't call pylint every time file is saved
 let g:pylint_cwindow = 0  " Don't open QuickFix Window automatically
