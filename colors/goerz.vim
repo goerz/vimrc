@@ -346,17 +346,20 @@ if has("gui_running") || &t_Co == 88 || &t_Co == 256
   call <SID>X("htmlBoldItalic",  s:darkblue,   s:background,  "none")
 
   " Markdown/Pandox Highlighting
-  call <SID>X("markdownH1",        s:black,      s:background,  "bold")
-  call <SID>X("markdownH2",        s:darkblue,   s:background,  "bold")
-  call <SID>X("markdownH3",        s:purple,     s:background,  "bold")
-  call <SID>X("markdownH4",        s:lightred,   s:background,  "bold")
-  call <SID>X("markdownCode",      s:foreground, s:gray90,      "none")
-  call <SID>X("pandocNoFormatted", s:foreground, s:gray90,      "none")
-  call <SID>X("markdownItalic",    s:foreground, s:background,  "underline")
-  call <SID>X("markdownLinkText",  s:blue,       s:background,  "bold")
-  call <SID>X("markdownURL",       s:gray50,     s:background,  "none")
-  call <SID>X("markdownCodeBlock", s:foreground, s:background,  "none")
+  call <SID>X("markdownH1",            s:black,      s:background,  "bold")
+  call <SID>X("markdownH2",            s:darkblue,   s:background,  "bold")
+  call <SID>X("markdownH3",            s:purple,     s:background,  "bold")
+  call <SID>X("markdownH4",            s:lightred,   s:background,  "bold")
+  call <SID>X("markdownCode",          s:foreground, s:gray90,      "none")
+  call <SID>X("pandocNoFormatted",     s:foreground, s:gray90,      "none")
+  call <SID>X("markdownItalic",        s:foreground, s:background,  "underline")
+  call <SID>X("markdownLinkText",      s:blue,       s:background,  "bold")
+  call <SID>X("pandocReferenceLabel",  s:blue,       s:background,  "bold")
+  call <SID>X("markdownURL",           s:gray50,     s:background,  "none")
+  call <SID>X("pandocReferenceURL",    s:gray50,     s:background,  "none")
+  call <SID>X("markdownCodeBlock",     s:foreground, s:background,  "none")
   hi def link markdownError Normal
+  hi def link pandocCodeblock String
 
   " LaTeX Highlighting
   call <SID>X("bibKey",          s:darkblue,   s:background,  "bold")
