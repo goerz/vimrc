@@ -289,6 +289,7 @@ let g:syntastic_mode_map = { 'mode': 'active',
 augroup textobj_quote
   autocmd!
   autocmd FileType markdown call textobj#quote#init()
+  autocmd FileType pandoc call textobj#quote#init()
 augroup END
 map <silent> <leader>qc <Plug>ReplaceWithCurly
 map <silent> <leader>qs <Plug>ReplaceWithStraight

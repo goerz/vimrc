@@ -1,5 +1,4 @@
 set textwidth=80
-compiler maruku
 
 " use indents of 4 spaces:
 setlocal tabstop=4
