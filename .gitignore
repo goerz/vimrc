@@ -4,4 +4,4 @@ view/
 .netrwhist
 .simplenote.cache
 .simplenote.token
-autoload/voom/*.pyc
+*.pyc
