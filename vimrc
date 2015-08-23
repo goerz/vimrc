@@ -329,6 +329,7 @@ if exists("*strftime")
 endif
 
 " abbreviations / commands
+command Noindent setl noai nocin nosi inde=
 command German set spell spelllang=de_20
 command English set spell spelllang=en
 command Python set nospell ft=python
