@@ -20,6 +20,7 @@
 "    Copy this file into your ftplugin directory. 
 
 
+if has('python')
 python << EOF
 import re
 import vim
@@ -95,6 +96,7 @@ def fortran_complete():
             cb[line+2] = indent + closingline 
             vim.current.window.cursor = (line+2, 1)
 EOF
+endif
 
 nmap <leader>i :python fortran_complete()<cr>A
 imap <C-L>i :python fortran_complete()<cr>A
