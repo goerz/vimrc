@@ -300,7 +300,7 @@ if has("gui_running") || &t_Co == 88 || &t_Co == 256
   call <SID>X("Statement",       s:lightred,   s:background,  "none")
   call <SID>X("DiffAdd",         s:foreground, s:lightgreen,  "none")
   call <SID>X("DiffChange",      s:foreground, s:lightpink,   "none")
-  call <SID>X("DiffText",        s:foreground, s:pink,        "none")
+  call <SID>X("DiffText",        s:foreground, s:gray75,   "none")
   call <SID>X("DiffDelete",      s:darkgreen,  s:gray75,      "bold")
   call <SID>X("LineNr",          s:gray50,     s:gray90,      "none")
   call <SID>X("Conditional",     s:purple,     s:background,  "bold")
