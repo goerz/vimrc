@@ -272,7 +272,7 @@ autocmd BufWinLeave ?* mkview          " Store fold settings for all buffers ...
 " Tagbar (and legacy Taglist ) plugin
 let Tlist_Inc_Winwidth = 0 " Taglist: Don't enlarge the terminal
 "noremap <silent> <leader>t :TlistToggle<CR><C-W>h
-noremap <silent> <leader>t :TagbarToggle<CR><C-W>h
+noremap <silent> <leader>t :TagbarToggle<CR>
 let g:tagbar_left = 1
 let g:tagbar_foldlevel = 2
 " Makefile tags: requires
