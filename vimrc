@@ -90,6 +90,27 @@ set splitbelow
 :map <c-w>gf :vertical wincmd f<CR>
 :map <c-w>] :vertical wincmd ]<CR>
 :map <c-w>n :vnew<CR>
+" Wrap window-move-cursor
+" http://stackoverflow.com/questions/13848429/is-there-a-way-to-have-window-navigation-wrap-around-in-vim<Paste>
+function! s:GotoNextWindow( direction, count )
+  let l:prevWinNr = winnr()
+  execute a:count . 'wincmd' a:direction
+  return winnr() != l:prevWinNr
+endfunction
+function! s:JumpWithWrap( direction, opposite )
+  if ! s:GotoNextWindow(a:direction, v:count1)
+    call s:GotoNextWindow(a:opposite, 999)
+  endif
+endfunction
+nnoremap <silent> <C-w>h :<C-u>call <SID>JumpWithWrap('h', 'l')<CR>
+nnoremap <silent> <C-w>j :<C-u>call <SID>JumpWithWrap('j', 'k')<CR>
+nnoremap <silent> <C-w>k :<C-u>call <SID>JumpWithWrap('k', 'j')<CR>
+nnoremap <silent> <C-w>l :<C-u>call <SID>JumpWithWrap('l', 'h')<CR>
+nnoremap <silent> <C-w><Left> :<C-u>call <SID>JumpWithWrap('h', 'l')<CR>
+nnoremap <silent> <C-w><Down> :<C-u>call <SID>JumpWithWrap('j', 'k')<CR>
+nnoremap <silent> <C-w><Up> :<C-u>call <SID>JumpWithWrap('k', 'j')<CR>
+nnoremap <silent> <C-w><Right> :<C-u>call <SID>JumpWithWrap('l', 'h')<CR>
+
 
 " persistent undo
 if has("persistent_undo")
