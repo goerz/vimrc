@@ -46,6 +46,9 @@ nnoremap <Leader>p :set invpaste<CR>
 " Save
 nnoremap <leader>w :w!<cr>
 
+" Align to mark 'a
+nnoremap <leader>a :AlignToMark('a')<CR>
+
 " paste without cutting
 vnoremap p "_dP
 
@@ -294,7 +297,6 @@ autocmd BufWinLeave ?* mkview          " Store fold settings for all buffers ...
 let Tlist_Inc_Winwidth = 0 " Taglist: Don't enlarge the terminal
 "noremap <silent> <leader>t :TlistToggle<CR><C-W>h
 noremap <silent> <leader>t :TagbarToggle<CR>
-noremap <silent> <leader>T :TagbarShowTag<CR>
 let g:tagbar_left = 1
 let g:tagbar_foldlevel = 2
 " Makefile tags: requires
