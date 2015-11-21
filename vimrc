@@ -47,7 +47,7 @@ nnoremap <Leader>p :set invpaste<CR>
 nnoremap <leader>w :w!<cr>
 
 " Align to mark 'a
-nnoremap <leader>a :AlignToMark('a')<CR>
+nnoremap <leader>a :call AlignToMark('a')<CR>
 
 " paste without cutting
 vnoremap p "_dP
