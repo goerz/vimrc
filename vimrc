@@ -378,9 +378,10 @@ cabbr AB 'a,'b
 " Activate wildmenu
 set wildmenu
 
-" Hide Toolbar in Macvim
+" Hide Toolbar and mouse usage in Macvim
 if has("gui_running")
     set guioptions=egmrt
+    set mouse=a
 endif
 
 
