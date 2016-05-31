@@ -312,18 +312,6 @@ let g:tagbar_type_make = {
 " Gundo plugin
 nnoremap <silent> <leader>u :GundoToggle<CR>
 
-" Syntastic plugin
-let g:syntastic_check_on_open=1
-let g:syntastic_echo_current_error=1
-let g:syntastic_enable_signs=1
-let g:syntastic_enable_balloons = 1
-let g:syntastic_enable_highlighting = 1
-let g:syntastic_auto_jump=0
-let g:syntastic_auto_loc_list=2
-let g:syntastic_mode_map = { 'mode': 'active',
-                           \ 'active_filetypes': [],
-                           \ 'passive_filetypes': [] }
-
 " vim-textobj-quote plugin
 augroup textobj_quote
   autocmd!
@@ -333,10 +321,6 @@ augroup END
 map <silent> <leader>qc <Plug>ReplaceWithCurly
 map <silent> <leader>qs <Plug>ReplaceWithStraight
 
-
-" pylint compiler settings
-let g:pylint_onwrite = 0  " Don't call pylint every time file is saved
-let g:pylint_cwindow = 0  " Don't open QuickFix Window automatically
 
 " Nerd_commenter plugin
 let g:NERDShutUp = 1
