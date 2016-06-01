@@ -132,9 +132,11 @@ endif
   "\ }
 let g:neomake_python_pylint_maker = {
 \ 'args': [
+    \ '--load-plugins=pylint.extensions.check_docs',
     \ '--output-format=text',
     \ '--msg-template="{path}:{line}:{column}:{C}: [{symbol}] {msg}"',
     \ '--reports=no',
+    \ '--docstring-min-length=5',
     \ '--max-args=30',
     \ '--max-locals=100',
     \ '--max-branches=50',
@@ -142,12 +144,12 @@ let g:neomake_python_pylint_maker = {
     \ '--max-attributes=80',
     \ '--max-public-methods=50',
     \ '--max-module-lines=10000',
-    \ '--ignored-classes=numpy,scipy,matplotlib',
+    \ '--ignored-classes=numpy,numpy.random,scipy,matplotlib',
     \ '--variable-rgx=[A-Za-z_][a-z0-9_]*$',
     \ '--attr-rgx=([A-Za-z_][A-Za-z0-9_]*|(__.*__))$',
     \ '--argument-rgx=[A-Za-z_][a-z0-9_]*$',
     \ '--bad-functions=',
-    \ '-d C0330,C0326',
+    \ '-d C0330,C0326,W0108,W0511,C0321,C0103',
 \ ],
 \ 'errorformat':
     \ '%A%f:%l:%c:%t: %m,' .
