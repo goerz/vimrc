@@ -2,7 +2,7 @@
 " Author: Michael Goerz <goerz@physik.uni-kassel.de>
 
 " Python interpreter (neovim)
-let g:python_host_prog = $HOME.'/anaconda/bin/python'
+"let g:python_host_prog = $HOME.'/anaconda/bin/python'
 
 " * Interface Settings {{{1
 
