@@ -158,7 +158,6 @@ let g:neomake_python_pylint_maker = {
     \ '%-Z%p^%.%#,' .
     \ '%-G%.%#',
 \ }
-let g:neomake_tex_enabled_makers = []
 " always show gutter
 augroup mine
     au BufWinEnter * sign define mysign
