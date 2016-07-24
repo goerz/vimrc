@@ -420,6 +420,8 @@ syn region texRefZone		matchgroup=texStatement start="\\Eqs{"			end="}\|%stopzon
 syn region texRefZone		matchgroup=texStatement start="\\Eqs\[.\{-}\]{"		end="}\|%stopzone\>"	contains=@texRefGroup
 syn region texRefZone		matchgroup=texStatement start="\\Fig{"			end="}\|%stopzone\>"	contains=@texRefGroup
 syn region texRefZone		matchgroup=texStatement start="\\Fig\[.\{-}\]{"		end="}\|%stopzone\>"	contains=@texRefGroup
+syn region texRefZone		matchgroup=texStatement start="\\Figure{"			end="}\|%stopzone\>"	contains=@texRefGroup
+syn region texRefZone		matchgroup=texStatement start="\\Figure\[.\{-}\]{"		end="}\|%stopzone\>"	contains=@texRefGroup
 syn region texRefZone		matchgroup=texStatement start="\\Figs{" 		end="}\|%stopzone\>"	contains=@texRefGroup
 syn region texRefZone		matchgroup=texStatement start="\\Figs\[.\{-}\]{"		end="}\|%stopzone\>"	contains=@texRefGroup
 syn region texRefZone		matchgroup=texStatement start="\\Table{"		end="}\|%stopzone\>"	contains=@texRefGroup
