@@ -187,7 +187,7 @@ if g:tex_fold_enabled && has("folding")
 endif
 
 " TeX input: {{{1
-syn match texInput		"\\input\s\+[a-zA-Z/.0-9_^]\+"hs=s+7				contains=texStatement
+syn match texInput		"\\input\s\+[a-zA-Z/.0-9_^-]\+"hs=s+7				contains=texStatement
 syn match texInputFile		"\\include\(graphics\|list\)\(<\d\+>\)\=\(\[.\{-}\]\)\=[[:space:]\n]*{.\{-}}"	contains=texStatement,texInputCurlies
 syn match texInputFile		"\\inputTikZ\=\(\[.\{-}\]\)\=[[:space:]\n]*{.\{-}}"	contains=texStatement,texInputCurlies
 syn match texInputFile		"\\\(epsfig\|input\|usepackage\)\s*\(\[.*\]\)\={.\{-}}"		contains=texStatement,texInputCurlies,texInputFileOpt
@@ -415,13 +415,13 @@ syn region texRefZone		matchgroup=texStatement start="\\bibliography{"		end="}\|
 syn region texRefZone		matchgroup=texStatement start="\\label{"		end="}\|%stopzone\>"	contains=@texRefGroup
 syn region texRefZone		matchgroup=texStatement start="\\url{"			end="}\|%stopzone\>"	contains=@texRefGroup
 syn region texRefZone		matchgroup=texStatement start="\\Eq{"			end="}\|%stopzone\>"	contains=@texRefGroup
-syn region texRefZone		matchgroup=texStatement start="\\Eq\[\]{"		end="}\|%stopzone\>"	contains=@texRefGroup
+syn region texRefZone		matchgroup=texStatement start="\\Eq\[.\{-}\]{"		end="}\|%stopzone\>"	contains=@texRefGroup
 syn region texRefZone		matchgroup=texStatement start="\\Eqs{"			end="}\|%stopzone\>"	contains=@texRefGroup
-syn region texRefZone		matchgroup=texStatement start="\\Eqs\[\]{"		end="}\|%stopzone\>"	contains=@texRefGroup
+syn region texRefZone		matchgroup=texStatement start="\\Eqs\[.\{-}\]{"		end="}\|%stopzone\>"	contains=@texRefGroup
 syn region texRefZone		matchgroup=texStatement start="\\Fig{"			end="}\|%stopzone\>"	contains=@texRefGroup
-syn region texRefZone		matchgroup=texStatement start="\\Fig\[\]{"		end="}\|%stopzone\>"	contains=@texRefGroup
+syn region texRefZone		matchgroup=texStatement start="\\Fig\[.\{-}\]{"		end="}\|%stopzone\>"	contains=@texRefGroup
 syn region texRefZone		matchgroup=texStatement start="\\Figs{" 		end="}\|%stopzone\>"	contains=@texRefGroup
-syn region texRefZone		matchgroup=texStatement start="\\Figs\[\]{"		end="}\|%stopzone\>"	contains=@texRefGroup
+syn region texRefZone		matchgroup=texStatement start="\\Figs\[.\{-}\]{"		end="}\|%stopzone\>"	contains=@texRefGroup
 syn region texRefZone		matchgroup=texStatement start="\\Table{"		end="}\|%stopzone\>"	contains=@texRefGroup
 syn region texRefZone		matchgroup=texStatement start="\\\(page\|eq\)ref{"	end="}\|%stopzone\>"	contains=@texRefGroup
 syn region texRefZone		matchgroup=texStatement start="\\v\=ref{"		end="}\|%stopzone\>"	contains=@texRefGroup
