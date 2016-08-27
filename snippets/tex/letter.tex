@@ -1,0 +1,86 @@
+\documentclass[11pt]{letter}
+% vim: spelllang=en fdm=marker foldenable:
+%{{{1
+\usepackage{fancyhdr,graphicx}
+\usepackage{enumitem}
+\usepackage{geometry} % use showframe option to show layout
+\usepackage[utf8]{inputenc}
+\usepackage{charter} % Font (legible in low resolution)
+\usepackage{url}
+
+%%% Layout
+\geometry{paper=letterpaper, hmargin=1in, vmargin=1in, headsep=0.35in}
+\pagestyle{fancy}
+\fancyhf{}% Clear header/footer
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+\fancyhead[L]{\name} \fancyhead[C]{Page \thepage{}} \fancyhead[R]{\today}
+\fancyfoot[L]{} \fancyfoot[C]{} \fancyfoot[R]{}
+\fancypagestyle{firstpage}{\fancyhead{}\fancyfoot{}}
+\setlength{\parskip}{0\baselineskip} % must be zero (for letterhead)
+\setlength{\parindent}{0em} % 0: block style, 2em: semi-block style
+\newcommand{\greeting}[1]{%
+  \thispagestyle{firstpage}
+  \vspace{0.5in}\noindent#1
+  \vspace{0\baselineskip}
+  \setlength{\parskip}{1\baselineskip}
+}
+\setlist[enumerate]{nosep}
+\setlist[itemize]{nosep}
+\renewcommand{\date}[1]{\bigskip\bigskip\hfill#1\bigskip\bigskip}
+\renewcommand{\closing}[1]{\bigskip#1}
+\newcommand{\signed}[1]{\vspace{0.5in}#1}
+\newcommand{\subject}[1]{\vspace{0.5in}\noindent{\bf#1}\vspace{-0.2in}}
+\newcommand{\postsign}[1]{\bigskip\noindent#1} % enclosed, P.S., etc
+\newenvironment{letterhead}[1]{%
+  \vspace*{-0.5in}
+  \noindent{\Large\textsc{#1}}\\
+  \rule{\textwidth}{1pt}
+  \par\vspace{6pt}
+  \noindent\begin{tabular}{l@{}}
+}{%
+  \end{tabular}
+}
+\newenvironment{recipient}[0]{%
+  \noindent
+  \begin{tabular}[t]{@{}l}
+}{%
+  \end{tabular}
+}
+%}}}1
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+\def\name{Michael H.\ Goerz} % appears in header when more than one page
+
+\begin{letterhead}{Dr.\ \name}
+  7811 Temple Street $\bullet$ Hyattsville, MD 20783\\
+  Email: \url{mail@michaelgoerz.net}
+\end{letterhead}
+
+%\renewcommand{\today}{Jan 1, 2016}
+\date{\today}
+
+% Recipient
+\begin{recipient}
+  Recipient\\
+  Number Street\\
+  City, State Zip
+\end{recipient}
+
+%\subject{}
+
+\greeting{To whom it may concern,}
+
+I must explain to you how all this mistaken idea of denouncing of a pleasure
+and praising pain was born and I will give you a complete account of the system,
+and expound the actual teachings of the great explorer of the truth, the
+master-builder of human happiness.
+
+\closing{Sincerely,}
+
+\signed{Michael Goerz}
+
+%\postsign{enclosed:}
+
+\end{document}
