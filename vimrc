@@ -365,8 +365,8 @@ nnoremap <silent> <leader>u :GundoToggle<CR>
 " vim-textobj-quote plugin
 augroup textobj_quote
   autocmd!
-  autocmd FileType markdown call textobj#quote#init()
-  autocmd FileType pandoc call textobj#quote#init()
+  autocmd FileType markdown call textobj#quote#init({'educate': 0})
+  autocmd FileType pandoc call textobj#quote#init({'educate': 0})
 augroup END
 map <silent> <leader>qc <Plug>ReplaceWithCurly
 map <silent> <leader>qs <Plug>ReplaceWithStraight
