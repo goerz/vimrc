@@ -3,11 +3,12 @@
 " License: MIT
 
 " Default GUI Colours
-"set background=light
+"set background=dark
 if &background=='light'
     "light background is preferred
     let s:foreground = ""
     let s:background = ""
+    let s:normal     = ""
     let s:gray40     = "666666"
     let s:gray50     = "808080"
     let s:gray75     = "bfbfbf"
@@ -30,6 +31,7 @@ else
     "adaptation of the "standard" colors to a dark background
     let s:foreground = ""
     let s:background = ""
+    let s:normal     = "bfbfbf"
     let s:gray40     = "999999"
     let s:gray50     = "808080"
     let s:gray75     = "404040"
@@ -264,6 +266,7 @@ if has("gui_running") || &t_Co == 88 || &t_Co == 256
   endfun
 
   "           type               foreground    background     attribute
+  call <SID>X("Normal",          s:normal,     s:background,  "none")
   call <SID>X("Comment",         s:gray50,     s:background,  "none")
   call <SID>X("Constant",        s:darkblue,   s:background,  "none")
   call <SID>X("Directory",       s:blue,       s:background,  "none")
