@@ -9,47 +9,49 @@ if &background=='light'
     let s:foreground = ""
     let s:background = ""
     let s:normal     = ""
-    let s:gray40     = "666666"
-    let s:gray50     = "808080"
+    let s:gray40     = "585858"
+    let s:gray50     = "767676"
     let s:gray75     = "bfbfbf"
-    let s:gray90     = "e5e5e5"
+    let s:gray90     = "b2b2b2"
     let s:black      = "000000"
     let s:white      = "ffffff"
     let s:red        = "af0000"
     let s:lightred   = "d7005f"
     let s:orange     = "d75f00"
     let s:yellow     = "ffff00"
-    let s:green      = "718c00"
+    let s:green      = "5f8700"
     let s:darkgreen  = "008700"
-    let s:lightgreen = "d7ffd7"
-    let s:pink       = "5f0086"
-    let s:lightpink  = "b190a1"
-    let s:blue       = "4271ae"
+    let s:pink       = "5f0087"
+    let s:blue       = "005faf"
     let s:darkblue   = "005f87"
-    let s:purple     = "8959a8"
+    let s:purple     = "875faf"
+    let s:diffchange   = "af87af"
+    let s:diffadd      = "d7ffd7"
+    let s:colorcolumn  = "af87af"
 else
     "adaptation of the "standard" colors to a dark background
     let s:foreground = ""
     let s:background = ""
-    let s:normal     = "bfbfbf"
-    let s:gray40     = "999999"
-    let s:gray50     = "808080"
-    let s:gray75     = "404040"
-    let s:gray90     = "1a1a1a"
+    let s:normal     = "b2b2b2"
+    let s:gray40     = "949494"
+    let s:gray50     = "767676"
+    let s:gray75     = "3a3a3a"
+    let s:gray90     = "121212"
     let s:black      = "ffffff"
     let s:white      = "000000"
     let s:red        = "af0000"
-    let s:lightred   = "ba0052"
+    let s:lightred   = "af005f"
     let s:orange     = "d75f00"
-    let s:yellow     = "b7b700"
-    let s:green      = "718c00"
-    let s:darkgreen  = "006e00"
-    let s:lightgreen = "8ea88e"
-    let s:pink       = "6c495a"
-    let s:lightpink  = "5f005f"
-    let s:blue       = "4271ae"
-    let s:darkblue   = "005f87"
-    let s:purple     = "8959a8"
+    let s:yellow     = "afaf00"
+    let s:green      = "5f8700"
+    let s:darkgreen  = "005f00"
+    let s:pink       = "5f005f"
+    let s:blue       = "005fff"
+    let s:darkblue   = "005faf"
+    let s:purple     = "875faf"
+    let s:diffchange   = "5f005f"
+    let s:diffadd      = "87af87"
+    let s:colorcolumn  = "870087"
 endif
 
 hi clear
@@ -248,8 +250,9 @@ if has("gui_running") || &t_Co == 88 || &t_Co == 256
     let l:r = ("0x" . strpart(a:rgb, 0, 2)) + 0
     let l:g = ("0x" . strpart(a:rgb, 2, 2)) + 0
     let l:b = ("0x" . strpart(a:rgb, 4, 2)) + 0
-
-    return <SID>colour(l:r, l:g, l:b)
+    let l:res = <SID>colour(l:r, l:g, l:b)
+    "echom "RGB " . a:rgb . " -> " . l:res
+    return l:res
   endfun
 
   " Sets the highlighting for the given group
@@ -301,8 +304,8 @@ if has("gui_running") || &t_Co == 88 || &t_Co == 256
   call <SID>X("Visual",          s:foreground, s:gray75,      "none")
   call <SID>X("WarningMsg",      s:lightred,   s:background,  "none")
   call <SID>X("Statement",       s:lightred,   s:background,  "none")
-  call <SID>X("DiffAdd",         s:foreground, s:lightgreen,  "none")
-  call <SID>X("DiffChange",      s:foreground, s:lightpink,   "none")
+  call <SID>X("DiffAdd",         s:foreground, s:diffadd,     "none")
+  call <SID>X("DiffChange",      s:foreground, s:diffchange,  "none")
   call <SID>X("DiffText",        s:foreground, s:gray75,   "none")
   call <SID>X("DiffDelete",      s:darkgreen,  s:gray75,      "bold")
   call <SID>X("LineNr",          s:gray50,     s:gray90,      "none")
@@ -327,7 +330,7 @@ if has("gui_running") || &t_Co == 88 || &t_Co == 256
     call <SID>X("PMenuSel",        s:foreground, s:gray90,      "reverse")
   endif
   if version >= 703
-    call <SID>X("ColorColumn",     s:foreground, s:lightpink,    "none")
+    call <SID>X("ColorColumn",     s:foreground, s:colorcolumn, "none")
     call <SID>X("CursorLineNr",    s:gray50,     s:gray90,      "bold")
   end
 
