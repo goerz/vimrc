@@ -27,7 +27,9 @@ if &background=='light'
     let s:purple     = "875faf"
     let s:diffchange   = "af87af"
     let s:diffadd      = "d7ffd7"
+    let s:diffdelete   = "008700"
     let s:colorcolumn  = "af87af"
+    let s:spellbad     = "ffd7ff"
 else
     "adaptation of the "standard" colors to a dark background
     let s:foreground = ""
@@ -50,8 +52,10 @@ else
     let s:darkblue   = "005faf"
     let s:purple     = "875faf"
     let s:diffchange   = "5f005f"
-    let s:diffadd      = "87af87"
+    let s:diffadd      = "1c1c1c"
+    let s:diffdelete   = "005f5f"
     let s:colorcolumn  = "870087"
+    let s:spellbad     = "5f005f"
 endif
 
 hi clear
@@ -307,7 +311,7 @@ if has("gui_running") || &t_Co == 88 || &t_Co == 256
   call <SID>X("DiffAdd",         s:foreground, s:diffadd,     "none")
   call <SID>X("DiffChange",      s:foreground, s:diffchange,  "none")
   call <SID>X("DiffText",        s:foreground, s:gray75,   "none")
-  call <SID>X("DiffDelete",      s:darkgreen,  s:gray75,      "bold")
+  call <SID>X("DiffDelete",      s:diffdelete, s:gray75,      "bold")
   call <SID>X("LineNr",          s:gray50,     s:gray90,      "none")
   call <SID>X("Conditional",     s:purple,     s:background,  "bold")
   call <SID>X("Repeat",          s:purple,     s:background,  "bold")
@@ -328,6 +332,7 @@ if has("gui_running") || &t_Co == 88 || &t_Co == 256
     call <SID>X("PMenuSbar",       s:foreground, s:gray90,      "reverse")
     call <SID>X("PMenuThumb",      s:foreground, s:gray90,      "none")
     call <SID>X("PMenuSel",        s:foreground, s:gray90,      "reverse")
+    call <SID>X("SpellBad",        "",           s:spellbad,    "")
   endif
   if version >= 703
     call <SID>X("ColorColumn",     s:foreground, s:colorcolumn, "none")
