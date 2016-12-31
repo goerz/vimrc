@@ -385,6 +385,14 @@ nmap         ++  vip++
 set t_Co=256
 
 " Default Color Scheme
+if !empty($COLORFGBG)
+    let s:bg_color_code = split($COLORFGBG, ";")[-1]
+    if s:bg_color_code == 8 || s:bg_color_code  <= 6
+        set background=dark
+    else
+        set background=light
+    endif
+endif
 colorscheme goerz
 autocmd FileType tex hi! texSectionTitle gui=underline term=bold cterm=underline,bold
 autocmd FileType tex hi! Statement gui=none term=none cterm=none
