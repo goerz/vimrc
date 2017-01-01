@@ -360,8 +360,8 @@ let g:tagbar_type_make = {
             \ ]
 \}
 
-" Gundo plugin
-nnoremap <silent> <leader>u :GundoToggle<CR>
+" Mundo plugin
+nnoremap <silent> <leader>u :MundoToggle<CR>
 
 " vim-textobj-quote plugin
 augroup textobj_quote
