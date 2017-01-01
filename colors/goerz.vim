@@ -297,7 +297,7 @@ if has("gui_running") || &t_Co == 88 || &t_Co == 256
   call <SID>X("Special",         s:darkblue,   s:background,  "none")
   call <SID>X("SpecialKey",      s:darkblue,   s:background,  "none")
   call <SID>X("StatusLine",      s:foreground, s:background,  "bold")
-  call <SID>X("StatusLineNC",    s:foreground, s:background,  "reverse")
+  call <SID>X("StatusLineNC",    s:foreground, s:gray75,  "reverse")
   call <SID>X("String",          s:darkgreen,  s:background,  "none")
   call <SID>X("TabLineFill",     s:foreground, s:background,  "reverse")
   call <SID>X("TabLine",         s:foreground, s:gray75,      "none")
