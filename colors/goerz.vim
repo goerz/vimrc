@@ -29,6 +29,7 @@ if &background=='light'
     let s:diffdelete   = "008700"
     let s:colorcolumn  = "af87af"
     let s:spellbad     = "ffd7ff"
+    let s:cursorline   = "b2b2b2"
 else
     "adaptation of the "standard" colors to a dark background (that means
     "that 'dark' is generally lighter
@@ -56,6 +57,7 @@ else
     let s:diffdelete   = "005f5f"
     let s:colorcolumn  = "870087"
     let s:spellbad     = "5f005f"
+    let s:cursorline   = "3a3a3a"
 endif
 
 hi clear
@@ -325,8 +327,8 @@ if has("gui_running") || &t_Co == 88 || &t_Co == 256
   call <SID>X("PreCondit",       s:darkblue,   s:background,  "bold")
   call <SID>X("StorageClass",    s:darkblue,   s:background,  "none")
   if version >= 700
-    call <SID>X("CursorColumn",    s:foreground, s:gray90,      "none")
-    call <SID>X("CursorLine",      s:foreground, s:gray90,      "none")
+    call <SID>X("CursorColumn",    s:foreground, s:cursorline,  "none")
+    call <SID>X("CursorLine",      s:foreground, s:cursorline,  "none")
     call <SID>X("SignColumn",      s:gray50,     s:gray90,      "none")
     call <SID>X("PMenu",           s:foreground, s:gray90,      "none")
     call <SID>X("PMenuSbar",       s:foreground, s:gray90,      "reverse")
