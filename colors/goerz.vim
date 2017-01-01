@@ -3,9 +3,8 @@
 " License: MIT
 
 " Default GUI Colours
-"set background=dark
 if &background=='light'
-    "light background is preferred
+    "light background is the default
     let s:foreground = ""
     let s:background = ""
     let s:normal     = ""
@@ -31,7 +30,8 @@ if &background=='light'
     let s:colorcolumn  = "af87af"
     let s:spellbad     = "ffd7ff"
 else
-    "adaptation of the "standard" colors to a dark background
+    "adaptation of the "standard" colors to a dark background (that means
+    "that 'dark' is generally lighter
     let s:foreground = ""
     let s:background = ""
     let s:normal     = "b2b2b2"
@@ -46,7 +46,7 @@ else
     let s:orange     = "d75f00"
     let s:yellow     = "afaf00"
     let s:green      = "5f8700"
-    let s:darkgreen  = "005f00"
+    let s:darkgreen  = "5faf5f"
     let s:pink       = "5f005f"
     let s:blue       = "005fff"
     let s:darkblue   = "005faf"
