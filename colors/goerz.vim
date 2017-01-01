@@ -50,7 +50,7 @@ else
     let s:pink       = "5f005f"
     let s:blue       = "005fff"
     let s:darkblue   = "0087ff"
-    let s:purple     = "875faf"
+    let s:purple     = "d7afff"
     let s:diffchange   = "5f005f"
     let s:diffadd      = "1c1c1c"
     let s:diffdelete   = "005f5f"
