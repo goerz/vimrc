@@ -42,7 +42,7 @@ else
     let s:black      = "ffffff"
     let s:white      = "000000"
     let s:red        = "af0000"
-    let s:lightred   = "af005f"
+    let s:lightred   = "d70087"
     let s:orange     = "d75f00"
     let s:yellow     = "afaf00"
     let s:green      = "5f8700"
