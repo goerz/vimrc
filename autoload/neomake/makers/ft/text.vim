@@ -1,9 +1,17 @@
-function! neomake#makers#ft#text#EnabledMakers()
-    return ['proselint']
+function! neomake#makers#ft#text#EnabledMakers() abort
+    " No makers enabled by default, since text is used as fallback often.
+    return []
 endfunction
 
-function! neomake#makers#ft#text#proselint()
+function! neomake#makers#ft#text#proselint() abort
     return {
-                \ 'errorformat': '%f:%l:%c: %m'
+                \ 'errorformat': '%W%f:%l:%c: %m'
+                \ }
+endfunction
+
+function! neomake#makers#ft#text#writegood() abort
+    return {
+                \ 'args': ['--parse'],
+                \ 'errorformat': '%W%f:%l:%c:%m'
                 \ }
 endfunction

@@ -1,20 +1,40 @@
 " vim: ts=4 sw=4 et
 
-function! neomake#makers#ft#sh#EnabledMakers()
+function! neomake#makers#ft#sh#EnabledMakers() abort
     return ['sh', 'shellcheck']
 endfunction
 
-function! neomake#makers#ft#sh#shellcheck()
-    return {
+function! neomake#makers#ft#sh#shellcheck() abort
+    let ext = expand('%:e')
+    let maker = {
         \ 'args': ['-fgcc'],
         \ 'errorformat':
             \ '%f:%l:%c: %trror: %m,' .
             \ '%f:%l:%c: %tarning: %m,' .
             \ '%I%f:%l:%c: Note: %m',
         \ }
+
+    if match(getline(1), '\v^#!.*<%(sh|dash|bash|ksh)') >= 0
+                \ || match(getline(1), '\v^#\s*shellcheck\s+shell\=') >= 0
+        " shellcheck reads the shebang by itself
+    elseif ext ==# 'ksh'
+        let maker.args += ['-s', 'ksh']
+    elseif ext ==# 'sh'
+        if exists('g:is_sh')
+            let maker.args += ['-s', 'sh']
+        elseif exists('g:is_posix') || exists('g:is_kornshell')
+            let maker.args += ['-s', 'ksh']
+        else
+            let maker.args += ['-s', 'bash']
+        endif
+    else
+        let maker.args += ['-s', 'bash']
+    endif
+
+    return maker
 endfunction
 
-function! neomake#makers#ft#sh#checkbashisms()
+function! neomake#makers#ft#sh#checkbashisms() abort
     return {
         \ 'args': ['-fx'],
         \ 'errorformat':
@@ -28,7 +48,7 @@ function! neomake#makers#ft#sh#checkbashisms()
         \ }
 endfunction
 
-function! neomake#makers#ft#sh#sh()
+function! neomake#makers#ft#sh#sh() abort
     let shebang = matchstr(getline(1), '^#!\s*\zs.*$')
     if len(shebang)
         let l = split(shebang)
@@ -39,9 +59,12 @@ function! neomake#makers#ft#sh#sh()
         let args = ['-n']
     endif
 
+    " NOTE: the format without "line" is used by dash.
     return {
         \ 'exe': exe,
         \ 'args': args,
-        \ 'errorformat': '%f: line %l: %m'
+        \ 'errorformat':
+            \ '%f: line %l: %m,' .
+            \ '%f: %l: %m'
         \}
 endfunction

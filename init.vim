@@ -120,6 +120,7 @@ if has('nvim')
     " Neomake only runs asynchronously in neovim. Having it active
     " automatically in vim would cause unacceptable delays.
 endif
+let g:neomake_highlight_columns = 0
 "let g:neomake_verbose=3
 "let g:neomake_logfile='/tmp/neomake_error.log'
 "let g:neomake_warning_sign = {

@@ -1,6 +1,6 @@
 " vim: ts=4 sw=4 et
 
-function! neomake#makers#ft#python#EnabledMakers()
+function! neomake#makers#ft#python#EnabledMakers() abort
     if exists('s:python_makers')
         return s:python_makers
     endif
@@ -13,7 +13,7 @@ function! neomake#makers#ft#python#EnabledMakers()
         if executable('flake8')
             call add(makers, 'flake8')
         else
-            call extend(makers, ['pep257', 'pep8', 'pyflakes'])
+            call extend(makers, ['pyflakes', 'pep8', 'pydocstyle'])
         endif
 
         call add(makers, 'pylint')  " Last because it is the slowest
@@ -23,7 +23,7 @@ function! neomake#makers#ft#python#EnabledMakers()
     return makers
 endfunction
 
-function! neomake#makers#ft#python#pylint()
+function! neomake#makers#ft#python#pylint() abort
     return {
         \ 'args': [
             \ '--output-format=text',
@@ -40,7 +40,7 @@ function! neomake#makers#ft#python#pylint()
         \ }
 endfunction
 
-function! neomake#makers#ft#python#PylintEntryProcess(entry)
+function! neomake#makers#ft#python#PylintEntryProcess(entry) abort
     if a:entry.type ==# 'F'  " Fatal error which prevented further processing
         let type = 'E'
     elseif a:entry.type ==# 'E'  " Error for important programming issues
@@ -51,13 +51,15 @@ function! neomake#makers#ft#python#PylintEntryProcess(entry)
         let type = 'W'
     elseif a:entry.type ==# 'C'  " Convention violation
         let type = 'W'
+    elseif a:entry.type ==# 'I'  " Informations
+        let type = 'I'
     else
         let type = ''
     endif
     let a:entry.type = type
 endfunction
 
-function! neomake#makers#ft#python#flake8()
+function! neomake#makers#ft#python#flake8() abort
     return {
         \ 'args': ['--format=default'],
         \ 'errorformat':
@@ -69,9 +71,18 @@ function! neomake#makers#ft#python#flake8()
         \ }
 endfunction
 
-function! neomake#makers#ft#python#Flake8EntryProcess(entry)
-    if a:entry.type ==# 'F'  " PyFlake errors
-        let type = 'E'
+function! neomake#makers#ft#python#Flake8EntryProcess(entry) abort
+    if a:entry.type ==# 'F'  " pyflakes
+        " Ref: http://flake8.pycqa.org/en/latest/user/error-codes.html
+        if a:entry.nr > 400 && a:entry.nr < 500
+            if a:entry.nr == 407
+                let type = 'E'  " 'an undefined __future__ feature name was imported'
+            else
+                let type = 'W'
+            endif
+        else
+            let type = 'E'
+        endif
     elseif a:entry.type ==# 'E' && a:entry.nr >= 900  " PEP8 runtime errors (E901, E902)
         let type = 'E'
     elseif a:entry.type ==# 'E' || a:entry.type ==# 'W'  " PEP8 errors & warnings
@@ -83,10 +94,46 @@ function! neomake#makers#ft#python#Flake8EntryProcess(entry)
     else
         let type = ''
     endif
+
+    let l:token = matchstr(a:entry.text, "'.*'")
+    if strlen(l:token)
+        " remove quotes
+        let l:token = substitute(l:token, "'", '', 'g')
+        if a:entry.type ==# 'F' && a:entry.nr == 401
+            " The unused import error column is incorrect
+            let l:view = winsaveview()
+            call cursor(a:entry.lnum, a:entry.col)
+
+            if searchpos('from', 'cnW', a:entry.lnum)[1] == a:entry.col
+                " for 'from xxx.yyy import zzz' the token looks like
+                " xxx.yyy.zzz, but only the zzz part should be highlighted. So
+                " this discards the module part
+                let l:token = split(l:token, '\.')[-1]
+            endif
+
+            " Search for the first occurrence of the token and highlight in
+            " the next couple of lines and change the lnum and col to that
+            " position.
+            let l:search_lines = 5
+            let l:ident_pos = searchpos('\<' . l:token . '\>', 'cnW',
+                        \ a:entry.lnum + l:search_lines)
+            if l:ident_pos[1] > 0
+                let a:entry.lnum = l:ident_pos[0]
+                let a:entry.col = l:ident_pos[1]
+            endif
+
+            call winrestview(l:view)
+        endif
+
+        let a:entry.length = strlen(l:token) " subtract the quotes
+    endif
+
+    let a:entry.text = a:entry.type . a:entry.nr . ' ' . a:entry.text
     let a:entry.type = type
+    let a:entry.nr = ''  " Avoid redundancy in the displayed error message.
 endfunction
 
-function! neomake#makers#ft#python#pyflakes()
+function! neomake#makers#ft#python#pyflakes() abort
     return {
         \ 'errorformat':
             \ '%E%f:%l: could not compile,' .
@@ -97,52 +144,80 @@ function! neomake#makers#ft#python#pyflakes()
         \ }
 endfunction
 
-function! neomake#makers#ft#python#pep8()
+function! neomake#makers#ft#python#pep8() abort
     return {
         \ 'errorformat': '%f:%l:%c: %m',
         \ 'postprocess': function('neomake#makers#ft#python#Pep8EntryProcess')
         \ }
 endfunction
 
-function! neomake#makers#ft#python#Pep8EntryProcess(entry)
-    if a:entry.text =~ '^E9'  " PEP8 runtime errors (E901, E902)
-        let type = 'E'
+function! neomake#makers#ft#python#Pep8EntryProcess(entry) abort
+    if a:entry.text =~# '^E9'  " PEP8 runtime errors (E901, E902)
+        let a:entry.type = 'E'
+    elseif a:entry.text =~# '^E113'  " unexpected indentation (IndentationError)
+        let a:entry.type = 'E'
     else  " Everything else is a warning
-        let type = 'W'
+        let a:entry.type = 'W'
     endif
-    let a:entry.type = type
 endfunction
 
-function! neomake#makers#ft#python#pep257()
-    return {
-        \ 'errorformat': '%f:%l %m,%m',
+function! neomake#makers#ft#python#pydocstyle() abort
+  if !exists('s:_pydocstyle_exe')
+    " Use the preferred exe to avoid deprecation warnings.
+    let s:_pydocstyle_exe = executable('pydocstyle') ? 'pydocstyle' : 'pep257'
+  endif
+  return {
+        \ 'exe': s:_pydocstyle_exe,
+        \ 'errorformat':
+        \   '%W%f:%l %.%#:,' .
+        \   '%+C        %m',
+        \ 'postprocess': function('neomake#utils#CompressWhitespace'),
         \ }
 endfunction
 
-function! neomake#makers#ft#python#pylama()
+" Note: pep257 has been renamed to pydocstyle, but is kept also as alias.
+function! neomake#makers#ft#python#pep257() abort
+    return neomake#makers#ft#python#pydocstyle()
+endfunction
+
+function! neomake#makers#ft#python#PylamaEntryProcess(entry) abort
+    if a:entry.type ==# 'C' && a:entry.text =~# '\v\[%(pycodestyle|pep8)\]$'
+        call neomake#makers#ft#python#Pep8EntryProcess(a:entry)
+    elseif a:entry.type ==# 'D'  " pydocstyle/pep257
+        let a:entry.type = 'W'
+    elseif a:entry.type ==# 'C' && a:entry.nr ==# '901'  " mccabe
+        let a:entry.type = 'I'
+    elseif a:entry.type ==# 'R'  " Radon
+        let a:entry.type = 'W'
+    endif
+endfunction
+
+function! neomake#makers#ft#python#pylama() abort
     return {
-        \ 'args': ['--format', 'pep8'],
-        \ 'errorformat': '%f:%l:%c: %m',
+        \ 'args': ['--format', 'parsable'],
+        \ 'errorformat': '%f:%l:%c: [%t] %m',
+        \ 'postprocess': function('neomake#makers#ft#python#PylamaEntryProcess'),
         \ }
 endfunction
 
-function! neomake#makers#ft#python#python()
+function! neomake#makers#ft#python#python() abort
     return {
         \ 'args': [ '-c',
             \ "from __future__ import print_function\r" .
             \ "from sys import argv, exit\r" .
             \ "if len(argv) != 2:\r" .
-            \ "    exit(1)\r" .
+            \ "    exit(64)\r" .
             \ "try:\r" .
             \ "    compile(open(argv[1]).read(), argv[1], 'exec', 0, 1)\r" .
             \ "except SyntaxError as err:\r" .
-            \ "    print('%s:%s:%s: %s' % (err.filename, err.lineno, err.offset, err.msg))"
+            \ "    print('%s:%s:%s: %s' % (err.filename, err.lineno, err.offset, err.msg))\r" .
+            \ '    exit(1)'
         \ ],
         \ 'errorformat': '%E%f:%l:%c: %m',
         \ }
 endfunction
 
-function! neomake#makers#ft#python#frosted()
+function! neomake#makers#ft#python#frosted() abort
     return {
         \ 'args': [
             \ '-vb'
@@ -155,8 +230,26 @@ function! neomake#makers#ft#python#frosted()
         \ }
 endfunction
 
-function! neomake#makers#ft#python#vulture()
+function! neomake#makers#ft#python#vulture() abort
     return {
         \ 'errorformat': '%f:%l: %m',
+        \ }
+endfunction
+
+" Because this uses --silent-imports it requires mypy >= 0.4
+" It is annoying for new users to use MyPy without --silent-imports
+function! neomake#makers#ft#python#mypy() abort
+    return {
+        \ 'args': ['--silent-imports'],
+        \ 'errorformat':
+            \ '%E%f:%l: error: %m,' .
+            \ '%W%f:%l: warning: %m,' .
+            \ '%I%f:%l: note: %m',
+        \ }
+endfunction
+
+function! neomake#makers#ft#python#py3kwarn() abort
+    return {
+        \ 'errorformat': '%W%f:%l:%c: %m',
         \ }
 endfunction

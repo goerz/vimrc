@@ -11,7 +11,7 @@ if &background=='light'
     let s:gray40     = "585858"
     let s:gray50     = "767676"
     let s:gray75     = "bfbfbf"
-    let s:gray90     = "b2b2b2"
+    let s:gray90     = "e4e4e4"
     let s:black      = "000000"
     let s:white      = "ffffff"
     let s:red        = "af0000"
@@ -394,6 +394,10 @@ if has("gui_running") || &t_Co == 88 || &t_Co == 256
   call <SID>X("GitGutterChange",       s:red,           s:gray90,      "none")
   call <SID>X("GitGutterDelete",       s:darkblue,      s:gray90,      "none")
   call <SID>X("GitGutterChangeDelete", s:gray50,        s:gray90,      "none")
+
+  " Plugin: neomake
+  call <SID>X("NeomakeErrorSign",      s:red,           s:gray90,      "none")
+  call <SID>X("NeomakeWarningSign",    s:black,         s:gray90,      "none")
 
   " Delete Functions
   delf <SID>X

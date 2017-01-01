@@ -1,11 +1,9 @@
 " vim: ts=4 sw=4 et
 
-function! neomake#makers#cargo#cargo()
+function! neomake#makers#cargo#cargo() abort
     return {
-        \ 'args': ['build'],
+        \ 'args': ['test', '--no-run'],
         \ 'errorformat':
-            \   '%-Z%f:%l,' .
-            \   '%+C %s,' .
-            \   '%A%f:%l:%c: %*\d:%*\d\ %t%*[^:]: %m,',
+            \ neomake#makers#ft#rust#rustc()['errorformat'],
         \ }
 endfunction
