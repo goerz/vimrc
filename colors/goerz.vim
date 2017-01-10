@@ -285,8 +285,15 @@ if has("gui_running") || &t_Co == 88 || &t_Co == 256
   call <SID>X("Folded",          s:darkblue,   s:gray75,      "none")
   call <SID>X("Identifier",      s:lightred,   s:background,  "none")
   call <SID>X("Ignore",          s:gray90,     s:background,  "none")
-  call <SID>X("IncSearch",       s:foreground, s:yellow,      "none")
-  call <SID>X("Search",          s:foreground, s:yellow,      "none")
+  if &background=='dark'
+    call <SID>X("IncSearch",       s:white,      s:yellow,      "none")
+    call <SID>X("Search",          s:white,      s:yellow,      "none")
+    call <SID>X("Todo",            s:white,      s:yellow,      "none")
+  else
+    call <SID>X("IncSearch",       s:foreground, s:yellow,      "none")
+    call <SID>X("Search",          s:foreground, s:yellow,      "none")
+    call <SID>X("Todo",            s:foreground, s:yellow,      "none")
+  endif
   call <SID>X("Label",           s:blue,       s:background,  "none")
   call <SID>X("MatchParen",      s:foreground, s:orange,      "none")
   call <SID>X("ModeMsg",         s:foreground, s:background,  "bold")
@@ -303,7 +310,6 @@ if has("gui_running") || &t_Co == 88 || &t_Co == 256
   call <SID>X("TabLine",         s:foreground, s:gray75,      "none")
   call <SID>X("TabLineSel",      s:foreground, s:background,  "bold")
   call <SID>X("Title",           s:black,      s:background,  "bold")
-  call <SID>X("Todo",            s:foreground, s:yellow,      "none")
   call <SID>X("Type",            s:lightred,   s:background,  "bold")
   call <SID>X("Underlined",      s:foreground, s:background,  "underline")
   call <SID>X("VertSplit",       s:foreground, s:background,  "bold")
