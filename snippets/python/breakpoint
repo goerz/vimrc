@@ -1,1 +1,1 @@
-from IPython.core.debugger import Tracer; Tracer()() # DEBUG
+from IPython.terminal.debugger import set_trace; set_trace() # DEBUG
