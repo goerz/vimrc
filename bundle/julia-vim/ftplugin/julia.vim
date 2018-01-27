@@ -79,6 +79,11 @@ if exists("loaded_matchit")
         \ . " | delfunction JuliaGetMatchWords"
         \ . " | call julia_blocks#remove_mappings()"
 
+  if get(g:, "julia_blocks", 1)
+    call julia_blocks#init_mappings()
+    let b:undo_ftplugin .= " | call julia_blocks#remove_mappings()"
+  endif
+
 endif
 
 if has("gui_win32")
