@@ -4,6 +4,9 @@
 " Python interpreter (neovim)
 "let g:python_host_prog = $HOME.'/anaconda/bin/python'
 
+" Pathogen --allows to install plugins in .vim/bundle
+execute pathogen#infect()
+
 " * Interface Settings {{{1
 
 " switch ' and `
