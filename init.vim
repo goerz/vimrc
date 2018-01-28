@@ -488,11 +488,6 @@ let g:vim_json_syntax_conceal=0
 autocmd BufWritePre *.py normal m`:%s/\s\+$//e ``
 autocmd BufWritePre *.pl normal m`:%s/\s\+$//e ``
 
-" Viki bugfix
-" Remove space from vikiMapKeys, which causes abbreviations not to work. Must
-" be set befor the viki plugin is loaded, i.e. here.
-let g:vikiMapKeys = "]).,;:!?\"'"
-
 
 " * Terminal Specific Settings {{{1
 
