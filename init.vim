@@ -365,8 +365,8 @@ let g:tagbar_type_make = {
             \ ]
 \}
 
-" Mundo plugin
-nnoremap <silent> <leader>u :MundoToggle<CR>
+" Undotree plugin
+nnoremap <silent> <leader>u :UndotreeToggle<CR>
 
 " vim-textobj-quote plugin
 augroup textobj_quote
