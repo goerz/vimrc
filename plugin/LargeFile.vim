@@ -73,7 +73,7 @@ fun! s:LargeFile(force,fname)
    augroup END
    let b:LargeFile_mode = 1
 "   call Decho("turning  b:LargeFile_mode to ".b:LargeFile_mode)
-   echomsg "***note*** handling a large file" 
+   "echomsg "***note*** handling a large file" 
   endif
 "  call Dret("s:LargeFile")
 endfun
@@ -129,7 +129,7 @@ fun! s:Unlarge()
    au! * <buffer>
   augroup END
   call s:LargeFileLeave()
-  echomsg "***note*** stopped large-file handling"
+  "echomsg "***note*** stopped large-file handling"
 "  call Dret("s:Unlarge")
 endfun
 
