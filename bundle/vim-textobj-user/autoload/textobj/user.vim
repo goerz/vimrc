@@ -1,6 +1,6 @@
 " textobj-user - Create your own text objects
-" Version: 0.7.1
-" Copyright (C) 2007-2015 Kana Natsuno <http://whileimautomaton.net/>
+" Version: 0.7.5
+" Copyright (C) 2007-2017 Kana Natsuno <http://whileimautomaton.net/>
 " License: MIT license  {{{
 "     Permission is hereby granted, free of charge, to any person obtaining
 "     a copy of this software and associated documentation files (the
@@ -49,7 +49,9 @@ function! textobj#user#select(pattern, flags, previous_mode)
   let pos = s:choose_better_pos(a:flags, ORIG_POS, pfh, pft, pbh, pbt)
 
   if pos isnot 0
-    call s:range_select(pos[0], pos[1], s:choose_wise(a:flags))
+    if a:flags !~# 'N'
+      call s:range_select(pos[0], pos[1], s:choose_wise(a:flags))
+    endif
     return pos
   else
     return s:cancel_selection(a:previous_mode, ORIG_POS)
@@ -368,23 +370,23 @@ endfunction
 " basics  "{{{3
 let s:plugin = {}
 
-function s:plugin.new(plugin_name, obj_specs)
+function! s:plugin.new(plugin_name, obj_specs)
   let _ = extend({'name': a:plugin_name, 'obj_specs': a:obj_specs},
   \              s:plugin, 'keep')
   call _.normalize()
   return _
 endfunction
 
-function s:plugin.normalize()
+function! s:plugin.normalize()
   call s:normalize(self.obj_specs)
 endfunction
 
-function s:normalize(obj_specs)
+function! s:normalize(obj_specs)
   call s:normalize_property_names(a:obj_specs)
   call s:normalize_property_values(a:obj_specs)
 endfunction
 
-function s:normalize_property_names(obj_specs)
+function! s:normalize_property_names(obj_specs)
   for spec in values(a:obj_specs)
     for old_prop_name in keys(spec)
       if old_prop_name =~ '^\*.*\*$'
@@ -396,7 +398,7 @@ function s:normalize_property_names(obj_specs)
   endfor
 endfunction
 
-function s:normalize_property_values(obj_specs)
+function! s:normalize_property_values(obj_specs)
   for [obj_name, specs] in items(a:obj_specs)
     for [spec_name, spec_info] in items(specs)
       if s:is_ui_property_name(spec_name)
@@ -440,14 +442,8 @@ endfunction
 
 
 function! s:plugin.define_interface_key_mappings()  "{{{3
-  let RHS_PATTERN =
-  \   ':<C-u>call g:__textobj_' . self.name . '.do_by_pattern('
-  \ .   '"%s",'
-  \ .   '"%s",'
-  \ .   '"<mode>"'
-  \ . ')<Return>'
-  let RHS_FUNCTION =
-  \   ':<C-u>call g:__textobj_' . self.name . '.do_by_function('
+  let RHS_FORMAT =
+  \   ':<C-u>call g:__textobj_' . self.name . '.%s('
   \ .   '"%s",'
   \ .   '"%s",'
   \ .   '"<mode>"'
@@ -456,18 +452,19 @@ function! s:plugin.define_interface_key_mappings()  "{{{3
   for [obj_name, specs] in items(self.obj_specs)
     for spec_name in filter(keys(specs), 's:is_ui_property_name(v:val)')
       " lhs
-      let lhs = '<silent> ' . self.interface_mapping_name(obj_name, spec_name)
+      let lhs = self.interface_mapping_name(obj_name, spec_name)
 
       " rhs
       let _ = spec_name . '-function'
       if has_key(specs, _)
-        let rhs = printf(RHS_FUNCTION, spec_name, obj_name)
+        let do = 'do_by_function'
       elseif has_key(specs, 'pattern')
-        let rhs = printf(RHS_PATTERN, spec_name, obj_name)
+        let do = 'do_by_pattern'
       else
         " skip to allow to define user's own {rhs} of the interface mapping.
         continue
       endif
+      let rhs = printf(RHS_FORMAT, do, spec_name, obj_name)
 
       " map
       if spec_name =~# '^move'
@@ -475,7 +472,7 @@ function! s:plugin.define_interface_key_mappings()  "{{{3
       else  " spec_name =~# '^select'
         let MapFunction = function('s:objnoremap')
       endif
-      call MapFunction(1, lhs, rhs)
+      call MapFunction(1, '<silent> <script>' . lhs, rhs)
     endfor
   endfor
 endfunction
