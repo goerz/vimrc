@@ -368,16 +368,6 @@ let g:tagbar_type_make = {
 " Undotree plugin
 nnoremap <silent> <leader>u :UndotreeToggle<CR>
 
-" vim-textobj-quote plugin
-augroup textobj_quote
-  autocmd!
-  autocmd FileType markdown call textobj#quote#init({'educate': 0})
-  autocmd FileType pandoc call textobj#quote#init({'educate': 0})
-augroup END
-map <silent> <leader>qc <Plug>ReplaceWithCurly
-map <silent> <leader>qs <Plug>ReplaceWithStraight
-
-
 " Nerd_commenter plugin
 let g:NERDShutUp = 1
 
