@@ -353,6 +353,7 @@ autocmd BufWinLeave ?* mkview          " Store fold settings for all buffers ...
 let Tlist_Inc_Winwidth = 0 " Taglist: Don't enlarge the terminal
 "noremap <silent> <leader>t :TlistToggle<CR><C-W>h
 noremap <silent> <leader>t :TagbarToggle<CR>
+let g:tagbar_sort = 0
 let g:tagbar_left = 1
 let g:tagbar_foldlevel = 2
 " Makefile tags: requires
@@ -364,6 +365,11 @@ let g:tagbar_type_make = {
                 \ 't:targets'
             \ ]
 \}
+let g:tagbar_type_julia = {
+    \ 'ctagstype' : 'julia',
+    \ 'kinds'     : [
+        \ 't:struct', 'f:function', 'm:macro', 'c:const']
+    \ }
 
 " Undotree plugin
 nnoremap <silent> <leader>u :UndotreeToggle<CR>
