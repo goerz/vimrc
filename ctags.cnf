@@ -1,8 +1,12 @@
---langdef=tex
---langmap=tex:.tex
---regex-tex=/\\subsubsection[ \t]*\*?\{[ \t]*([^}]*)\}/- \1/s,subsubsection/
---regex-tex=/\\subsection[ \t]*\*?\{[ \t]*([^}]*)\}/+\1/s,subsection/
---regex-tex=/\\section[ \t]*\*?\{[ \t]*([^}]*)\}/\1/s,section/
---regex-tex=/\\chapter[ \t]*\*?\{[ \t]*([^}]*)\}/\1/c,chapter/
---regex-tex=/\\label[ \t]*\*?\{[ \t]*([^}]*)\}/\1/l,label/
---regex-tex=/\\ref[ \t]*\*?\{[ \t]*([^}]*)\}/\1/r,ref/
+--python-kinds=-i
+--regex-make=/^\s*([^#][^:]*):/\1/t,target/
+--langdef=julia
+--langmap=julia:.jl
+--regex-julia=/^[ \t]*(@with_kw[ \t]+)?(abstract type|primitive type|struct|mutable struct|typealias)[ \t]+([^ \t({[]+).*$/\3/t,type/
+--regex-julia=/^[ \t]*(macro)[ \t]+([^ \t({[]+).*$/\2/m,macro/
+--regex-julia=/^[ \t]*(@inline[ \t]+|@noinline[ \t]+)?(function)[ \t]+([^ \t({[]+)[^(]*\([ \t]*([^ \t;,=)({]+).*$/\3 (\4, …)/f,function/
+--regex-julia=/^[ \t]*(@inline[ \t]+|@noinline[ \t]+)?(function)[ \t]+([^ \t({[]+)[^(]*(\([ \t]*\).*|\([ \t]*)$/\3/f,function/
+--regex-julia=/^[ \t]*(@inline[ \t]+|@noinline[ \t]+)?(([^@#$ \t({[]+)|\(([^@#$ \t({[]+)\)|\((\$)\))[ \t]*(\{.*\})?[ \t]*\([ \t]*\)[ \t]*=([^=].*$|$)/\3\4\5/f,function/
+--regex-julia=/^[ \t]*(@inline[ \t]+|@noinline[ \t]+)?(([^@#$ \t({[]+)|\(([^@#$ \t({[]+)\)|\((\$)\))[ \t]*(\{.*\})?[ \t]*\([ \t]*([^ \t;,=)({]+).*\)[ \t]*=([^=].*$|$)/\3\4\5 (\7, …)/f,function/
+--regex-julia=/^(const)[ \t]+([^ \t({[]+).*[ ]*=.*$/\2/c,const/
+
