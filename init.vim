@@ -376,6 +376,23 @@ let g:tagbar_type_julia = {
         \ 't:struct', 'f:function', 'm:macro', 'c:const']
     \ }
 
+
+" go to defn of tag under the cursor (case sensitive)
+" adapted from http://tartley.com/?p=1277
+fun! MatchCaseTag()
+    let ic = &ic
+    set noic
+    try
+        exe 'tjump ' . expand('<cword>')
+    catch /.*/
+        echo v:exception
+    finally
+       let &ic = ic
+    endtry
+endfun
+nnoremap <silent> <c-]> :call MatchCaseTag()<CR>
+
+
 " Undotree plugin
 nnoremap <silent> <leader>u :UndotreeToggle<CR>
 
