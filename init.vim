@@ -277,7 +277,9 @@ let g:airline_section_z='%{g:airline_externals_fugitive}'
 
 " Use proper highlighting for the active status line (otherwise font colors
 " are messed up)
-set highlight+=sr
+if !has('nvim')
+    set highlight+=sr
+endif
 set laststatus=2 " always show status line
 
 " set the terminal title
