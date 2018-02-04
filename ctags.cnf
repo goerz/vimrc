@@ -2,11 +2,11 @@
 --regex-make=/^\s*([^#][^:]*):/\1/t,target/
 --langdef=julia
 --langmap=julia:.jl
---regex-julia=/^[ \t]*(@with_kw[ \t]+)?(abstract type|primitive type|struct|mutable struct|typealias)[ \t]+([^ \t({[]+).*$/\3/t,type/
---regex-julia=/^[ \t]*(macro)[ \t]+([^ \t({[]+).*$/\2/m,macro/
---regex-julia=/^[ \t]*(@inline[ \t]+|@noinline[ \t]+)?(function)[ \t]+([^ \t({[]+)[^(]*\([ \t]*([^ \t;,=)({]+).*$/\3 (\4, …)/f,function/
---regex-julia=/^[ \t]*(@inline[ \t]+|@noinline[ \t]+)?(function)[ \t]+([^ \t({[]+)[^(]*(\([ \t]*\).*|\([ \t]*)$/\3/f,function/
---regex-julia=/^[ \t]*(@inline[ \t]+|@noinline[ \t]+)?(([^@#$ \t({[]+)|\(([^@#$ \t({[]+)\)|\((\$)\))[ \t]*(\{.*\})?[ \t]*\([ \t]*\)[ \t]*=([^=].*$|$)/\3\4\5/f,function/
---regex-julia=/^[ \t]*(@inline[ \t]+|@noinline[ \t]+)?(([^@#$ \t({[]+)|\(([^@#$ \t({[]+)\)|\((\$)\))[ \t]*(\{.*\})?[ \t]*\([ \t]*([^ \t;,=)({]+).*\)[ \t]*=([^=].*$|$)/\3\4\5 (\7, …)/f,function/
+--regex-julia=/^(@with_kw[ \t]+)?(abstract type|primitive type|struct|mutable struct|typealias)[ \t]+([^ \t({[]+).*$/\3/t,type/
+--regex-julia=/^(@enum)[ \t]+([^ \t({[]+).*$/\2/t,type/
+--regex-julia=/^(macro)[ \t]+([^ \t({[]+).*$/\2/m,macro/
+--regex-julia=/^(@inline[ \t]+|@noinline[ \t]+)?(function)[ \t]+([^ \t({[]+)[^(]*\([ \t]*([^ \t;,=)({]+).*$/\3 (\4, …)/f,function/
+--regex-julia=/^(@inline[ \t]+|@noinline[ \t]+)?(function)[ \t]+([^ \t({[]+)[^(]*(\([ \t]*\).*|\([ \t]*)$/\3/f,function/
+--regex-julia=/^(@inline[ \t]+|@noinline[ \t]+)?(([^@#$ \t({[]+)|\(([^@#$ \t({[]+)\)|\((\$)\))[ \t]*(\{.*\})?[ \t]*\([ \t]*\)[ \t]*=([^=].*$|$)/\3\4\5/f,function/
+--regex-julia=/^(@inline[ \t]+|@noinline[ \t]+)?(([^@#$ \t({[]+)|\(([^@#$ \t({[]+)\)|\((\$)\))[ \t]*(\{.*\})?[ \t]*\([ \t]*([^ \t;,=)({]+).*\)[ \t]*=([^=].*$|$)/\3\4\5 (\7, …)/f,function/
 --regex-julia=/^(const)[ \t]+([^ \t({[]+).*[ ]*=.*$/\2/c,const/
-
