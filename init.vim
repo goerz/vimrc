@@ -360,7 +360,7 @@ let g:tagbar_left = 1
 let g:tagbar_foldlevel = 2
 "use ~/.vim/ctags.cnf This depends on a patched version of the tagbar plugin
 "(pull request #476)
-let g:tagbar_ctags_options = split(&rtp,",")[0].'/ctags.cnf'
+let g:tagbar_ctags_options = ['NONE', split(&rtp,",")[0].'/ctags.cnf']
 " the definition below depend on the settings in ctags.cnf
 let g:tagbar_type_make = {
             \ 'kinds':[
