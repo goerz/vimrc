@@ -126,14 +126,16 @@ endif
 let g:neomake_highlight_columns = 0
 "let g:neomake_verbose=3
 "let g:neomake_logfile='/tmp/neomake_error.log'
-"let g:neomake_warning_sign = {
-  "\ 'text': 'W',
-  "\ 'texthl': 'WarningMsg',
-  "\ }
-"let g:neomake_error_sign = {
-  "\ 'text': 'E',
-  "\ 'texthl': 'ErrorMsg',
-  "\ }
+let g:neomake_error_sign = {'text': '✖', 'texthl': 'NeomakeErrorSign'}
+let g:neomake_warning_sign = {
+    \   'text': '△',
+    \   'texthl': 'NeomakeWarningSign',
+    \ }
+let g:neomake_message_sign = {
+    \   'text': '➤',
+    \   'texthl': 'NeomakeMessageSign',
+    \ }
+let g:neomake_info_sign = {'text': '𝚒', 'texthl': 'NeomakeInfoSign'}
 let g:neomake_python_pylint_maker = {
 \ 'args': [
     \ '--load-plugins=pylint.extensions.check_docs',
