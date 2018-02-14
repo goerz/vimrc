@@ -300,7 +300,7 @@ if has("gui_running") || &t_Co == 88 || &t_Co == 256
   call <SID>X("MoreMsg",         s:foreground, s:background,  "bold")
   call <SID>X("NonText",         s:darkgreen,  s:gray90,      "none")
   call <SID>X("PreProc",         s:blue,       s:background,  "none")
-  call <SID>X("Question",        s:green,      s:background,  "bold")
+  call <SID>X("Question",        s:black,      s:background,  "bold")
   call <SID>X("Special",         s:darkblue,   s:background,  "none")
   call <SID>X("SpecialKey",      s:darkblue,   s:background,  "none")
   call <SID>X("StatusLine",      s:foreground, s:background,  "bold")
