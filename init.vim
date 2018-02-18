@@ -7,6 +7,23 @@
 " Pathogen --allows to install plugins in .vim/bundle
 execute pathogen#infect()
 
+" iVim fixes
+let $PATH .= ':'.$HOME.'/../Library/bin:'.$HOME.'/bin'
+let $PYTHONHOME = $HOME.'/../Library/'
+let $SSH_HOME = $HOME
+let $CURL_HOME = $HOME
+let $SSL_CERT_FILE = $HOME.'/cacert.pem'
+let $HGRCPATH = $HOME.'/.hgrc'
+map <D-o> :idocuments <CR>
+map <D-e> :edit . <CR>
+map <D-s> :w <CR>
+map <D-t> :tabnew <CR>
+map <D-w> :bd <CR>
+map <D-q> :quit <CR>
+map <D-}> :tabne <CR>
+map <D-{> :tabprev <CR>
+
+
 " * Interface Settings {{{1
 
 " switch ' and `
@@ -150,20 +167,20 @@ endfunction!
 " powerline fonts, https://github.com/Lokaltog/powerline-fonts
 let g:airline_theme='goerz'
 let g:airline_powerline_fonts=0
-"
-let g:airline_enable_syntastic=0
-let g:airline_modified_detection=0
-if (g:airline_powerline_fonts==0)
-    "let g:airline_left_sep=''
-    "let g:airline_right_sep=''
-    let g:airline_left_sep = '▶'
-    let g:airline_right_sep = '◀'
-    let g:airline_linecolumn_prefix = '¶ '
-    let g:airline_fugitive_prefix = ''
-endif
-let g:airline_section_b='%{WhitespaceCheck()}%{StatusCwd()}%f%m'
-let g:airline_section_c='%3p%% '.g:airline_linecolumn_prefix.'%3l/%L:%3c'
-let g:airline_section_z='%{g:airline_externals_fugitive}'
+""
+"let g:airline_enable_syntastic=0
+"let g:airline_modified_detection=0
+"if (g:airline_powerline_fonts==0)
+    ""let g:airline_left_sep=''
+    ""let g:airline_right_sep=''
+    "let g:airline_left_sep = '▶'
+    "let g:airline_right_sep = '◀'
+    "let g:airline_linecolumn_prefix = '¶ '
+    "let g:airline_fugitive_prefix = ''
+"endif
+"let g:airline_section_b='%{WhitespaceCheck()}%{}%f%m'
+"let g:airline_section_c='%3p%% '.g:airline_linecolumn_prefix.'%3l/%L:%3c'
+"let g:airline_section_z='%{g:airline_externals_fugitive}'
 
 " Use proper highlighting for the active status line (otherwise font colors
 " are messed up)
@@ -264,6 +281,7 @@ endif
 colorscheme goerz
 autocmd FileType tex hi! texSectionTitle gui=underline term=bold cterm=underline,bold
 autocmd FileType tex hi! Statement gui=none term=none cterm=none
+hi Normal ctermbg=White ctermfg=Black guifg=Black guibg=White
 
 " Datestamps
 if exists("*strftime")

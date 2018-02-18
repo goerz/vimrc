@@ -4,7 +4,6 @@ setlocal ts=4
 setlocal formatoptions=croql 
 setlocal textwidth=79 nofoldenable
 setlocal omnifunc=pythoncomplete#Complete
-setlocal keywordprg='$HOME/.vim/scripts/python_help.pl'
 setlocal pumheight=15
 setlocal completeopt=menu,menuone
 setlocal nospell
