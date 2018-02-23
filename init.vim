@@ -2,7 +2,9 @@
 " Author: Michael Goerz <goerz@physik.uni-kassel.de>
 
 " Python interpreter (neovim)
-"let g:python_host_prog = $HOME.'/anaconda/bin/python'
+let g:python_host_prog = $HOME.'/anaconda3/envs/py27/bin/python'
+let g:python3_host_prog = $HOME.'/anaconda3/bin/python'
+let g:notedown_enable = 1
 
 " Pathogen --allows to install plugins in .vim/bundle
 execute pathogen#infect()
@@ -459,7 +461,7 @@ endif
 set nowrap
 " but if we wrap, use a nice unicode character to indicate the linebreak, and
 " don't break in the middle of a word
-set showbreak=↪
+set showbreak=∟
 set linebreak
 
 " tab stops should be at 4 spaces
