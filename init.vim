@@ -380,6 +380,12 @@ let g:tagbar_type_julia = {
         \ 't:struct', 'f:function', 'm:macro', 'c:const']
     \ }
 
+" LaTeX to Unicode substitutions
+"  This is mainly for Julia, but I also like to use it for Python and others
+let g:latex_to_unicode_file_types = [
+    \ "julia", "python", "mail", "markdown", "pandoc", "human"]
+noremap <silent> <leader>l :call LaTeXtoUnicode#Toggle()<CR>
+
 
 " go to defn of tag under the cursor (case sensitive)
 " adapted from http://tartley.com/?p=1277
