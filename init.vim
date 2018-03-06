@@ -211,10 +211,6 @@ if exists("+colorcolumn")
     set colorcolumn=+1
 endif
 
-" enable syntax highlighting
-syntax on
-syntax sync fromstart
-
 " enable incremental search, and search highlighting by default
 set hlsearch " opposite of set nohlsearch
 set incsearch
@@ -544,6 +540,10 @@ let g:vim_json_syntax_conceal=0
 " For some programming languages, delete trailing spaces on save
 autocmd BufWritePre *.py normal m`:%s/\s\+$//e ``
 autocmd BufWritePre *.pl normal m`:%s/\s\+$//e ``
+
+" enable syntax highlighting
+syntax on
+syntax sync fromstart
 
 
 " * Terminal Specific Settings {{{1
