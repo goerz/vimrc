@@ -1,4 +1,4 @@
-set textwidth=80
+set textwidth=0
 
 " use indents of 4 spaces:
 setlocal tabstop=4
@@ -10,5 +10,3 @@ setlocal expandtab
 setlocal spell
 
 noremap <silent> <leader>t :Voom markdown<CR>:vertical resize 80<CR>
-inoremap -- –
-inoremap --- —

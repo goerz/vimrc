@@ -1,4 +1,4 @@
-set textwidth=80
+set textwidth=0
 compiler pandoc
 
 " use indents of 4 spaces:
@@ -11,5 +11,3 @@ setlocal expandtab
 setlocal spell
 
 noremap <silent> <leader>t :Voom markdown<CR>:vertical resize 80<CR>
-inoremap -- –
-inoremap --- —
