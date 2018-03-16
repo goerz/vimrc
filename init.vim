@@ -428,6 +428,12 @@ let g:csv_start = 1
 let g:csv_end = 100
 let g:csv_strict_columns = 1
 
+" SLIME plugin
+let g:slime_target = "tmux"
+let g:slime_no_mappings = 1
+nnoremap <silent> <leader>s :SlimeSend<CR>
+xnoremap <silent> <leader>s :'<,'>SlimeSend<CR>
+
 " Undotree plugin
 nnoremap <silent> <leader>u :UndotreeToggle<CR>
 
