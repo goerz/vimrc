@@ -9,6 +9,5 @@ setlocal pumheight=15
 setlocal completeopt=menu,menuone
 setlocal nospell
 compiler pylint
-let b:sendToProgramMode="ipython"
 let b:SuperTabDefaultCompletionType = "<c-x><c-o>"
 setlocal tags+=/usr/lib/python/tags
