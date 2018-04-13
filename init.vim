@@ -437,6 +437,18 @@ xnoremap <silent> <leader>s :'<,'>SlimeSend<CR>
 " Undotree plugin
 nnoremap <silent> <leader>u :UndotreeToggle<CR>
 
+" CtrlP
+let g:ctrlp_max_files = 10000
+
+if has("unix") " Optimize file searching
+    let g:ctrlp_user_command = {
+    \   'types': {
+    \       1: ['.git/', 'cd %s && git ls-files']
+    \   },
+    \   'fallback': 'find %s -type f | head -' . g:ctrlp_max_files
+    \ }
+endif
+
 " Nerd_commenter plugin
 let g:NERDShutUp = 1
 
