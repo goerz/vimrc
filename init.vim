@@ -172,6 +172,12 @@ augroup mine
     au BufWinEnter * exe "sign place 1337 line=1 name=mysign buffer=" . bufnr('%')
 augroup END
 
+" Work around neovim not running bang commands in the current tty
+" https://github.com/neovim/neovim/issues/1496
+if has('nvim')
+  cnoremap <expr> !<space> strlen(getcmdline())?'!':('!tmux split-window -c '.getcwd().' -p 90 ')
+endif
+
 
 " iVim (Nicolas Holzschuch's fork)
 if has("ivim")
