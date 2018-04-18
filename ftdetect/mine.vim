@@ -4,6 +4,7 @@ autocmd BufNewFile,BufRead *.mail set filetype=mail
 autocmd BufNewFile,BufRead Notational*Velocity*.txt set filetype=pandoc
 autocmd BufNewFile,BufRead *mailplane* set filetype=mail
 autocmd BufNewFile,BufRead *ipython-desktop* set filetype=python
+autocmd BufNewFile,BufRead *.ipy set filetype=python
 autocmd BufNewFile,BufRead *.wordpress set filetype=html
 autocmd BufNewFile,BufRead *.fionacms set filetype=html
 autocmd BufNewFile,BufRead *.tikz set filetype=plaintex
