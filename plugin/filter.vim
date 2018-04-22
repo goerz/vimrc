@@ -185,7 +185,9 @@ endfunction
 function s:GetFilterFiles(filetype, arg_lead) "{{{1
     let filter_files = []
     for filter_file in split(glob(g:filters_base_directory.'/'.a:filetype.'/'.a:arg_lead.'*'),"\n")
-        call add(filter_files, filter_file)
+        if executable(filter_file)
+            call add(filter_files, filter_file)
+        endif
     endfor
     for filter_file in split(glob(g:filters_base_directory.'/all/'.a:arg_lead.'*'),"\n")
         call add(filter_files, filter_file)
