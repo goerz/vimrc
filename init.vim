@@ -462,6 +462,9 @@ let g:NERDShutUp = 1
 vmap <expr>  ++  VMATH_YankAndAnalyse()
 nmap         ++  vip++
 
+" pydoc plugin
+let g:pydoc_open_cmd = 'vsplit'
+
 " Activate 256 colors independently of terminal. Most of my terms are 256
 " colors. For those cases where I'm running vim in a low-color terminal, this
 " is only safe if I'm using screen (which I always am).
