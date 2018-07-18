@@ -1,0 +1,52 @@
+% Template for Anki plugin 1199027445
+% https://tentativeconvert.github.io/LaTeX-Note-Importer-for-Anki/
+%%% Anki header
+%%% this should match the settings in Anki
+\documentclass[12pt]{article}
+\special{papersize=3in,5in}
+\usepackage[utf8]{inputenc}
+\usepackage{amssymb,amsmath}
+\usepackage{braket}
+\newcommand{\dd}{\, \textnormal{d}}
+\newcommand{\ii}{\text{i}}
+\newcommand{\Op}[1]{\ensuremath{\mathsf{\hat{#1}}}}
+\newcommand{\Abs}[1]{\left|#1\right|}
+\renewcommand{\familydefault}{\sfdefault}
+\usepackage{sansmath}
+\sansmath{}
+\pagestyle{empty}
+\setlength{\parindent}{0in}
+\begin{document}
+%%% End Anki header
+% Commands to make file compilable
+\newenvironment{note}{\paragraph{NOTE:}}{}
+\newenvironment{field}{\paragraph{field:}}{}
+\newenvironment{plain}{\paragraph{field:}}{}
+\newcommand*{\tags}[1]{\paragraph{tags: }#1}
+\newcommand*{\xplain}[1]{\paragraph{field: } #1}
+\newcommand*{\xfield}[1]{\paragraph{field: } #1}
+
+\begin{note}
+  \xplain{text onliner}
+  \xfield{latex oneliner}
+  \tags{test}
+\end{note}
+
+\begin{note}
+  \begin{plain}
+    Multiple
+    lines
+    of text
+  \end{plain}
+  \begin{field}
+    Multiple lines of latex:
+    \begin{align}
+      x &= 1 \\
+      y &= 2
+    \end{align}
+  \end{field}
+  \tags{test}
+\end{note}
+
+
+\end{document}
