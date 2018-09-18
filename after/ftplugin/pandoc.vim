@@ -1,5 +1,4 @@
 set textwidth=0
-compiler pandoc
 
 " use indents of 4 spaces:
 setlocal tabstop=4
