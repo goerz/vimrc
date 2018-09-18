@@ -426,14 +426,6 @@ fun! MatchCaseTag()
 endfun
 nnoremap <silent> <c-]> :call MatchCaseTag()<CR>
 
-" CSV plugin
-let g:csv_no_conceal = 1
-let g:csv_highlight_column = 'n'
-let g:csv_comment = '#'
-let g:csv_start = 1
-let g:csv_end = 100
-let g:csv_strict_columns = 1
-
 " SLIME plugin
 let g:slime_target = "tmux"
 let g:slime_no_mappings = 1
