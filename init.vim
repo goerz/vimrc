@@ -178,29 +178,6 @@ if has('nvim')
   cnoremap <expr> !<space> strlen(getcmdline())?'!':('!tmux split-window -c '.getcwd().' -p 90 ')
 endif
 
-
-" iVim (Nicolas Holzschuch's fork)
-if has("ivim")
-
-    let $PATH .= ':'.$HOME.'/../Library/bin:'.$HOME.'/bin'
-    let $PYTHONHOME = $HOME.'/../Library/'
-    let $SSH_HOME = $HOME
-    let $CURL_HOME = $HOME
-    let $SSL_CERT_FILE = $HOME.'/cacert.pem'
-    let $HGRCPATH = $HOME.'/.hgrc'
-
-    map <D-o> :idocuments <CR>
-    map <D-e> :edit . <CR>
-    map <D-s> :w <CR>
-    map <D-t> :tabnew <CR>
-    map <D-w> :bd <CR>
-    map <D-q> :quit <CR>
-    map <D-}> :tabne <CR>
-    map <D-{> :tabprev <CR>
-
-endif
-
-
 " persistent undo
 if has("persistent_undo")
     set undodir=~/.vim/undo/
@@ -463,24 +440,17 @@ let g:pydoc_open_cmd = 'vsplit'
 set t_Co=256
 
 " Default Color Scheme
-if has('ivim')
-    set background=light
-else
-    if !empty($COLORFGBG)
-        let s:bg_color_code = split($COLORFGBG, ";")[-1]
-        if s:bg_color_code == 8 || s:bg_color_code  <= 6
-            set background=dark
-        else
-            set background=light
-        endif
+if !empty($COLORFGBG)
+    let s:bg_color_code = split($COLORFGBG, ";")[-1]
+    if s:bg_color_code == 8 || s:bg_color_code  <= 6
+        set background=dark
+    else
+        set background=light
     endif
 endif
 colorscheme goerz
 autocmd FileType tex hi! texSectionTitle gui=underline term=bold cterm=underline,bold
 autocmd FileType tex hi! Statement gui=none term=none cterm=none
-if has('ivim')
-    hi Normal ctermbg=White ctermfg=Black guifg=Black guibg=White
-endif
 
 " Forward SyncTeX
 autocmd FileType tex nnoremap <Leader>s :w<CR>:silent !$SYNCTEXREADER -g <C-r>=line('.')<CR> %<.pdf %<CR><C-l>
