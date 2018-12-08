@@ -6,3 +6,4 @@ view/
 .simplenote.cache
 .simplenote.token
 *.pyc
+black/

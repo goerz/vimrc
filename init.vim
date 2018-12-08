@@ -387,6 +387,10 @@ let g:latex_to_unicode_file_types = [
     \ "julia", "python", "mail", "markdown", "pandoc", "human"]
 noremap <silent> <leader>l :call LaTeXtoUnicode#Toggle()<CR>
 
+" Black formatter
+let g:black_linelength = 79
+let g:black_skip_string_normalization = 0
+
 
 " go to defn of tag under the cursor (case sensitive)
 " adapted from http://tartley.com/?p=1277
