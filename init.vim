@@ -389,7 +389,7 @@ noremap <silent> <leader>l :call LaTeXtoUnicode#Toggle()<CR>
 
 " Black formatter
 let g:black_linelength = 79
-let g:black_skip_string_normalization = 0
+let g:black_skip_string_normalization = 1
 
 
 " go to defn of tag under the cursor (case sensitive)
