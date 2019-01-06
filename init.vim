@@ -416,6 +416,15 @@ xnoremap <silent> <leader>s :'<,'>SlimeSend<CR>
 " Undotree plugin
 nnoremap <silent> <leader>u :UndotreeToggle<CR>
 
+" Jupytext plugin
+let g:jupytext_fmt = 'md'
+let g:jupytext_print_debug_msgs = 0
+let g:jupytext_command = 'jupytext'
+let g:jupytext_filetype_map = {
+\      'md': 'pandoc',
+\      'py': 'python',
+\   }
+
 " CtrlP
 let g:ctrlp_max_files = 10000
 
