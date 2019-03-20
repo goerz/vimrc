@@ -276,8 +276,8 @@ if (g:airline_powerline_fonts==0)
     let g:airline_linecolumn_prefix = '¶ '
     let g:airline_fugitive_prefix = ''
 endif
-let g:airline_section_b='%{WhitespaceCheck()}%{StatusCwd()}%f%m'
-let g:airline_section_c='%3p%% '.g:airline_linecolumn_prefix.'%3l/%L:%3c'
+let g:airline_section_c='%{WhitespaceCheck()}%{StatusCwd()}%f%m'
+let g:airline_section_b='%3p%% '.g:airline_linecolumn_prefix.'%3l/%L:%3c'
 let g:airline_section_z='%{g:airline_externals_fugitive}'
 
 " Use proper highlighting for the active status line (otherwise font colors

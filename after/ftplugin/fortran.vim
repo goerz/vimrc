@@ -1,6 +1,6 @@
 " This is for the Fortran 90 standard
 
-compiler ifort 
+compiler ifort
 
 set textwidth=80
 
