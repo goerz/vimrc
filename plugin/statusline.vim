@@ -8,7 +8,15 @@ scriptencoding utf-8
 " Auxilliary functions are in autoload/statusline.vim
 
 
-function! StatusLine(mode) abort
+" Function that dynamically generates the statusline
+"
+" It gets evaluated every time the statusline is redrawn (this is due to the
+" exclamation point in `setl statusline=%!StatusLine` in the autogroup below)
+"
+" The only way to override the statusline is to set local variables
+" `w:statusline` or `b:statusline`. An optional word counter may be shown in
+" the status line by setting `b:showwordcount=1`.
+function StatusLine(mode) abort
   let l:line=''
   let l:editor_mode_and_code = statusline#getMode()
   let l:editormode = l:editor_mode_and_code[0]
@@ -38,6 +46,11 @@ function! StatusLine(mode) abort
       let l:line.='⟩'
 
       let l:line.=colorSecondary
+      if exists("b:showwordcount")
+        if b:showwordcount ==# 1
+          let l:line.=" %{statusline#WordCount()}w"
+        endif
+      endif
       let l:line.=statusline#AsciiCheck()
       let l:line.=statusline#WhitespaceCheck()
       let l:line.='%3R%4W' " read-only and preview flag
@@ -77,6 +90,9 @@ endfunction
 set statusline=%!StatusLine('active')
 augroup MyStatusLine
   autocmd!
+  " The exclamation point below ensures that the StatusLine function is
+  " re-evaluated every time the statusline is redrawn. The autocmmands just
+  " change which version (active/inactive) of the function will be used.
   autocmd WinLeave * setl statusline=%!StatusLine('inactive')
   autocmd WinEnter,BufWinEnter,BufWritePost,FileWritePost,WinEnter,InsertEnter,InsertLeave,CmdWinEnter,CmdWinLeave,ColorScheme * setl statusline=%!StatusLine('active')
 augroup END
