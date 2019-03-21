@@ -70,7 +70,7 @@ function StatusLine(mode) abort
       endif
 
       let l:line.=colorPrimary
-      let l:line.='⟨%{statusline#gitInfo()}%*'
+      let l:line.='⟨%{statusline#gitInfo()}'
     endif
 
   " inactive
@@ -78,6 +78,12 @@ function StatusLine(mode) abort
 
     let l:line.='%#StatusLineNC#'
     let l:line.='%m%{statusline#StatusCwd()}%f'
+    if exists("t:goyo_dim")
+      " I use a modified goyo that keeps the statusline. This includes the
+      " status lines of the "buffer" scratch windows, so we have to turn off
+      " the statusline for inactive windows here, whenever we're in goyo
+      let l:line=''
+    endif
 
   endif
 
