@@ -34,7 +34,8 @@ endfunction
 
 function! s:set_color(group, attr, color)
   let gui = has('gui_running') || has('termguicolors') && &termguicolors
-  execute printf('hi %s %s%s=%s', a:group, gui ? 'gui' : 'cterm', a:attr, a:color)
+  let cmd = printf('hi %s %s%s=%s', a:group, gui ? 'gui' : 'cterm', a:attr, a:color)
+  execute cmd
 endfunction
 
 function! s:blank(repel)
@@ -122,7 +123,7 @@ function! s:tranquilize()
 endfunction
 
 function! s:hide_statusline()
-  setlocal statusline=\ 
+  "setlocal statusline=\ 
 endfunction
 
 function! s:hide_linenr()
