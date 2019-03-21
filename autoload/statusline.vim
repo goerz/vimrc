@@ -26,10 +26,23 @@ endfunction!
 
 function! statusline#AsciiCheck()
   let nonascii = search('[^\x00-\x7F]', 'nw')
+  let l:flags = ''
   if nonascii != 0
-    return " α"
+    let l:flags = ' '
+    let l:latin_extended = search('[\u00C0-\u017F]', 'nw')
+    let l:punctuation = search('[\u00A0-\u00BB\u2010-\u203A]', 'nw')
+    let l:nonlatin = search('[^\x00-\x7F\u00C0-\u017F\u00A0-\u00BB\u2010-\u203A]', 'nw')
+    if l:punctuation != 0
+      let l:flags .= "‟"
+    endif
+    if l:latin_extended != 0
+      let l:flags .= "ä"
+    endif
+    if l:nonlatin != 0
+      let l:flags .= "α"
+    endif
   endif
-  return ''
+  return l:flags
 endfunction!
 
 
