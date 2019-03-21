@@ -87,12 +87,6 @@ if &background=='light'
   hi Ignore		guifg=bg	guibg=NONE
   " NOTE THIS IS IN THE WARM SECTION
   if v:version >= 700
-    if has('spell')
-      hi SpellBad	guifg=NONE	guibg=NONE	guisp=#c03000
-      hi SpellCap	guifg=NONE	guibg=NONE	guisp=#2060a8
-      hi SpellRare	guifg=NONE	guibg=NONE	guisp=#a030a0
-      hi SpellLocal	guifg=NONE	guibg=NONE	guisp=#007068
-    endif
     hi Pmenu		guifg=fg	guibg=#e0b0e0
     hi PmenuSel		guifg=#f0f0f0	guibg=#806060	gui=NONE
     hi PmenuSbar	guifg=fg	guibg=#c0c0c0	gui=NONE
@@ -110,14 +104,6 @@ if &background=='light'
   " Vim 7 added stuffs
   if v:version >= 700
     hi Ignore		gui=NONE
-
-    " the gui=undercurl guisp could only support in Vim 7
-    if has('spell')
-      hi SpellBad	gui=undercurl
-      hi SpellCap	gui=undercurl
-      hi SpellRare	gui=undercurl
-      hi SpellLocal	gui=undercurl
-    endif
     hi TabLine		gui=underline
     hi TabLineFill	gui=underline
     hi CursorLine	gui=underline
@@ -201,18 +187,10 @@ if &background=='light'
     " NOTE THIS IS IN THE WARM SECTION
     if v:version >= 700
       if has('spell')
-        if 0
-          " ctermsp is not supported in Vim7, we ignore it.
-          hi SpellBad	cterm=undercurl	ctermbg=NONE	ctermfg=130
-          hi SpellCap	cterm=undercurl	ctermbg=NONE	ctermfg=25
-          hi SpellRare	cterm=undercurl	ctermbg=NONE	ctermfg=133
-          hi SpellLocal	cterm=undercurl	ctermbg=NONE	ctermfg=23
-        else
-          hi SpellBad	cterm=undercurl	ctermbg=NONE	ctermfg=NONE
-          hi SpellCap	cterm=undercurl	ctermbg=NONE	ctermfg=NONE
-          hi SpellRare	cterm=undercurl	ctermbg=NONE	ctermfg=NONE
-          hi SpellLocal	cterm=undercurl	ctermbg=NONE	ctermfg=NONE
-        endif
+        hi SpellBad	ctermbg=225	ctermfg=NONE
+        hi SpellCap	ctermbg=NONE	ctermfg=NONE
+        hi SpellRare	ctermbg=NONE	ctermfg=NONE
+        hi SpellLocal	ctermbg=NONE	ctermfg=NONE
       endif
       hi Pmenu		ctermfg=fg	ctermbg=182
       hi PmenuSel	ctermfg=255	ctermbg=95	cterm=NONE
@@ -298,13 +276,6 @@ elseif &background=='dark'
   hi Ignore		guifg=#000000	guibg=NONE
   " NOTE THIS IS IN THE COOL SECTION
   if v:version >= 700
-    if has('spell')
-    " the guisp= could only support in Vim 7
-      hi SpellBad	guifg=NONE	guibg=NONE	guisp=#f08060
-      hi SpellCap	guifg=NONE	guibg=NONE	guisp=#6080f0
-      hi SpellRare	guifg=NONE	guibg=NONE	guisp=#f0c0f0
-      hi SpellLocal	guifg=NONE	guibg=NONE	guisp=#c0d8f8
-    endif
     hi Pmenu		guifg=fg	guibg=#800080
     hi PmenuSel		guifg=#000000	guibg=#d0d0d0	gui=NONE
     hi PmenuSbar	guifg=fg	guibg=#000080	gui=NONE
@@ -324,12 +295,6 @@ elseif &background=='dark'
     hi Ignore	gui=NONE  
 
     " the gui=undercurl could only support in Vim 7
-    if has('spell')
-      hi SpellBad	gui=undercurl  
-      hi SpellCap	gui=undercurl  
-      hi SpellRare	gui=undercurl  
-      hi SpellLocal	gui=undercurl 
-    endif
     hi TabLine		gui=underline  
     hi TabLineFill	gui=underline  
     hi Underlined	gui=underline  
@@ -536,20 +501,6 @@ elseif &background=='dark'
     hi Ignore		ctermfg=16	ctermbg=NONE
     " NOTE THIS IS IN THE COOL SECTION
     if v:version >= 700
-      if has('spell')
-        " the ctermsp= is not supported in Vim 7 we simply ignored
-        if 0
-          hi SpellBad	cterm=undercurl	ctermbg=NONE	ctermfg=209
-          hi SpellCap	cterm=undercurl	ctermbg=NONE	ctermfg=69
-          hi SpellRare	cterm=undercurl	ctermbg=NONE	ctermfg=219
-          hi SpellLocal	cterm=undercurl	ctermbg=NONE	ctermfg=153
-        else
-          hi SpellBad	cterm=undercurl	ctermbg=NONE	ctermfg=NONE
-          hi SpellCap	cterm=undercurl	ctermbg=NONE	ctermfg=NONE
-          hi SpellRare	cterm=undercurl	ctermbg=NONE	ctermfg=NONE
-          hi SpellLocal	cterm=undercurl	ctermbg=NONE	ctermfg=NONE
-        endif
-      endif
       hi Pmenu		ctermfg=fg	ctermbg=90
       hi PmenuSel	ctermfg=16	ctermbg=252	cterm=NONE
       hi PmenuSbar	ctermfg=fg	ctermbg=18	cterm=NONE
