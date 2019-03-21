@@ -304,7 +304,7 @@ if has("gui_running") || &t_Co == 88 || &t_Co == 256
   call <SID>X("Special",         s:darkblue,   s:background,  "none")
   call <SID>X("SpecialKey",      s:darkblue,   s:background,  "none")
   call <SID>X("StatusLine",      s:white,      s:black,  "bold")
-  call <SID>X("StatusLineNC",    s:gray75,     s:black,  "none")
+  call <SID>X("StatusLineNC",    s:white,      s:black,  "none")
   call <SID>X("String",          s:darkgreen,  s:background,  "none")
   call <SID>X("TabLineFill",     s:foreground, s:background,  "reverse")
   call <SID>X("TabLine",         s:foreground, s:gray75,      "none")
@@ -404,6 +404,14 @@ if has("gui_running") || &t_Co == 88 || &t_Co == 256
   " Plugin: neomake
   call <SID>X("NeomakeErrorSign",      s:red,           s:gray90,      "none")
   call <SID>X("NeomakeWarningSign",    s:black,         s:gray90,      "none")
+
+  " Statusline:
+  call <SID>X("StatusLinePrimaryN",      s:white,        "005fd7",      "bold")
+  call <SID>X("StatusLinePrimaryV",      s:white,        "d0d0d0",      "bold")
+  call <SID>X("StatusLinePrimaryI",      s:black,        "ffaf00",      "bold")
+  call <SID>X("StatusLineSecondaryN",    s:white,        "444444",      "bold")
+  call <SID>X("StatusLineSecondaryV",    s:white,        "444444",      "bold")
+  call <SID>X("StatusLineSecondaryI",    s:black,        "ff5f00",      "bold")
 
   " Delete Functions
   delf <SID>X

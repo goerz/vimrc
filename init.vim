@@ -211,35 +211,6 @@ set autoread
 set ignorecase
 set smartcase
 
-" Trailing whitespace detection
-function! WhitespaceCheck()
-  if &readonly || mode() != 'n'
-    return ''
-  endif
-  let trailing = search(' $', 'nw')
-  let indents = [search('^ ', 'nb'), search('^ ', 'n'), search('^\t', 'nb'), search('^\t', 'n')]
-  let mixed = indents[0] != 0 && indents[1] != 0 && indents[2] != 0 && indents[3] != 0
-  if trailing != 0 || mixed
-    return "(!) "
-  endif
-  return ''
-endfunction!
-
-" Return current working directory (in quotes) if either autochdir is on or a
-" symlink has been followed. Otherwise, return empty string. To be used for
-" display in the status line
-function! StatusCwd()
-  if exists("+autochdir")
-    if &autochdir
-      return '"' . getcwd() . '"/'
-    endif
-  endif
-  if exists("b:followed_symlink")
-    return '"' . getcwd() . '"/'
-  endif
-  return ''
-endfunction!
-
 
 " Follow symlink for current file
 " Sources:
@@ -259,26 +230,6 @@ function! MyFollowSymlink(...)
 endfunction
 command! FollowSymlink call MyFollowSymlink()
 
-
-" statusline is set by the airline plugin
-" You may only set the powerline fonts to 1 if you have insalled  the
-" powerline fonts, https://github.com/Lokaltog/powerline-fonts
-let g:airline_theme='goerz'
-let g:airline_powerline_fonts=0
-"
-let g:airline_enable_syntastic=0
-let g:airline_modified_detection=0
-if (g:airline_powerline_fonts==0)
-    "let g:airline_left_sep=''
-    "let g:airline_right_sep=''
-    let g:airline_left_sep = '▶'
-    let g:airline_right_sep = '◀'
-    let g:airline_linecolumn_prefix = '¶ '
-    let g:airline_fugitive_prefix = ''
-endif
-let g:airline_section_c='%{WhitespaceCheck()}%{StatusCwd()}%f%m'
-let g:airline_section_b='%3p%% '.g:airline_linecolumn_prefix.'%3l/%L:%3c'
-let g:airline_section_z='%{g:airline_externals_fugitive}'
 
 " Use proper highlighting for the active status line (otherwise font colors
 " are messed up)
