@@ -307,6 +307,15 @@ autocmd BufWinLeave ?* mkview          " Store fold settings for all buffers ...
 "autocmd BufWinEnter ?* silent loadview " ... and reload them
 
 
+" Fugitive mappings
+nnoremap <Leader>gd :Gdiff<Enter>
+nnoremap <Leader>gD :Gdiff HEAD<Enter>
+nnoremap <Leader>gs :Gstatus<Enter>
+nnoremap <Leader>ga :Gwrite<Enter>
+nnoremap <Leader>gc :Gcommit<Enter>
+nnoremap <Leader>gb :Gblame<Enter>
+
+
 " Tagbar (and legacy Taglist ) plugin
 let Tlist_Inc_Winwidth = 0 " Taglist: Don't enlarge the terminal
 "noremap <silent> <leader>t :TlistToggle<CR><C-W>h
