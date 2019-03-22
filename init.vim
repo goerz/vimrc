@@ -446,6 +446,12 @@ if has("gui_running")
 endif
 
 
+" VimR specific settings
+if has("gui_vimr")
+  set background=light
+endif
+
+
 " * Text Formatting -- General {{{1
 
 " don't make it look like there are line breaks where there aren't:
