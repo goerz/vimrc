@@ -61,6 +61,21 @@ function! statusline#AsciiCheck()
 endfunction!
 
 
+function! statusline#RefreshFlags()
+  let b:statuslineAsciiCheck = statusline#AsciiCheck()
+  let b:statuslineWhitespaceCheck = statusline#WhitespaceCheck()
+  if exists("b:showwordcount")
+    if b:showwordcount
+      let b:statuslineWordCount = statusline#WordCount()."w"
+    endif
+  endif
+  let b:statuslineGitInfo = statusline#gitInfo()
+  if !(empty(b:statuslineGitInfo))
+    let b:statuslineGitInfo = "⟨".b:statuslineGitInfo
+  endif
+endfunction!
+
+
 " Return current working directory (in quotes) if either autochdir is on or a
 " symlink has been followed. Otherwise, return empty string. To be used for
 " display in the status line
@@ -79,6 +94,7 @@ endfunction!
 
 " mode ->  mode str, color suffix
 " :h mode() to see all modes
+" The "color suffix" is usd in the syntax highlighting
 let s:dictmode= {
       \ 'no'     : ['N', 'N'],
       \ 'v'      : ['V', 'V'],

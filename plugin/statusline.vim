@@ -10,12 +10,12 @@ scriptencoding utf-8
 
 " Function that dynamically generates the statusline
 "
-" It gets evaluated every time the statusline is redrawn (this is due to the
-" exclamation point in `setl statusline=%!StatusLine` in the autogroup below)
+" It gets evaluated every time the statusline is redrawn.
 "
 " The only way to override the statusline is to set local variables
 " `w:statusline` or `b:statusline`. An optional word counter may be shown in
-" the status line by setting `b:showwordcount=1`.
+" the status line by setting `b:showwordcount=1` (word counts only make sense
+" for some filetypes)
 function StatusLine(mode) abort
   let l:line=''
   let l:editor_mode_and_code = statusline#getMode()
@@ -37,7 +37,7 @@ function StatusLine(mode) abort
       let l:line.=' %#StatusLineNC# ['. &filetype .'] %f '
     else
 
-      let l:line.=colorPrimary
+      let l:line.=l:colorPrimary
       let l:line.=l:editormode
       if &paste
         let l:line.='(paste)'
@@ -45,39 +45,60 @@ function StatusLine(mode) abort
       let l:line.=' %3p%% ¶ %3l/%L:%2c'  " pos line/of:column
       let l:line.='⟩'
 
-      let l:line.=colorSecondary
+      let l:line.=l:colorSecondary
       if exists("b:showwordcount")
         if b:showwordcount ==# 1
-          let l:line.=" %{statusline#WordCount()}w"
+          if exists("b:statuslineWordCount")
+            " Set in statusline#RefreshFlags
+            let l:line.=b:statuslineWordCount
+          endif
         endif
       endif
-      let l:line.=statusline#AsciiCheck()
-      let l:line.=statusline#WhitespaceCheck()
+      if exists("b:statuslineAsciiCheck")
+        " Set in statusline#RefreshFlags
+        let l:line.=b:statuslineAsciiCheck
+      endif
+      if exists("b:statuslineWhitespaceCheck")
+        " Set in statusline#RefreshFlags
+        let l:line.=b:statuslineWhitespaceCheck
+      endif
       let l:line.='%3R%4W' " read-only and preview flag
 
       let l:line.='%*'  " color reset
       let l:line.=' %m' " modified flag
       let l:line.=' %<' " where to truncate the line
-      let l:line.='%{statusline#StatusCwd()}%f'  " filename
+      if exists("b:StatusLineCwdString")
+        " Defined in MyFollowSymlink in init.vim
+        let l:line.=b:StatusLineCwdString
+      endif
+      let l:line.='%f'  " filename
 
-      let l:line.='%= ' " horizontal fill
+      let l:line.='%= '  " horizontal fill
 
-      let l:line.=colorSecondary
+      let l:line.=l:colorSecondary
       let l:line.='⟨'
       let l:line.=&filetype
       if &fileencoding !=# 'utf-8' || &fileformat !=# 'unix'
         let l:line.=' %{&fenc}[%{&ff}]'
       endif
 
-      let l:line.=colorPrimary
-      let l:line.='⟨%{statusline#gitInfo()}'
+      let l:line.=l:colorPrimary
+      if exists("b:statuslineGitInfo")
+        " Set in statusline#RefreshFlags
+        let l:line.=b:statuslineGitInfo
+      endif
     endif
 
   " inactive
   else
 
     let l:line.='%#StatusLineNC#'
-    let l:line.='%m%{statusline#StatusCwd()}%f'
+    let l:line.=' %m' " modified flag
+    if exists("b:StatusLineCwdString")
+      " Defined in MyFollowSymlink in init.vim
+      let l:line.=b:StatusLineCwdString
+    endif
+    let l:line.='%f'  " filename
     if exists("t:goyo_dim")
       " I use a modified goyo that keeps the statusline. This includes the
       " status lines of the "buffer" scratch windows, so we have to turn off
@@ -90,9 +111,11 @@ function StatusLine(mode) abort
   let l:line.='%*'
   return l:line
 
-
 endfunction
 
+
+
+call statusline#RefreshFlags()
 set statusline=%!StatusLine('active')
 augroup MyStatusLine
   autocmd!
@@ -100,5 +123,14 @@ augroup MyStatusLine
   " re-evaluated every time the statusline is redrawn. The autocmmands just
   " change which version (active/inactive) of the function will be used.
   autocmd WinLeave * setl statusline=%!StatusLine('inactive')
-  autocmd WinEnter,BufWinEnter,BufWritePost,FileWritePost,WinEnter,InsertEnter,InsertLeave,CmdWinEnter,CmdWinLeave,ColorScheme * setl statusline=%!StatusLine('active')
+  autocmd WinEnter,BufWinEnter * setl statusline=%!StatusLine('active')
+  " Some of the "flags", e.g. the analysis which unicode symbols are present
+  " in the buffer are relatively slow. If they they are re-calculated at every
+  " refresh of the status line, this slows down cursor movement in standard
+  " vim noticeably (neovim is better). Therefore, we only recalculated the
+  " flags when something beyond cursor movements happens.
+  autocmd BufWinEnter,BufWritePost,InsertEnter,InsertLeave,TextChanged,CmdlineEnter,CmdlineLeave,CmdWinEnter,CmdWinLeave,CursorHold,CursorHoldI,FileAppendPost,FileReadPost * call statusline#RefreshFlags()
+  if has("nvim")
+    autocmd TextYankPost * call statusline#RefreshFlags()
+  endif
 augroup END
