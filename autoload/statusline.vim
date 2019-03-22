@@ -128,3 +128,28 @@ function! statusline#getMode() abort
   endif
   return ['N', 'N']
 endfunction
+
+"Most colorschemes (except for 'goerz') don't define the highlight groups for
+"the different parts of the status line. This will cause the statusline to
+"become completely unhighlighted. We can avoid this by relinking all the
+"custom highlight groups back to StatusLine. This should be done before
+"loading any new colorscheme.
+function! statusline#clearHighlights() abort
+  for group in ["StatusLine1N", "StatusLine2N", "StatusLine3N", "StatusLine1I", "StatusLine2I",  "StatusLine3I", "StatusLine1V", "StatusLine2V",  "StatusLine3V"]
+    if hlexists(group)
+      exe "hi clear ".group
+      exe "hi link ".group." StatusLine"
+    endif
+  endfor
+endfunction
+
+"Set the highlight groups for the status line to a uniform gray. This is for
+"use with Goyo and colorschemes that don't define the statusline highlight
+"codes
+function! statusline#grayStatusLine() abort
+  for group in ["StatusLine1N", "StatusLine2N", "StatusLine3N", "StatusLine1I", "StatusLine2I",  "StatusLine3I", "StatusLine1V", "StatusLine2V",  "StatusLine3V"]
+    exec "hi! " . group . " guifg=black  ctermfg=black"
+    exec "hi! " . group . " guibg=gray ctermbg=gray"
+    exec "hi! " . group . " gui=NONE cterm=NONE"
+  endfor
+endfunction

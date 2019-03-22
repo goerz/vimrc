@@ -423,6 +423,10 @@ let g:pydoc_open_cmd = 'vsplit'
 set t_Co=256
 
 " Default Color Scheme
+colorscheme goerz
+" it's better to set the background after loading the colorscheme, as some
+" colorschemes perform a reset of &bg.
+set background=light
 if !empty($COLORFGBG)
     let s:bg_color_code = split($COLORFGBG, ";")[-1]
     if s:bg_color_code == 8 || s:bg_color_code  <= 6
@@ -431,7 +435,6 @@ if !empty($COLORFGBG)
         set background=light
     endif
 endif
-colorscheme goerz
 autocmd FileType tex hi! texSectionTitle gui=underline term=bold cterm=underline,bold
 autocmd FileType tex hi! Statement gui=none term=none cterm=none
 
@@ -450,10 +453,13 @@ command German set spell spelllang=de_20
 command English set spell spelllang=en
 command Python set nospell ft=python
 command ManualFolding set foldenable foldmethod=manual
-command WriteDark set background=dark spell wrap | colorscheme peaksea | Goyo 100
-command WriteLight set background=light spell wrap | colorscheme peaksea | Goyo 100
+command WriteDark set background=dark spell wrap | colorscheme peaksea | Goyo 100 | call statusline#grayStatusLine()
+command WriteLight set background=light spell wrap | colorscheme peaksea | Goyo 100 | call statusline#grayStatusLine()
 command Dark set background=dark | colorscheme peaksea
 cabbr AB 'a,'b
+
+" plugin/statusline.vim can set a different status line when Goyo is active
+let g:goyo_use_custom_status = 1
 
 " Activate wildmenu
 set wildmenu

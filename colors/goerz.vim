@@ -5,9 +5,9 @@
 " Default GUI Colours
 if &background=='light'
     "light background is the default
-    let s:foreground = ""
-    let s:background = ""
-    let s:normal     = ""
+    let s:foreground = "000000"       "  16
+    let s:background = "ffffff"       "  15
+    let s:normal     = "000000"       "  16
     let s:gray40     = "585858"       "  59
     let s:gray50     = "767676"       " 102
     let s:gray75     = "bfbfbf"       " 145
@@ -33,8 +33,8 @@ if &background=='light'
 else
     "adaptation of the "standard" colors to a dark background (that means
     "that 'dark' is generally lighter
-    let s:foreground = ""
-    let s:background = ""
+    let s:foreground = "b2b2b2"       " 145
+    let s:background = "000000"       "   0
     let s:normal     = "b2b2b2"       " 145
     let s:gray40     = "949494"       " 102
     let s:gray50     = "767676"       " 102
@@ -264,13 +264,13 @@ if has("gui_running") || &t_Co == 88 || &t_Co == 256
   " Sets the highlighting for the given group
   fun <SID>X(group, fg, bg, attr)
     if a:fg != ""
-      exec "hi " . a:group . " guifg=#" . a:fg . " ctermfg=" . <SID>rgb(a:fg)
+      exec "hi! " . a:group . " guifg=#" . a:fg . " ctermfg=" . <SID>rgb(a:fg)
     endif
     if a:bg != ""
-      exec "hi " . a:group . " guibg=#" . a:bg . " ctermbg=" . <SID>rgb(a:bg)
+      exec "hi! " . a:group . " guibg=#" . a:bg . " ctermbg=" . <SID>rgb(a:bg)
     endif
     if a:attr != ""
-      exec "hi " . a:group . " gui=" . a:attr . " cterm=" . a:attr
+      exec "hi! " . a:group . " gui=" . a:attr . " cterm=" . a:attr
     endif
   endfun
 
@@ -303,8 +303,6 @@ if has("gui_running") || &t_Co == 88 || &t_Co == 256
   call <SID>X("Question",        s:black,      s:background,  "bold")
   call <SID>X("Special",         s:darkblue,   s:background,  "none")
   call <SID>X("SpecialKey",      s:darkblue,   s:background,  "none")
-  call <SID>X("StatusLine",      s:white,      s:black,  "bold")
-  call <SID>X("StatusLineNC",    s:white,      s:black,  "none")
   call <SID>X("String",          s:darkgreen,  s:background,  "none")
   call <SID>X("TabLineFill",     s:foreground, s:background,  "reverse")
   call <SID>X("TabLine",         s:foreground, s:gray75,      "none")
@@ -406,12 +404,42 @@ if has("gui_running") || &t_Co == 88 || &t_Co == 256
   call <SID>X("NeomakeWarningSign",    s:black,         s:gray90,      "none")
 
   " Statusline:
-  call <SID>X("StatusLinePrimaryN",      s:white,        "005fd7",      "bold")
-  call <SID>X("StatusLinePrimaryV",      s:white,        "d0d0d0",      "bold")
-  call <SID>X("StatusLinePrimaryI",      s:black,        "ffaf00",      "bold")
-  call <SID>X("StatusLineSecondaryN",    s:white,        "444444",      "bold")
-  call <SID>X("StatusLineSecondaryV",    s:white,        "444444",      "bold")
-  call <SID>X("StatusLineSecondaryI",    s:black,        "ff5f00",      "bold")
+  " The statuslins is organized in 3 secions: 1>2>3<2<1. The following is the
+  " formatting for each section and each mode (normal, visual, insert). Any
+  " colorscheme that does not define StatusLine1N etc falls back to StatusLine
+  " for the entire status line.
+  if &background=='light'
+  "             type               foreground    background     attribute
+    call <SID>X("StatusLine",      s:white,      s:black,      "bold")
+    call <SID>X("StatusLineNC",    s:white,      s:black,      "none")
+    " normal mode
+    call <SID>X("StatusLine1N",    s:white,      "005fd7",     "bold")
+    call <SID>X("StatusLine2N",    s:white,      "444444",     "bold")
+    call <SID>X("StatusLine3N",    s:white,      s:black,      "bold")
+    " insert mode
+    call <SID>X("StatusLine1I",    s:black,      "ffaf00",     "bold")
+    call <SID>X("StatusLine2I",    s:black,      "ff5f00",     "bold")
+    call <SID>X("StatusLine3I",    s:white,      s:black,      "bold")
+    " visual select mode
+    call <SID>X("StatusLine1V",    s:white,      "d0d0d0",     "bold")
+    call <SID>X("StatusLine2V",    s:white,      "444444",     "bold")
+    call <SID>X("StatusLine3V",    s:white,      s:black,      "bold")
+  else
+    call <SID>X("StatusLine",      s:white,      s:black,      "bold")
+    call <SID>X("StatusLineNC",    s:white,      s:gray50,     "none")
+    " normal mode
+    call <SID>X("StatusLine1N",    s:white,      "005fd7",     "bold")
+    call <SID>X("StatusLine2N",    s:white,      "626262",     "bold")
+    call <SID>X("StatusLine3N",    s:white,      s:gray50,     "bold")
+    " insert mode
+    call <SID>X("StatusLine1I",    s:black,      "d75f00",     "bold")
+    call <SID>X("StatusLine2I",    s:black,      "d75f5f",     "bold")
+    call <SID>X("StatusLine3I",    s:white,      s:gray50,     "bold")
+    " visual select mode
+    call <SID>X("StatusLine1V",    s:white,      "a8a8a8",     "bold")
+    call <SID>X("StatusLine2V",    s:white,      "626262",     "bold")
+    call <SID>X("StatusLine3V",    s:white,      s:gray50,     "bold")
+  endif
 
   " Delete Functions
   delf <SID>X
