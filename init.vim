@@ -178,6 +178,7 @@ if has('nvim')
   cnoremap <expr> !<space> strlen(getcmdline())?'!':('!tmux split-window -c '.getcwd().' -p 90 ')
 endif
 
+
 " persistent undo
 if has("persistent_undo")
     set undodir=~/.vim/undo/
@@ -221,12 +222,18 @@ set smartcase
 function! MyFollowSymlink(...)
   let fname = a:0 ? a:1 : expand('%')
   if getftype(fname) != 'link'
+    if exists("+autochdir")
+      if &autochdir
+        let b:StatusLineCwdString = '"' . getcwd() . '"/'
+      endif
+    endif
     return
   endif
   let resolvedfile = fnameescape(resolve(fname))
   exec 'file ' . resolvedfile
   lcd %:p:h
   let b:followed_symlink = 1
+  let b:StatusLineCwdString = '"' . getcwd() . '"/'
 endfunction
 command! FollowSymlink call MyFollowSymlink()
 
@@ -346,6 +353,9 @@ let g:tagbar_type_julia = {
 let g:latex_to_unicode_file_types = [
     \ "julia", "python", "mail", "markdown", "pandoc", "human"]
 noremap <silent> <leader>l :call LaTeXtoUnicode#Toggle()<CR>
+
+" signify plugin
+let g:signify_realtime = 0
 
 " Black formatter
 let g:black_linelength = 79
