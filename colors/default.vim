@@ -5,11 +5,6 @@
 " This is the default color scheme.  It doesn't define the Normal
 " highlighting, it uses whatever the colors used to be.
 
-" Set 'background' back to the default.  The value can't always be estimated
-" and is then guessed.
-hi clear Normal
-set bg&
-
 " Remove all existing highlighting and set the defaults.
 hi clear
 
