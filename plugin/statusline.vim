@@ -51,24 +51,34 @@ function StatusLine(mode) abort
       let l:line.=' %3p%% ¶ %3l/%L:%2c'  " pos line/of:column
       let l:line.='⟩'
 
-      let l:line.=l:color2
+      let l:statusline_flags = ''
       if exists("b:showwordcount")
         if b:showwordcount ==# 1
           if exists("b:statuslineWordCount")
             " Set in statusline#RefreshFlags
-            let l:line.=b:statuslineWordCount
+            let l:statusline_flags.=b:statuslineWordCount
           endif
         endif
       endif
+      if exists("b:statuslineALECheck")
+        " Set in statusline#RefreshFlags
+        let l:statusline_flags.=b:statuslineALECheck
+      endif
       if exists("b:statuslineAsciiCheck")
         " Set in statusline#RefreshFlags
-        let l:line.=b:statuslineAsciiCheck
+        let l:statusline_flags.=b:statuslineAsciiCheck
       endif
       if exists("b:statuslineWhitespaceCheck")
         " Set in statusline#RefreshFlags
-        let l:line.=b:statuslineWhitespaceCheck
+        let l:statusline_flags.=b:statuslineWhitespaceCheck
       endif
-      let l:line.='%3R%4W' " read-only and preview flag
+      let l:statusline_flags.='%3R%4W' " read-only and preview flag
+      let l:statusline_flags = substitute(l:statusline_flags, '^\s*\(.\{-}\)\s*$', '\1', '')  " trim
+      if strlen(l:statusline_flags) > 0
+        let l:line.=l:color2
+        let l:line.=" ".l:statusline_flags." "
+      endif
+
 
       let l:line.=l:color3
       let l:line.=' %m' " modified flag

@@ -61,6 +61,23 @@ function! statusline#AsciiCheck()
 endfunction!
 
 
+function! statusline#ALECheck()
+  let l:flags = ''
+  if &rtp =~ 'ale'
+    let l:counts = ale#statusline#Count(bufnr(''))
+    let l:all_errors = l:counts.error + l:counts.style_error
+    let l:all_non_errors = l:counts.total - l:all_errors
+    if l:all_errors > 0
+      let l:flags .= "✖"
+    endif
+    if l:all_non_errors > 0
+      let l:flags .= "△"
+    endif
+  endif
+  return l:flags
+endfunction!
+
+
 function! statusline#RefreshFlags()
   let b:statuslineAsciiCheck = statusline#AsciiCheck()
   let b:statuslineWhitespaceCheck = statusline#WhitespaceCheck()
@@ -73,6 +90,7 @@ function! statusline#RefreshFlags()
   if !(empty(b:statuslineGitInfo))
     let b:statuslineGitInfo = "⟨".b:statuslineGitInfo
   endif
+  let b:statuslineALECheck = statusline#ALECheck()
 endfunction!
 
 
