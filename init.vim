@@ -119,58 +119,26 @@ nnoremap <silent> <C-w><Down> :<C-u>call <SID>JumpWithWrap('j', 'k')<CR>
 nnoremap <silent> <C-w><Up> :<C-u>call <SID>JumpWithWrap('k', 'j')<CR>
 nnoremap <silent> <C-w><Right> :<C-u>call <SID>JumpWithWrap('l', 'h')<CR>
 
-" neomake
-if has('nvim')
-    autocmd! BufWritePost,BufEnter * Neomake
-    " Neomake only runs asynchronously in neovim. Having it active
-    " automatically in vim would cause unacceptable delays.
-endif
-let g:neomake_highlight_columns = 0
-"let g:neomake_verbose=3
-"let g:neomake_logfile='/tmp/neomake_error.log'
-let g:neomake_error_sign = {'text': '✖', 'texthl': 'NeomakeErrorSign'}
-let g:neomake_warning_sign = {
-    \   'text': '△',
-    \   'texthl': 'NeomakeWarningSign',
-    \ }
-let g:neomake_message_sign = {
-    \   'text': '➤',
-    \   'texthl': 'NeomakeMessageSign',
-    \ }
-let g:neomake_info_sign = {'text': '𝚒', 'texthl': 'NeomakeInfoSign'}
-let g:neomake_python_pylint_maker = {
-\ 'args': [
-    \ '--load-plugins=pylint.extensions.check_docs',
-    \ '--output-format=text',
-    \ '--msg-template="{path}:{line}:{column}:{C}: [{symbol}] {msg}"',
-    \ '--reports=no',
-    \ '--docstring-min-length=5',
-    \ '--max-args=30',
-    \ '--max-locals=100',
-    \ '--max-branches=50',
-    \ '--max-statements=800',
-    \ '--max-attributes=80',
-    \ '--max-public-methods=50',
-    \ '--max-module-lines=10000',
-    \ '--ignored-classes=numpy,numpy.random,scipy,matplotlib',
-    \ '--variable-rgx=[A-Za-z_][a-z0-9_]*$',
-    \ '--attr-rgx=([A-Za-z_][A-Za-z0-9_]*|(__.*__))$',
-    \ '--argument-rgx=[A-Za-z_][a-z0-9_]*$',
-    \ '--bad-functions=',
-    \ '-d C0330,C0326,W0108,W0511,C0321,C0103',
-\ ],
-\ 'errorformat':
-    \ '%A%f:%l:%c:%t: %m,' .
-    \ '%A%f:%l: %m,' .
-    \ '%A%f:(%l): %m,' .
-    \ '%-Z%p^%.%#,' .
-    \ '%-G%.%#',
-\ }
-" always show gutter
+" Always show sign column.
 augroup mine
     au BufWinEnter * sign define mysign
     au BufWinEnter * exe "sign place 1337 line=1 name=mysign buffer=" . bufnr('%')
 augroup END
+
+" ALE plugin
+let g:ale_completion_enabled = 0
+let g:ale_set_loclist = 1
+let g:ale_set_quickfix = 0   " quickfix is better used for :make
+let g:ale_sign_error = '✖'
+let g:ale_sign_warning = '△'
+let g:ale_set_highlights = 0  " these are highlights inside the buffer
+let g:ale_warn_about_trailing_whitespace = 0  " I have my own way for dealing with this (in the statusline)
+let g:ale_linters = {
+  \ 'python': ['flake8', 'pydocstyle', 'pylint'],
+\ }
+" The sign-column highlights for ALE are best left unintrusive:
+hi link ALEWarningSign SignColumn
+hi link ALEErrorSign SignColumn
 
 " Work around neovim not running bang commands in the current tty
 " https://github.com/neovim/neovim/issues/1496
