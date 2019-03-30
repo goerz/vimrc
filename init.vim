@@ -135,7 +135,8 @@ let g:ale_sign_warning = '△'
 let g:ale_set_highlights = 0  " these are highlights inside the buffer
 let g:ale_warn_about_trailing_whitespace = 0  " I have my own way for dealing with this (in the statusline)
 let g:ale_linter_aliases = {
-\   'human': 'text'
+\   'human': 'text',
+\   'pandoc': 'markdown'
 \}
 let g:ale_linters = {
 \   'python': ['flake8', 'pydocstyle', 'pylint'],
