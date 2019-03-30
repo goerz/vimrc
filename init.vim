@@ -1,5 +1,6 @@
 " Main VIM Configuration File
-" Author: Michael Goerz <goerz@physik.uni-kassel.de>
+" Author: Michael Goerz <mail@michaelgoerz.net>
+scriptencoding utf-8
 
 " Python interpreter (neovim)
 let g:python_host_prog = $HOME.'/anaconda3/envs/py27/bin/python'
@@ -16,10 +17,10 @@ nnoremap ' `
 nnoremap ` '
 
 " Leader keys
-let mapleader = ","
-let g:mapleader = ","
-let maplocalleader = "\\"
-let g:maplocalleader = "\\"
+let mapleader = ','
+let g:mapleader = ','
+let maplocalleader = '\\'
+let g:maplocalleader = '\\'
 
 set exrc            " enable per-directory .vimrc files
 set secure          " disable unsafe commands in local .vimrc files
@@ -29,17 +30,17 @@ set secure          " disable unsafe commands in local .vimrc files
 set mouse=
 "set ttymouse=xterm2
 fun! s:ToggleMouse()
-    if !exists("s:old_mouse")
-        let s:old_mouse = "a"
+    if !exists('s:old_mouse')
+        let s:old_mouse = 'a'
     endif
 
-    if &mouse == ""
+    if empty(&mouse)
         let &mouse = s:old_mouse
-        echo "Mouse is for Vim (" . &mouse . ")"
+        echo 'Mouse is for Vim (' . &mouse . ')'
     else
         let s:old_mouse = &mouse
-        let &mouse=""
-        echo "Mouse is for terminal"
+        let &mouse=''
+        echo 'Mouse is for terminal'
     endif
 endfunction
 nnoremap <Leader>m :call <SID>ToggleMouse()<CR>
@@ -63,7 +64,7 @@ nnoremap go :!open <cfile><CR>
 " Up/down, j/k key behaviour
 " -- Changes up/down arrow keys to behave screen-wise, rather than file-wise.
 "    Behaviour is unchanged in operator-pending mode.
-if version >= 700
+if v:version >= 700
     " Stop remapping from interfering with Omni-complete popup
     inoremap <silent><expr><Up> pumvisible() ? "<Up>" : "<C-O>gk"
     inoremap <silent><expr><Down> pumvisible() ? "<Down>" : "<C-O>gj"
@@ -122,7 +123,7 @@ nnoremap <silent> <C-w><Right> :<C-u>call <SID>JumpWithWrap('l', 'h')<CR>
 " Always show sign column.
 augroup mine
     au BufWinEnter * sign define mysign
-    au BufWinEnter * exe "sign place 1337 line=1 name=mysign buffer=" . bufnr('%')
+    au BufWinEnter * exe 'sign place 1337 line=1 name=mysign buffer=' . bufnr('%')
 augroup END
 
 " ALE plugin
@@ -149,9 +150,8 @@ if has('nvim')
   cnoremap <expr> !<space> strlen(getcmdline())?'!':('!tmux split-window -c '.getcwd().' -p 90 ')
 endif
 
-
 " persistent undo
-if has("persistent_undo")
+if has('persistent_undo')
     set undodir=~/.vim/undo/
     set undofile
     au BufWritePre /tmp/* setlocal noundofile
@@ -162,7 +162,7 @@ set backupdir=~/.vim/backup/
 set directory=~/.vim/backup/
 
 " indicate textwidth with color column
-if exists("+colorcolumn")
+if exists('+colorcolumn')
     set colorcolumn=+1
 endif
 
@@ -192,8 +192,8 @@ set smartcase
 "   echohl WarningMsg | echo "Resolving symlink." | echohl None |
 function! MyFollowSymlink(...)
   let fname = a:0 ? a:1 : expand('%')
-  if getftype(fname) != 'link'
-    if exists("+autochdir")
+  if getftype(fname) !=? 'link'
+    if exists('+autochdir')
       if &autochdir
         let b:StatusLineCwdString = '"' . getcwd() . '"/'
       endif
@@ -242,18 +242,13 @@ set history=1000
 " set magic
 
 " define some listchars, but keep 'list' disabled by default
-set lcs=tab:>-,trail:-,nbsp:~
+set listchars=tab:>-,trail:-,nbsp:~
 set nolist
 
 " Required to be able to use keypad keys and map missed escape sequences
 if ! has('nvim')
     set esckeys
 endif
-
-" get easier to use and more user friendly Vim defaults
-" CAUTION: This option breaks some vi compatibility.
-"          Switch it off if you prefer real vi compatibility
-set nocompatible
 
 " Enabled XSMP connection. This seems to enable the X clipboard when vim
 " is called with the -X option
@@ -305,7 +300,7 @@ let g:tagbar_left = 1
 let g:tagbar_foldlevel = 2
 "use ~/.vim/ctags.cnf This depends on a patched version of the tagbar plugin
 "(pull request #476)
-let g:tagbar_ctags_options = ['NONE', split(&rtp,",")[0].'/ctags.cnf']
+let g:tagbar_ctags_options = ['NONE', split(&runtimepath,',')[0].'/ctags.cnf']
 " the definition below depend on the settings in ctags.cnf
 let g:tagbar_type_make = {
             \ 'kinds':[
@@ -322,7 +317,7 @@ let g:tagbar_type_julia = {
 " LaTeX to Unicode substitutions
 "  This is mainly for Julia, but I also like to use it for Python and others
 let g:latex_to_unicode_file_types = [
-    \ "julia", "python", "mail", "markdown", "pandoc", "human"]
+    \ 'julia', 'python', 'mail', 'markdown', 'pandoc', 'human']
 noremap <silent> <leader>l :call LaTeXtoUnicode#Toggle()<CR>
 
 " signify plugin
@@ -336,20 +331,20 @@ let g:black_skip_string_normalization = 1
 " go to defn of tag under the cursor (case sensitive)
 " adapted from http://tartley.com/?p=1277
 fun! MatchCaseTag()
-    let ic = &ic
-    set noic
+    let ignorecase = &ignorecase
+    set noignorecase
     try
         exe 'tjump ' . expand('<cword>')
     catch /.*/
         echo v:exception
     finally
-       let &ic = ic
+       let &ignorecase = ignorecase
     endtry
 endfun
 nnoremap <silent> <c-]> :call MatchCaseTag()<CR>
 
 " SLIME plugin
-let g:slime_target = "tmux"
+let g:slime_target = 'tmux'
 let g:slime_no_mappings = 1
 nnoremap <silent> <leader>s :SlimeSend<CR>
 xnoremap <silent> <leader>s :'<,'>SlimeSend<CR>
@@ -369,7 +364,7 @@ let g:jupytext_filetype_map = {
 " CtrlP
 let g:ctrlp_max_files = 10000
 
-if has("unix") " Optimize file searching
+if has('unix') " Optimize file searching
     let g:ctrlp_user_command = {
     \   'types': {
     \       1: ['.git/', 'cd %s && git ls-files']
@@ -399,7 +394,7 @@ colorscheme goerz
 " colorschemes perform a reset of &bg.
 set background=light
 if !empty($COLORFGBG)
-    let s:bg_color_code = split($COLORFGBG, ";")[-1]
+    let s:bg_color_code = split($COLORFGBG, ';')[-1]
     if s:bg_color_code == 8 || s:bg_color_code  <= 6
         set background=dark
     else
@@ -413,7 +408,7 @@ autocmd FileType tex hi! Statement gui=none term=none cterm=none
 autocmd FileType tex nnoremap <Leader>s :w<CR>:silent !$SYNCTEXREADER -g <C-r>=line('.')<CR> %<.pdf %<CR><C-l>
 
 " Datestamps
-if exists("*strftime")
+if exists('*strftime')
     nmap <leader>d a<c-r>=strftime("%a %D %H:%M:%S %Z")<cr>
     imap <C-L>d <c-r>=strftime("%a %D %H:%M:%S %Z")<cr>
 endif
@@ -436,14 +431,14 @@ let g:goyo_use_custom_status = 1
 set wildmenu
 
 " Hide Toolbar and mouse usage in Macvim
-if has("gui_running")
+if has('gui_running')
     set guioptions=egmrt
     set mouse=a
 endif
 
 
 " VimR specific settings
-if has("gui_vimr")
+if has('gui_vimr')
   set background=light
 endif
 
@@ -508,7 +503,7 @@ syntax on
 syntax sync fromstart
 
 
-if has("autocmd")
+if has('autocmd')
   " When editing a file, always jump to the last known cursor position.
   " Don't do it when the position is invalid or when inside an event handler
   " (happens when dropping a file on gvim).
@@ -521,4 +516,3 @@ if has("autocmd")
   autocmd BufReadPost * call MyFollowSymlink(expand('<afile>'))
 
 endif " has("autocmd")
-
