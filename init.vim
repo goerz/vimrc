@@ -133,9 +133,12 @@ let g:ale_sign_error = '✖'
 let g:ale_sign_warning = '△'
 let g:ale_set_highlights = 0  " these are highlights inside the buffer
 let g:ale_warn_about_trailing_whitespace = 0  " I have my own way for dealing with this (in the statusline)
+let g:ale_linter_aliases = {
+\   'human': 'text'
+\}
 let g:ale_linters = {
-  \ 'python': ['flake8', 'pydocstyle', 'pylint'],
-\ }
+\   'python': ['flake8', 'pydocstyle', 'pylint'],
+\}
 " The sign-column highlights for ALE are best left unintrusive:
 hi link ALEWarningSign SignColumn
 hi link ALEErrorSign SignColumn
