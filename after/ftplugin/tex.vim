@@ -17,3 +17,9 @@ setlocal autoindent
 setlocal spell
 
 noremap <silent> <leader>t :Voom latex<CR>:vertical resize 80<CR>
+"Forward SyncTeX
+nnoremap <leader>s :w<CR>:silent !$SYNCTEXREADER -g <C-r>=line('.')<CR> %<.pdf %<CR><C-l>
+
+" Extra highlighting
+hi! texSectionTitle gui=underline term=bold cterm=underline,bold
+hi! Statement gui=none term=none cterm=none

@@ -2,19 +2,66 @@
 " Author: Michael Goerz <mail@michaelgoerz.net>
 scriptencoding utf-8
 
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" General Settings
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 " Python interpreter (neovim)
 let g:python_host_prog = $HOME.'/anaconda3/envs/py27/bin/python'
 let g:python3_host_prog = $HOME.'/anaconda3/bin/python'
 let g:notedown_enable = 1
 
-" Pathogen --allows to install plugins in .vim/bundle
-execute pathogen#infect()
+" enable per-directory .vimrc files
+set exrc
 
-" * Interface Settings {{{1
+" disable unsafe commands in local .vimrc files
+set secure
 
-" switch ' and `
-nnoremap ' `
-nnoremap ` '
+" Work around neovim not running bang commands in the current tty
+" https://github.com/neovim/neovim/issues/1496
+if has('nvim')
+  cnoremap <expr> !<space> strlen(getcmdline())?'!':('!tmux split-window -c '.getcwd().' -p 90 ')
+endif
+
+" persistent undo
+if has('persistent_undo')
+  set undodir=~/.vim/undo/
+  set undofile
+  augroup persistent_undo
+    autocmd!
+    autocmd BufWritePre /tmp/* setlocal noundofile
+  augroup END
+endif
+
+" swap and backup
+set backupdir=~/.vim/backup/
+set directory=~/.vim/backup/
+
+" Reload the file if it changes outside of vim
+set autoread
+
+" select case-insenitiv search
+set ignorecase
+set smartcase
+
+" Search the first 5 lines for modelines
+set modelines=5
+
+" Temporary files
+set wildignore+=*.o,*.obj
+set wildignore+=*.bak,*~,*.tmp,*.backup
+
+" My default language is American English
+set spelllang=en_us
+
+set grepprg=~/.vim/scripts/ack
+
+" enable filetype detection:
+filetype plugin on
+filetype plugin indent on
+" Custom mappings between extensions and filetypes are done by the scripts in
+" the ftdetect folder
 
 " Leader keys
 let mapleader = ','
@@ -22,8 +69,22 @@ let g:mapleader = ','
 let maplocalleader = '\\'
 let g:maplocalleader = '\\'
 
-set exrc            " enable per-directory .vimrc files
-set secure          " disable unsafe commands in local .vimrc files
+" For some programming languages, delete trailing spaces on save
+if has('autocmd')
+  augroup removetrailingspaces
+    autocmd BufWritePre *.py normal m`:%s/\s\+$//e ``
+    autocmd BufWritePre *.pl normal m`:%s/\s\+$//e ``
+  augroup END
+endif
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Interface Settings
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" enable syntax highlighting
+syntax on
+syntax sync fromstart
 
 " use the mouse in xterm (or other terminals that support it)
 " Toggle with ,m
@@ -33,7 +94,6 @@ fun! s:ToggleMouse()
     if !exists('s:old_mouse')
         let s:old_mouse = 'a'
     endif
-
     if empty(&mouse)
         let &mouse = s:old_mouse
         echo 'Mouse is for Vim (' . &mouse . ')'
@@ -44,6 +104,216 @@ fun! s:ToggleMouse()
     endif
 endfunction
 nnoremap <Leader>m :call <SID>ToggleMouse()<CR>
+
+" windowing commands -- I prefer vertical splits
+" however, keep all CTRL-W CTRL-XX commands at the default!
+set splitright
+set splitbelow
+map <c-w>f :vertical wincmd f<CR>
+map <c-w>gf :vertical wincmd f<CR>
+map <c-w>] :vertical wincmd ]<CR>
+map <c-w>n :vnew<CR>
+" Wrap window-move-cursor
+" http://stackoverflow.com/questions/13848429
+function! s:GotoNextWindow( direction, count )
+  let l:prevWinNr = winnr()
+  execute a:count . 'wincmd' a:direction
+  return winnr() != l:prevWinNr
+endfunction
+function! s:JumpWithWrap( direction, opposite )
+  if ! s:GotoNextWindow(a:direction, v:count1)
+    call s:GotoNextWindow(a:opposite, 999)
+  endif
+endfunction
+nnoremap <silent> <C-w>h :<C-u>call <SID>JumpWithWrap('h', 'l')<CR>
+nnoremap <silent> <C-w>j :<C-u>call <SID>JumpWithWrap('j', 'k')<CR>
+nnoremap <silent> <C-w>k :<C-u>call <SID>JumpWithWrap('k', 'j')<CR>
+nnoremap <silent> <C-w>l :<C-u>call <SID>JumpWithWrap('l', 'h')<CR>
+nnoremap <silent> <C-w><Left> :<C-u>call <SID>JumpWithWrap('h', 'l')<CR>
+nnoremap <silent> <C-w><Down> :<C-u>call <SID>JumpWithWrap('j', 'k')<CR>
+nnoremap <silent> <C-w><Up> :<C-u>call <SID>JumpWithWrap('k', 'j')<CR>
+nnoremap <silent> <C-w><Right> :<C-u>call <SID>JumpWithWrap('l', 'h')<CR>
+
+" Always show sign column.
+augroup mine
+    au BufWinEnter * sign define mysign
+    au BufWinEnter * exe 'sign place 1337 line=1 name=mysign buffer=' . bufnr('%')
+augroup END
+
+" indicate textwidth with color column
+if exists('+colorcolumn')
+    set colorcolumn=+1
+endif
+
+" enable incremental search, and search highlighting by default
+set hlsearch " opposite of set nohlsearch
+set incsearch
+" Disable search highlighting by pressing ESC in normal mode
+nnoremap <esc> :nohlsearch<return><esc>
+" Note that the nohlsearch *command* is different from the nohlsearch
+" *option*: the command just switches off the hightlighting, but it will
+" appear again on the next search command. The option switches if off
+" permanently
+
+" always show status line
+set laststatus=2
+
+" show cursor line and column, if no statusline
+set ruler
+
+" shorten message so that we don't have to press Enter so much
+set shortmess=atI
+
+" don't jump between matching brackets while typing
+set noshowmatch
+
+" display mode INSERT/REPLACE/...
+set showmode
+
+" When selecting blocks, allow to move the cursor beyond the end of the line
+set virtualedit=block
+
+" remember more commands and search patterns
+set history=1000
+
+" changes special characters in search patterns (default)
+" set magic
+
+" define some listchars, but keep 'list' disabled by default
+set listchars=tab:>-,trail:-,nbsp:~
+set nolist
+
+" Required to be able to use keypad keys and map missed escape sequences
+if !has('nvim')
+    set esckeys
+endif
+
+" Don't show folds by default
+set nofoldenable
+
+"Display the tabbar if there are multiple tabs. Use :tab ball or invoke Vim
+"with -p
+set showtabline=1
+
+"allows opening a new buffer in place of an existing one without first saving
+"the existing one
+set hidden
+
+" No bells
+set noerrorbells
+if has('autocmd')
+  augroup clearvisualbell
+    autocmd!
+    autocmd GUIEnter * set visualbell t_vb=
+  augroup END
+endif
+
+" allow backspacing over everything in insert mode
+set backspace=indent,eol,start
+
+" Complete longest common string, then each full match
+" (bash compatible behavior)
+set wildmode=longest,full
+
+" go to defn of tag under the cursor (case sensitive)
+" adapted from http://tartley.com/?p=1277
+fun! MatchCaseTag()
+    let ignorecase = &ignorecase
+    set noignorecase
+    try
+        exe 'tjump ' . expand('<cword>')
+    catch /.*/
+        echo v:exception
+    finally
+       let &ignorecase = ignorecase
+    endtry
+endfun
+nnoremap <silent> <c-]> :call MatchCaseTag()<CR>
+
+" Activate wildmenu
+set wildmenu
+
+" don't make it look like there are line breaks where there aren't:
+set nowrap
+" but if we wrap, use a nice unicode character to indicate the linebreak, and
+" don't break in the middle of a word
+set showbreak=∟
+set linebreak
+
+" tab stops should be at 4 spaces
+set tabstop=4
+
+" use indents of 4 spaces:
+set shiftwidth=4
+set shiftround
+set expandtab
+set noautoindent
+
+" don't break text by default:
+set formatoptions=tcql
+set textwidth=0
+
+" Printing settings
+set printoptions=paper:a4,number:y,left:25pt,right:40pt
+set printheader=%<%f%h%m\ \ (%{strftime('%m/%d/%y\ %X')})%=Page\ %N
+
+" Follow symlink for current file
+" Sources:
+"  - https://github.com/tpope/vim-fugitive/issues/147#issuecomment-7572351
+"  - http://www.reddit.com/r/vim/comments/yhsn6/is_it_possible_to_work_around_the_symlink_bug/c5w91qw
+" Echoing a warning does not appear to work:
+"   echohl WarningMsg | echo "Resolving symlink." | echohl None |
+function! MyFollowSymlink(...)
+  let fname = a:0 ? a:1 : expand('%')
+  if getftype(fname) !=? 'link'
+    if exists('+autochdir')
+      if &autochdir
+        let b:StatusLineCwdString = '"' . getcwd() . '"/'
+      endif
+    endif
+    return
+  endif
+  let resolvedfile = fnameescape(resolve(fname))
+  exec 'file ' . resolvedfile
+  lcd %:p:h
+  let b:followed_symlink = 1
+  let b:StatusLineCwdString = '"' . getcwd() . '"/'
+endfunction
+command! FollowSymlink call MyFollowSymlink()
+if has('autocmd')
+  augroup followsymlink
+    autocmd!
+    autocmd BufReadPost * call MyFollowSymlink(expand('<afile>'))
+  augroup END
+endif
+
+" Hide Toolbar and use mouse in Macvim or other GUIs
+if has('gui_running')
+    set guioptions=egmrt
+    set mouse=a
+endif
+
+if has('autocmd')
+  " When editing a file, always jump to the last known cursor position.
+  " Don't do it when the position is invalid or when inside an event handler
+  " (happens when dropping a file on gvim).
+  augroup jumptolastpos
+    autocmd!
+    autocmd BufReadPost *
+      \ if line("'\"") > 0 && line("'\"") <= line("$") |
+      \   exe "normal g`\"" |
+      \ endif
+  augroup END
+endif
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Additional Mappings
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" switch ' and `
+nnoremap ' `
+nnoremap ` '
 
 " pastetoggle
 set pastetoggle=<C-L>p
@@ -73,6 +343,7 @@ else
     inoremap <silent><Down> <C-O>gj
 endif
 
+" Make hjkl work on visual (wrapped) lines, not actual lines
 nnoremap <silent>j gj
 nnoremap <silent>k gk
 nnoremap <silent><Up> gk
@@ -82,7 +353,6 @@ vnoremap <silent>k gk
 vnoremap <silent><Up> gk
 vnoremap <silent><Down> gj
 
-" command mode mappings
 " Use emacs-style shortcuts, remap diagraph-insertion to <C-D>
 cnoremap <C-A> <Home>
 cnoremap <C-F> <Right>
@@ -90,41 +360,64 @@ cnoremap <C-B> <Left>
 cnoremap <C-D> <C-K>
 cnoremap <C-K> <C-\>estrpart(getcmdline(),0,getcmdpos()-1)<CR>
 
+" Datestamps
+if exists('*strftime')
+    nmap <leader>d a<c-r>=strftime("%a %D %H:%M:%S %Z")<cr>
+    imap <C-L>d <c-r>=strftime("%a %D %H:%M:%S %Z")<cr>
+endif
 
-" windowing commands -- I prefer vertical splits
-" however, keep all CTRL-W CTRL-XX commands at the default!
-set splitright
-set splitbelow
-:map <c-w>f :vertical wincmd f<CR>
-:map <c-w>gf :vertical wincmd f<CR>
-:map <c-w>] :vertical wincmd ]<CR>
-:map <c-w>n :vnew<CR>
-" Wrap window-move-cursor
-" http://stackoverflow.com/questions/13848429/is-there-a-way-to-have-window-navigation-wrap-around-in-vim<Paste>
-function! s:GotoNextWindow( direction, count )
-  let l:prevWinNr = winnr()
-  execute a:count . 'wincmd' a:direction
-  return winnr() != l:prevWinNr
-endfunction
-function! s:JumpWithWrap( direction, opposite )
-  if ! s:GotoNextWindow(a:direction, v:count1)
-    call s:GotoNextWindow(a:opposite, 999)
-  endif
-endfunction
-nnoremap <silent> <C-w>h :<C-u>call <SID>JumpWithWrap('h', 'l')<CR>
-nnoremap <silent> <C-w>j :<C-u>call <SID>JumpWithWrap('j', 'k')<CR>
-nnoremap <silent> <C-w>k :<C-u>call <SID>JumpWithWrap('k', 'j')<CR>
-nnoremap <silent> <C-w>l :<C-u>call <SID>JumpWithWrap('l', 'h')<CR>
-nnoremap <silent> <C-w><Left> :<C-u>call <SID>JumpWithWrap('h', 'l')<CR>
-nnoremap <silent> <C-w><Down> :<C-u>call <SID>JumpWithWrap('j', 'k')<CR>
-nnoremap <silent> <C-w><Up> :<C-u>call <SID>JumpWithWrap('k', 'j')<CR>
-nnoremap <silent> <C-w><Right> :<C-u>call <SID>JumpWithWrap('l', 'h')<CR>
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Abbreviations and Commands
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-" Always show sign column.
-augroup mine
-    au BufWinEnter * sign define mysign
-    au BufWinEnter * exe 'sign place 1337 line=1 name=mysign buffer=' . bufnr('%')
-augroup END
+command Noindent setl noai nocin nosi inde=
+command German set spell spelllang=de_20
+command English set spell spelllang=en
+command Python set nospell ft=python
+command ManualFolding set foldenable foldmethod=manual
+function! GoyoShowSigncolumn()
+  " re-enable the sign-column after Goyo has made it invisible:
+  " I like to still see my linter (ALE) signs
+  hi! SignColumn ctermfg=fg guifg=fg
+endfunction
+command WriteDark set background=dark spell wrap | colorscheme peaksea | Goyo 100 | call statusline#grayStatusLine() | call GoyoShowSigncolumn()
+command WriteLight set background=light spell wrap | colorscheme peaksea | Goyo 100 | call statusline#grayStatusLine()| call GoyoShowSigncolumn()
+command Dark set background=dark | colorscheme peaksea
+cabbr AB 'a,'b
+
+" Use # without VIM moving it to the first column
+inoremap # X<C-H>#
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Colors
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Activate 256 colors independently of terminal. Most of my terms are 256
+" colors. For those cases where I'm running vim in a low-color terminal, this
+" is only safe if I'm using screen (which I always am).
+set t_Co=256
+
+" Default Color Scheme
+colorscheme goerz
+" it's better to set the background after loading the colorscheme, as some
+" colorschemes perform a reset of &bg.
+set background=light
+if !empty($COLORFGBG)
+    let s:bg_color_code = split($COLORFGBG, ';')[-1]
+    if s:bg_color_code == 8 || s:bg_color_code  <= 6
+        set background=dark
+    else
+        set background=light
+    endif
+endif
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Plugin configuration
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Pathogen --allows to install plugins in .vim/bundle
+execute pathogen#infect()
 
 " ALE plugin
 let g:ale_completion_enabled = 0
@@ -145,142 +438,6 @@ let g:ale_linters = {
 hi link ALEWarningSign SignColumn
 hi link ALEErrorSign SignColumn
 
-" Work around neovim not running bang commands in the current tty
-" https://github.com/neovim/neovim/issues/1496
-if has('nvim')
-  cnoremap <expr> !<space> strlen(getcmdline())?'!':('!tmux split-window -c '.getcwd().' -p 90 ')
-endif
-
-" persistent undo
-if has('persistent_undo')
-    set undodir=~/.vim/undo/
-    set undofile
-    au BufWritePre /tmp/* setlocal noundofile
-endif
-
-" swap and backup
-set backupdir=~/.vim/backup/
-set directory=~/.vim/backup/
-
-" indicate textwidth with color column
-if exists('+colorcolumn')
-    set colorcolumn=+1
-endif
-
-" enable incremental search, and search highlighting by default
-set hlsearch " opposite of set nohlsearch
-set incsearch
-" Disable search highlighting by pressing ESC in normal mode
-:nnoremap <esc> :nohlsearch<return><esc>
-" Note that the nohlsearch *command* is different from the nohlsearch
-" *option*: the command just switches off the hightlighting, but it will
-" appear again on the next search command. The option switches if off
-" permanently
-
-" Reload the file if it changes outside of vim
-set autoread
-
-" select case-insenitiv search
-set ignorecase
-set smartcase
-
-
-" Follow symlink for current file
-" Sources:
-"  - https://github.com/tpope/vim-fugitive/issues/147#issuecomment-7572351
-"  - http://www.reddit.com/r/vim/comments/yhsn6/is_it_possible_to_work_around_the_symlink_bug/c5w91qw
-" Echoing a warning does not appear to work:
-"   echohl WarningMsg | echo "Resolving symlink." | echohl None |
-function! MyFollowSymlink(...)
-  let fname = a:0 ? a:1 : expand('%')
-  if getftype(fname) !=? 'link'
-    if exists('+autochdir')
-      if &autochdir
-        let b:StatusLineCwdString = '"' . getcwd() . '"/'
-      endif
-    endif
-    return
-  endif
-  let resolvedfile = fnameescape(resolve(fname))
-  exec 'file ' . resolvedfile
-  lcd %:p:h
-  let b:followed_symlink = 1
-  let b:StatusLineCwdString = '"' . getcwd() . '"/'
-endfunction
-command! FollowSymlink call MyFollowSymlink()
-
-
-" Use proper highlighting for the active status line (otherwise font colors
-" are messed up)
-if !has('nvim')
-    set highlight+=sr
-endif
-set laststatus=2 " always show status line
-
-" set the terminal title
-"set title
-"set titleold=xterm
-
-" show cursor line and column, if no statusline
-set ruler
-
-" shorten command-line text and other info tokens
-set shortmess=atI
-
-" don't jump between matching brackets while typing
-set noshowmatch
-
-" display mode INSERT/REPLACE/...
-set showmode
-
-" When selecting blocks, allow to move the cursor beyond the end of the line
-set virtualedit=block
-
-" remember more commands and search patterns
-set history=1000
-
-" changes special characters in search patterns (default)
-" set magic
-
-" define some listchars, but keep 'list' disabled by default
-set listchars=tab:>-,trail:-,nbsp:~
-set nolist
-
-" Required to be able to use keypad keys and map missed escape sequences
-if ! has('nvim')
-    set esckeys
-endif
-
-" Enabled XSMP connection. This seems to enable the X clipboard when vim
-" is called with the -X option
-"call serverlist()
-
-" allow backspacing over everything in insert mode
-set backspace=indent,eol,start
-
-" Complete longest common string, then each full match
-" (bash compatible behavior)
-set wildmode=longest,full
-
-" No bells
-set noerrorbells
-if has('autocmd')
-  autocmd GUIEnter * set vb t_vb=
-endif
-
-" Show Buffer Tabs
-set showtabline=1               "Display the tabbar if there are multiple tabs. Use :tab ball or invoke Vim with -p
-set hidden                      "allows opening a new buffer in place of an existing one without first saving the existing one
-
-" Search the first 5 lines for modelines
-set modelines=5
-
-" Folding settings
-set nofoldenable " Don't show folds by default
-autocmd BufWinLeave ?* mkview          " Store fold settings for all buffers ...
-"autocmd BufWinEnter ?* silent loadview " ... and reload them
-
-
 " Fugitive mappings
 nnoremap <Leader>gd :Gdiff<Enter>
 nnoremap <Leader>gD :Gdiff HEAD<Enter>
@@ -288,7 +445,6 @@ nnoremap <Leader>gs :Gstatus<Enter>
 nnoremap <Leader>ga :Gwrite<Enter>
 nnoremap <Leader>gc :Gcommit<Enter>
 nnoremap <Leader>gb :Gblame<Enter>
-
 
 " Tagbar (and legacy Taglist ) plugin
 let Tlist_Inc_Winwidth = 0 " Taglist: Don't enlarge the terminal
@@ -321,39 +477,23 @@ let g:latex_to_unicode_file_types = [
     \ 'julia', 'python', 'mail', 'markdown', 'pandoc', 'human']
 noremap <silent> <leader>l :call LaTeXtoUnicode#Toggle()<CR>
 
-" signify plugin
+" signify
 let g:signify_realtime = 0
 
 " Black formatter
 let g:black_linelength = 79
 let g:black_skip_string_normalization = 1
 
-
-" go to defn of tag under the cursor (case sensitive)
-" adapted from http://tartley.com/?p=1277
-fun! MatchCaseTag()
-    let ignorecase = &ignorecase
-    set noignorecase
-    try
-        exe 'tjump ' . expand('<cword>')
-    catch /.*/
-        echo v:exception
-    finally
-       let &ignorecase = ignorecase
-    endtry
-endfun
-nnoremap <silent> <c-]> :call MatchCaseTag()<CR>
-
-" SLIME plugin
+" SLIME
 let g:slime_target = 'tmux'
 let g:slime_no_mappings = 1
 nnoremap <silent> <leader>s :SlimeSend<CR>
 xnoremap <silent> <leader>s :'<,'>SlimeSend<CR>
 
-" Undotree plugin
+" Undotree
 nnoremap <silent> <leader>u :UndotreeToggle<CR>
 
-" Jupytext plugin
+" Jupytext
 let g:jupytext_fmt = 'md'
 let g:jupytext_print_debug_msgs = 0
 let g:jupytext_command = 'jupytext'
@@ -364,7 +504,6 @@ let g:jupytext_filetype_map = {
 
 " CtrlP
 let g:ctrlp_max_files = 10000
-
 if has('unix') " Optimize file searching
     let g:ctrlp_user_command = {
     \   'types': {
@@ -381,151 +520,19 @@ let g:NERDShutUp = 1
 vmap <expr>  ++  VMATH_YankAndAnalyse()
 nmap         ++  vip++
 
-" pydoc plugin
+" pydoc
 let g:pydoc_open_cmd = 'vsplit'
-
-" Activate 256 colors independently of terminal. Most of my terms are 256
-" colors. For those cases where I'm running vim in a low-color terminal, this
-" is only safe if I'm using screen (which I always am).
-set t_Co=256
-
-" Default Color Scheme
-colorscheme goerz
-" it's better to set the background after loading the colorscheme, as some
-" colorschemes perform a reset of &bg.
-set background=light
-if !empty($COLORFGBG)
-    let s:bg_color_code = split($COLORFGBG, ';')[-1]
-    if s:bg_color_code == 8 || s:bg_color_code  <= 6
-        set background=dark
-    else
-        set background=light
-    endif
-endif
-autocmd FileType tex hi! texSectionTitle gui=underline term=bold cterm=underline,bold
-autocmd FileType tex hi! Statement gui=none term=none cterm=none
-
-" Forward SyncTeX
-autocmd FileType tex nnoremap <Leader>s :w<CR>:silent !$SYNCTEXREADER -g <C-r>=line('.')<CR> %<.pdf %<CR><C-l>
-
-" Datestamps
-if exists('*strftime')
-    nmap <leader>d a<c-r>=strftime("%a %D %H:%M:%S %Z")<cr>
-    imap <C-L>d <c-r>=strftime("%a %D %H:%M:%S %Z")<cr>
-endif
-
-" abbreviations / commands
-command Noindent setl noai nocin nosi inde=
-command German set spell spelllang=de_20
-command English set spell spelllang=en
-command Python set nospell ft=python
-command ManualFolding set foldenable foldmethod=manual
-function! GoyoShowSigncolumn()
-  " re-enable the sign-column after Goyo has made it invisible:
-  " I like to still see my linter (ALE) signs
-  hi! SignColumn ctermfg=fg guifg=fg
-endfunction
-command WriteDark set background=dark spell wrap | colorscheme peaksea | Goyo 100 | call statusline#grayStatusLine() | call GoyoShowSigncolumn()
-command WriteLight set background=light spell wrap | colorscheme peaksea | Goyo 100 | call statusline#grayStatusLine()| call GoyoShowSigncolumn()
-command Dark set background=dark | colorscheme peaksea
-cabbr AB 'a,'b
 
 " plugin/statusline.vim can set a different status line when Goyo is active
 let g:goyo_use_custom_status = 1
 
-" Activate wildmenu
-set wildmenu
-
-" Hide Toolbar and mouse usage in Macvim
-if has('gui_running')
-    set guioptions=egmrt
-    set mouse=a
-endif
-
-
-" VimR specific settings
-if has('gui_vimr')
-  set background=light
-endif
-
-
-" * Text Formatting -- General {{{1
-
-" don't make it look like there are line breaks where there aren't:
-set nowrap
-" but if we wrap, use a nice unicode character to indicate the linebreak, and
-" don't break in the middle of a word
-set showbreak=∟
-set linebreak
-
-" tab stops should be at 4 spaces
-set tabstop=4
-
-" use indents of 4 spaces:
-set shiftwidth=4
-set shiftround
-set expandtab
-set noautoindent
-
-" don't break text by default:
-set formatoptions=tcql
-set textwidth=0
-
-" My default language is American English
-set spelllang=en_us
-
-set grepprg=~/.vim/scripts/ack
-
-" Use # without VIM moving it to the first column
-inoremap # X<C-H>#
-
-" Temporary files
-set wildignore+=*.o,*.obj
-set wildignore+=*.bak,*~,*.tmp,*.backup
-
-
-" Printing settings
-set printoptions=paper:a4,number:y,left:25pt,right:40pt
-set printheader=%<%f%h%m\ \ (%{strftime('%m/%d/%y\ %X')})%=Page\ %N
-
-
-" * Text Formatting -- Specific File Formats {{{1
-
-" enable filetype detection:
-filetype plugin on
-filetype plugin indent on
-" Custom mappings between extensions and filetypes are done by the scripts in
-" the ftdetect folder
-
 " Hiding of quotes in json files
 let g:vim_json_syntax_conceal=0
-
-" For some programming languages, delete trailing spaces on save
-autocmd BufWritePre *.py normal m`:%s/\s\+$//e ``
-autocmd BufWritePre *.pl normal m`:%s/\s\+$//e ``
-
-" enable syntax highlighting
-syntax on
-syntax sync fromstart
-
-
-if has('autocmd')
-  " When editing a file, always jump to the last known cursor position.
-  " Don't do it when the position is invalid or when inside an event handler
-  " (happens when dropping a file on gvim).
-  autocmd BufReadPost *
-    \ if line("'\"") > 0 && line("'\"") <= line("$") |
-    \   exe "normal g`\"" |
-    \ endif
-
-  " automatically follow symlinks
-  autocmd BufReadPost * call MyFollowSymlink(expand('<afile>'))
-
-endif " has("autocmd")
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Terminal fixes
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
 " These originate from some linux distribution's system vimrc. I can't say
 " that I understand the details what's going on here, but without these
