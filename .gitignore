@@ -7,3 +7,4 @@ view/
 .simplenote.token
 *.pyc
 black/
+.cache
