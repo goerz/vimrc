@@ -420,8 +420,13 @@ command German set spell spelllang=de_20
 command English set spell spelllang=en
 command Python set nospell ft=python
 command ManualFolding set foldenable foldmethod=manual
-command WriteDark set background=dark spell wrap | colorscheme peaksea | Goyo 100 | call statusline#grayStatusLine()
-command WriteLight set background=light spell wrap | colorscheme peaksea | Goyo 100 | call statusline#grayStatusLine()
+function! GoyoShowSigncolumn()
+  " re-enable the sign-column after Goyo has made it invisible:
+  " I like to still see my linter (ALE) signs
+  hi! SignColumn ctermfg=fg guifg=fg
+endfunction
+command WriteDark set background=dark spell wrap | colorscheme peaksea | Goyo 100 | call statusline#grayStatusLine() | call GoyoShowSigncolumn()
+command WriteLight set background=light spell wrap | colorscheme peaksea | Goyo 100 | call statusline#grayStatusLine()| call GoyoShowSigncolumn()
 command Dark set background=dark | colorscheme peaksea
 cabbr AB 'a,'b
 
