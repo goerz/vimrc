@@ -10,7 +10,7 @@ setlocal wildignore+=*.bbl,*.ent,*.svn
 setlocal keywordprg='$HOME/.vim/scripts/wn_dict.sh'
 setlocal iskeyword=@,48-57,_,192-255,:
 setlocal suffixesadd=.tex,.tikz
-setlocal makeprg=pdflatex\ -interaction=nonstopmode\ %
+setlocal makeprg=pdflatex\ -file-line-error\ -interaction=nonstopmode\ -halt-on-error\ -synctex=1\ %
 setlocal autoindent
 
 " Tex files can use spell checking
