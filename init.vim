@@ -8,8 +8,12 @@ scriptencoding utf-8
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " Python interpreter (neovim)
-let g:python_host_prog = $HOME.'/anaconda3/envs/py27/bin/python'
-let g:python3_host_prog = $HOME.'/anaconda3/bin/python'
+let s:python_venv2 = system('pyenv whence python2.7 | head -1 | tr -d ''\n''')
+let s:python_venv3 = system('pyenv whence python3.7 | head -1 | tr -d ''\n''')
+let s:pyenv_root = system('pyenv root | tr -d ''\n''')
+let s:pyenv_versions = s:pyenv_root . '/versions'
+let g:python_host_prog = s:pyenv_versions.'/'.s:python_venv2.'/bin/python'
+let g:python3_host_prog = s:pyenv_versions.'/'.s:python_venv3.'/bin/python'
 let g:notedown_enable = 1
 
 " enable per-directory .vimrc files
