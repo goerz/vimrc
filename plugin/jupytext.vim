@@ -1,9 +1,9 @@
 " Name: jupytext.vim
-" Last Change: Jan 4, 2019
+" Last Change: Jul 9, 2019
 " Author:  Michael Goerz <https://michaelgoerz.net>
 " Plugin Website: https://github.com/goerz/jupytext.vim
 " Summary: Vim plugin for editing Jupyter ipynb files via jupytext
-" Version: 0.1.0+dev
+" Version: 0.1.1+dev
 " License:
 "    MIT License
 "
@@ -133,8 +133,8 @@ let s:jupytext_filetype_map = {
 \   'md': 'markdown',
 \   'Rmd': 'rmarkdown',
 \   'r': 'r',
-\   'py': 'py',
-\   'jl': 'jl',
+\   'py': 'python',
+\   'jl': 'julia',
 \   'cpp': 'cpp',
 \   'ss': 'ss',
 \   'sh': 'sh',
@@ -263,11 +263,12 @@ function s:read_from_ipynb()
     call s:debugmsg("jupytext_file exists: ".b:jupytext_file_exists)
     if (l:filename_exists && !b:jupytext_file_exists)
         call s:debugmsg("Generate file ".b:jupytext_file)
-        let l:cmd = "!".g:jupytext_command." --to=".g:jupytext_fmt
+        let l:cmd = g:jupytext_command." --to=".g:jupytext_fmt
         \         . " --output=".shellescape(b:jupytext_file) . " "
         \         . shellescape(l:filename)
         call s:debugmsg("cmd: ".l:cmd)
-        silent execute l:cmd
+        let l:output=system(l:cmd)
+        call s:debugmsg(l:output)
         if v:shell_error
             echoerr l:cmd.": ".v:shell_error
             return
@@ -277,7 +278,7 @@ function s:read_from_ipynb()
         " jupytext_file does not exist if filename_exists was false, e.g. when
         " we edit a new file (vim new.ipynb)
         call s:debugmsg("read ".fnameescape(b:jupytext_file))
-        silent execute "read ".fnameescape(b:jupytext_file)
+        silent execute "read ++enc=utf-8 ".fnameescape(b:jupytext_file)
     endif
     if b:jupytext_file_exists
         let l:register_unload_cmd = "autocmd BufUnload <buffer> call s:cleanup(\"".fnameescape(b:jupytext_file)."\", 0)"
@@ -290,7 +291,7 @@ function s:read_from_ipynb()
     let l:ft = get(g:jupytext_filetype_map, g:jupytext_fmt,
     \              s:jupytext_filetype_map[g:jupytext_fmt])
     call s:debugmsg("filetype: ".l:ft)
-    silent execute "set ft=".l:ft
+    silent execute "setl fenc=utf-8 ft=".l:ft
     " In order to make :undo a no-op immediately after the buffer is read,
     " we need to do this dance with 'undolevels'.  Actually discarding the
     " undo history requires performing a change after setting 'undolevels'
@@ -321,17 +322,19 @@ endfunction
 function s:write_to_ipynb() abort
     let filename = resolve(expand("<afile>:p"))
     call s:debugmsg("overwriting ".fnameescape(b:jupytext_file))
-    execute "write! ".fnameescape(b:jupytext_file)
+    silent execute "write! ".fnameescape(b:jupytext_file)
     call s:debugmsg("Updating notebook from ".b:jupytext_file)
-    let l:cmd = "!".g:jupytext_command." --from=" . g:jupytext_fmt
+    let l:cmd = g:jupytext_command." --from=" . g:jupytext_fmt
     \         . " " . g:jupytext_to_ipynb_opts . " "
     \         . shellescape(b:jupytext_file)
     call s:debugmsg("cmd: ".l:cmd)
-    silent execute l:cmd
+    let l:output=system(l:cmd)
+    call s:debugmsg(l:output)
     if v:shell_error
         echoerr l:cmd.": ".v:shell_error
     else
         setlocal nomodified
+        echo expand("%") . " saved via jupytext."
     endif
 endfunction
 
