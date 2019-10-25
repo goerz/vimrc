@@ -8,13 +8,15 @@ scriptencoding utf-8
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " Python interpreter (neovim)
-let s:python_venv2 = system('pyenv whence python2.7 | head -1 | tr -d ''\n''')
-let s:python_venv3 = system('pyenv whence python3.7 | head -1 | tr -d ''\n''')
-let s:pyenv_root = system('pyenv root | tr -d ''\n''')
-let s:pyenv_versions = s:pyenv_root . '/versions'
-let g:python_host_prog = s:pyenv_versions.'/'.s:python_venv2.'/bin/python'
-let g:python3_host_prog = s:pyenv_versions.'/'.s:python_venv3.'/bin/python'
-let g:notedown_enable = 1
+if $TERM_PROGRAM != "a-Shell"
+  let s:python_venv2 = system('pyenv whence python2.7 | head -1 | tr -d ''\n''')
+  let s:python_venv3 = system('pyenv whence python3.7 | head -1 | tr -d ''\n''')
+  let s:pyenv_root = system('pyenv root | tr -d ''\n''')
+  let s:pyenv_versions = s:pyenv_root . '/versions'
+  let g:python_host_prog = s:pyenv_versions.'/'.s:python_venv2.'/bin/python'
+  let g:python3_host_prog = s:pyenv_versions.'/'.s:python_venv3.'/bin/python'
+  let g:notedown_enable = 1
+endif
 
 " enable per-directory .vimrc files
 set exrc
@@ -30,7 +32,11 @@ endif
 
 " persistent undo
 if has('persistent_undo')
-  set undodir=~/.vim/undo/
+  if $TERM_PROGRAM == "a-Shell"
+    set undodir=~/Documents/.vim/undo/
+  else
+    set undodir=~/.vim/undo/
+  endif
   set undofile
   augroup persistent_undo
     autocmd!
@@ -39,8 +45,13 @@ if has('persistent_undo')
 endif
 
 " swap and backup
-set backupdir=~/.vim/backup/
-set directory=~/.vim/backup/
+if $TERM_PROGRAM == "a-Shell"
+  set backupdir=~/Documents/.vim/backup/
+  set directory=~/Documents/.vim/backup/
+else
+  set backupdir=~/.vim/backup/
+  set directory=~/.vim/backup/
+endif
 
 " Reload the file if it changes outside of vim
 set autoread
@@ -59,7 +70,11 @@ set wildignore+=*.bak,*~,*.tmp,*.backup
 " My default language is American English
 set spelllang=en_us
 
-set grepprg=~/.vim/scripts/ack
+if $TERM_PROGRAM == "a-Shell"
+  set grepprg=~/Documents/.vim/scripts/ack
+else
+  set grepprg=~/.vim/scripts/ack
+endif
 
 " enable filetype detection:
 filetype plugin on
@@ -443,12 +458,18 @@ hi link ALEWarningSign SignColumn
 hi link ALEErrorSign SignColumn
 
 " Fugitive mappings
-nnoremap <Leader>gd :Gdiff<Enter>
-nnoremap <Leader>gD :Gdiff HEAD<Enter>
-nnoremap <Leader>gs :Gstatus<Enter>
-nnoremap <Leader>ga :Gwrite<Enter>
-nnoremap <Leader>gc :Gcommit<Enter>
-nnoremap <Leader>gb :Gblame<Enter>
+if $TERM_PROGRAM == "a-Shell"
+  " disable fugitive by telling it it was already loaded
+  let g:loaded_fugitive = 1
+  let g:loaded_gitgutter = 1
+else
+  nnoremap <Leader>gd :Gdiff<Enter>
+  nnoremap <Leader>gD :Gdiff HEAD<Enter>
+  nnoremap <Leader>gs :Gstatus<Enter>
+  nnoremap <Leader>ga :Gwrite<Enter>
+  nnoremap <Leader>gc :Gcommit<Enter>
+  nnoremap <Leader>gb :Gblame<Enter>
+endif
 
 " Tagbar (and legacy Taglist ) plugin
 let Tlist_Inc_Winwidth = 0 " Taglist: Don't enlarge the terminal
