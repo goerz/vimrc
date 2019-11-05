@@ -399,8 +399,10 @@ function! GoyoShowSigncolumn()
   " I like to still see my linter (ALE) signs
   hi! SignColumn ctermfg=fg guifg=fg
 endfunction
-command WriteDark set background=dark spell wrap | colorscheme peaksea | Goyo 100 | call statusline#grayStatusLine() | call GoyoShowSigncolumn()
-command WriteLight set background=light spell wrap | colorscheme peaksea | Goyo 100 | call statusline#grayStatusLine()| call GoyoShowSigncolumn()
+command WriteDark set background=dark spell wrap | colorscheme peaksea | Goyo 100x100% | call statusline#grayStatusLine() | call GoyoShowSigncolumn()
+command WriteLight set background=light spell wrap | Goyo 100x100% | call statusline#grayStatusLine()| call GoyoShowSigncolumn()
+" note: peaksea colorscheme is also OK for low contrast light background for low contrast
+command GoyoSplit Goyo 160x100% | vsplit
 command Dark set background=dark | colorscheme peaksea
 cabbr AB 'a,'b
 
@@ -547,6 +549,9 @@ nmap         ++  vip++
 
 " pydoc
 let g:pydoc_open_cmd = 'vsplit'
+
+" Goyo
+let g:goyo_height=100
 
 " plugin/statusline.vim can set a different status line when Goyo is active
 let g:goyo_use_custom_status = 1
