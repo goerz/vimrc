@@ -9,7 +9,11 @@ setlocal wrap
 
 let b:showwordcount=1
 
-" Tex files can use spell checking
+" use spell checking
 setlocal spell
+
+" when not wrapping lines, keep the cursor at the center of the screen once
+" you moved it horizontally beyond the first half screen horizontally
+set sidescrolloff=1000
 
 noremap <silent> <leader>t :Voom markdown<CR>:vertical resize 80<CR>
