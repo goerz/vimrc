@@ -8,7 +8,7 @@ scriptencoding utf-8
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " Python interpreter (neovim)
-if $TERM_PROGRAM != "a-Shell"
+if $TERM_PROGRAM != "a-Shell" && !has('win32')
   let s:python_venv2 = system('pyenv whence python2.7 | head -1 | tr -d ''\n''')
   let s:python_venv3 = system('pyenv whence python3.7 | head -1 | tr -d ''\n''')
   let s:pyenv_root = system('pyenv root | tr -d ''\n''')
@@ -308,8 +308,10 @@ endif
 
 " Hide Toolbar and use mouse in Macvim or other GUIs
 if has('gui_running')
-    set guioptions=egmrt
-    set mouse=a
+  set encoding=utf-8
+  set guioptions=egmrt
+  set mouse=a
+  set guifont=Menlo\ for\ Powerline,DejaVu\ Sans\ Mono,Courier
 endif
 
 if has('autocmd')
@@ -446,6 +448,10 @@ let g:ale_set_loclist = 1
 let g:ale_set_quickfix = 0   " quickfix is better used for :make
 let g:ale_sign_error = '✖'
 let g:ale_sign_warning = '△'
+has('win32')
+  let g:ale_sign_error = 'x'
+  let g:ale_sign_warning = '!'
+endif
 let g:ale_set_highlights = 0  " these are highlights inside the buffer
 let g:ale_warn_about_trailing_whitespace = 0  " I have my own way for dealing with this (in the statusline)
 let g:ale_linter_aliases = {
