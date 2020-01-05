@@ -391,21 +391,21 @@ endif
 " Abbreviations and Commands
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-command Noindent setl noai nocin nosi inde=
-command German set spell spelllang=de_20
-command English set spell spelllang=en
-command Python set nospell ft=python
-command ManualFolding set foldenable foldmethod=manual
+command! Noindent setl noai nocin nosi inde=
+command! German set spell spelllang=de_20
+command! English set spell spelllang=en
+command! Python set nospell ft=python
+command! ManualFolding set foldenable foldmethod=manual
 function! GoyoShowSigncolumn()
   " re-enable the sign-column after Goyo has made it invisible:
   " I like to still see my linter (ALE) signs
   hi! SignColumn ctermfg=fg guifg=fg
 endfunction
-command WriteDark set background=dark spell wrap | colorscheme peaksea | Goyo 100x100% | call statusline#grayStatusLine() | call GoyoShowSigncolumn()
-command WriteLight set background=light spell wrap | Goyo 100x100% | call statusline#grayStatusLine()| call GoyoShowSigncolumn()
+command! WriteDark set background=dark spell wrap | colorscheme peaksea | Goyo 100x100% | call statusline#grayStatusLine() | call GoyoShowSigncolumn()
+command! WriteLight set background=light spell wrap | Goyo 100x100% | call statusline#grayStatusLine()| call GoyoShowSigncolumn()
 " note: peaksea colorscheme is also OK for low contrast light background for low contrast
-command GoyoSplit Goyo 160x100% | vsplit
-command Dark set background=dark | colorscheme peaksea
+command! GoyoSplit Goyo 160x100% | vsplit
+command! Dark set background=dark | colorscheme peaksea
 cabbr AB 'a,'b
 
 " Use # without VIM moving it to the first column
