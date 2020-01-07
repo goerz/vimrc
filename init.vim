@@ -448,7 +448,7 @@ let g:ale_set_loclist = 1
 let g:ale_set_quickfix = 0   " quickfix is better used for :make
 let g:ale_sign_error = '✖'
 let g:ale_sign_warning = '△'
-has('win32')
+if has('win32')
   let g:ale_sign_error = 'x'
   let g:ale_sign_warning = '!'
 endif
