@@ -5,4 +5,3 @@ setlocal spell
 setlocal keywordprg='$HOME/.vim/scripts/wn_dict.sh'
 set wrap
 let b:statusline='%#StatusLineNC#%='
-Goyo 80

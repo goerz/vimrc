@@ -558,6 +558,7 @@ let g:pydoc_open_cmd = 'vsplit'
 
 " Goyo
 let g:goyo_height=100
+nnoremap <Leader>G :Goyo<Enter>
 
 " plugin/statusline.vim can set a different status line when Goyo is active
 let g:goyo_use_custom_status = 1
