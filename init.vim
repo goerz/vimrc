@@ -167,12 +167,14 @@ endif
 " enable incremental search, and search highlighting by default
 set hlsearch " opposite of set nohlsearch
 set incsearch
-" Disable search highlighting by pressing ESC in normal mode
-nnoremap <esc> :nohlsearch<return><esc>
+" Disable search highlighting by pressing ESC twice in normal mode
+nnoremap <esc><esc> :nohlsearch<return><esc>
 " Note that the nohlsearch *command* is different from the nohlsearch
 " *option*: the command just switches off the hightlighting, but it will
 " appear again on the next search command. The option switches if off
 " permanently
+" Also, trying to map this to a *single* ESC can cause strange problems like
+" vim being in REPLACE mode on startup
 
 " always show status line
 set laststatus=2
@@ -527,7 +529,7 @@ xnoremap <silent> <leader>s :'<,'>SlimeSend<CR>
 nnoremap <silent> <leader>u :UndotreeToggle<CR>
 
 " Jupytext
-let g:jupytext_fmt = 'md'
+let g:jupytext_fmt = 'py'
 let g:jupytext_print_debug_msgs = 0
 let g:jupytext_command = 'jupytext'
 let g:jupytext_filetype_map = {
