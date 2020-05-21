@@ -486,6 +486,10 @@ let Tlist_Inc_Winwidth = 0 " Taglist: Don't enlarge the terminal
 "noremap <silent> <leader>t :TlistToggle<CR><C-W>h
 noremap <silent> <leader>t :TagbarToggle<CR>
 let g:tagbar_ctags_bin = 'ctags'
+if $TERM_PROGRAM == "a-Shell"
+  " https://github.com/holzschu/a-Shell-commands
+  let g:tagbar_ctags_bin = 'ctags.wasm'
+endif
 let g:tagbar_show_linenumbers = 0
 let g:tagbar_sort = 0
 let g:tagbar_left = 1
