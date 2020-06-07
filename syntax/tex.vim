@@ -188,7 +188,7 @@ endif
 
 " TeX input: {{{1
 syn match texInput		"\\input\s\+[a-zA-Z/.0-9_^-]\+"hs=s+7				contains=texStatement
-syn match texInputFile		"\\include\(graphics\|list\)\(<\d\+>\)\=\(\[.\{-}\]\)\=[[:space:]\n]*{.\{-}}"	contains=texStatement,texInputCurlies
+syn match texInputFile		"\\include\(graphics\|list\)\(<[0-9-]\+>\)\=\(\[.\{-}\]\)\=[[:space:]\n]*{.\{-}}"	contains=texStatement,texInputCurlies
 syn match texInputFile		"\\inputTikZ\=\(\[.\{-}\]\)\=[[:space:]\n]*{.\{-}}"	contains=texStatement,texInputCurlies
 syn match texInputFile		"\\lstinputlisting\=\(\[.\{-}\]\)\=[[:space:]\n]*{.\{-}}"	contains=texStatement,texInputCurlies
 syn match texInputFile		"\\\(epsfig\|input\|usepackage\)\s*\(\[.*\]\)\={.\{-}}"		contains=texStatement,texInputCurlies,texInputFileOpt
