@@ -313,7 +313,9 @@ if has('gui_running')
   set encoding=utf-8
   set guioptions=egmrt
   set mouse=a
-  set guifont=Menlo\ for\ Powerline,DejaVu\ Sans\ Mono,Courier
+  if !has('gui_vimr')
+    set guifont=Menlo\ for\ Powerline,DejaVu\ Sans\ Mono,Courier
+  endif
 endif
 
 if has('autocmd')
