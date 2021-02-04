@@ -404,6 +404,7 @@ function! GoyoShowSigncolumn()
   " re-enable the sign-column after Goyo has made it invisible:
   " I like to still see my linter (ALE) signs
   hi! SignColumn ctermfg=fg guifg=fg
+  hi! NonText ctermfg=gray guifg=gray
 endfunction
 command! WriteDark set background=dark spell wrap | colorscheme peaksea | Goyo 100x100% | call statusline#grayStatusLine() | call GoyoShowSigncolumn()
 command! WriteLight set background=light spell wrap | Goyo 100x100% | call statusline#grayStatusLine()| call GoyoShowSigncolumn()
