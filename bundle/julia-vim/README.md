@@ -17,17 +17,17 @@ The remainder of this README will only give an overview of some of the features:
 
 * [Latex-to-Unicode substitutions](#latex-to-unicode-substitutions)
 * [Block-wise movements and block text-objects](#block-wise-movements-and-block-text-objects)
-* [Changing syntax highlighting depending on the Julia version](#changing-syntax-highlighting-depending-on-the-julia-version)
 
 ## LaTeX-to-Unicode substitutions
 
 This plug-in adds some functionality to substitute LaTeX code sequences (e.g. `\alpha`) with corresponding
 Unicode symbols (e.g. `α`). By default, these substitutions must be triggered explicitly by pressing the
 <kbd>Tab</kbd> key, as in the Julia command line (the REPL); however, an automatic, as-you-type mode can also
-be activated.
+be activated, and a method based on keymap is also available.
 
-On the Vim command line, the feature is activated by pressing <kbd>Shift-Tab</kbd>. This is mostly useful
-when searching the files with the `/` or `?` commands.
+This feature also works in command mode, e.g. when searching the files with the `/` or `?` commands, but the
+as-you-type mode is not available (the keymap-based version works though, and it also works with some Vim
+commands like `f` and `t`).
 
 By default, this feature is only active when editing Julia files. However, it can be also enabled with
 other file types, and even turned on/off on the fly regardless of the file type.
@@ -59,14 +59,20 @@ if those plug-ins are detected.
 A literal tab can always be forced by using <kbd>CTRL-V</kbd> and then <kbd>Tab</kbd>.
 
 On the Vim command line, e.g. when searching the file with the `/` or `?` commands, the feature is
-activated by <kbd>Shift-Tab</kbd>.
+also activated by <kbd>Tab</kbd>, but falls-back to the Vim built-in behavior if no suitable substitution
+is found: if you had defined a mapping for <kbd>Tab</kbd> in command mode, it will be overridden. This
+can be prevented by choosing a different value for the mapping keys, see the full documentation.
 
-To disable this mapping, you can use the command `:let g:latex_to_unicode_tab = 0`, e.g. by putting
+To disable this mapping, you can use the command `:let g:latex_to_unicode_tab = "off"`, e.g. by putting
 it into your `.vimrc` file. You can also change this setting from the Vim command-line, but you will
 also need to give the command `:call LaTeXtoUnicode#Init()` for the change to take effect.
 
-Even when the mapping is disabled, the feature is still available via the omnicompletion mechanism,
-i.e. by pressing <kbd>CTRL-X</kbd> and then <kbd>CTRL-O</kbd>.
+You can further fine-tune the `g:latex_to_unicode_tab` option: to selectively enable the <kbd>Tab</kbd>
+mapping only in the command line set it to `"command"`, or set it to `"insert"` to get the mapping only
+in insert mode. (The default setting is `"on"`, which applies to both.)
+
+Even when the mapping is disabled, the feature is still available (in insert mode) via the
+completion mechanism, i.e. by pressing <kbd>CTRL-X</kbd> and then <kbd>CTRL-U</kbd>.
 
 To disable the suggestions of partial matches completions, use the command
 `:let g:latex_to_unicode_suggestions = 0`.
@@ -86,12 +92,12 @@ substitution to Unicode.
 #### Using this feature on Vim versions lower than 7.4
 
 The automatic remapping of the <kbd>Tab</kbd> key is not performed if Vim version is lower than 7.4. However, the
-functionality can still be used via the omnicompletion mechanism, i.e. by using <kbd>CTRL-X</kbd><kbd>CTRL-O</kbd>. You can
+functionality can still be used via the completion mechanism, i.e. by using <kbd>CTRL-X</kbd><kbd>CTRL-U</kbd>. You can
 map this to some more convenient key combination, e.g. you may want to add something like this line to your
 `.vimrc` file:
 
 ```
-inoremap <C-Tab> <C-X><C-O>
+inoremap <C-Tab> <C-X><C-U>
 ```
 
 This would map the functionality to <kbd>CTRL-Tab</kbd>. However, if you try to map this to <kbd>Tab</kbd>, you'd only be
@@ -106,15 +112,29 @@ you will also need to give the command `:call LaTeXtoUnicode#Init()` for the cha
 In this mode, symbols will be substituted as you type, as soon as some extra character appears after the symbol
 and a LaTeX sequence can unambiguously be identified.
 
-For example, if you type `a \neq b` the `\neq` will be changed to `≠` right after the space, before you input
+For example, if you type `a \ne b` the `\ne` will be changed to `≠` right after the space, before you input
 the `b`.
 
-This does not interfere with the <kbd>Tab</kbd> mapping discussed above.
-
-The `g:latex_to_unicode_auto` setting can also be changed from the Vim command-line, but you will
-also need to give the command `:call LaTeXtoUnicode#Init()` for the change to take effect.
+This does not interfere with the <kbd>Tab</kbd> mapping discussed above. It only works in insert mode, and it
+doesn't work with emojis.
 
 This feature is not available with Vim versions lower then 7.4.
+
+### LaTeX-to-Unicode via keymap
+
+A different susbstitution mode based on keymaps can be activated with `:let g:latex_to_unicode_keymap = 1`,
+e.g. by putting it into your `.vimrc` file. This works similarly to the as-you-type method described above,
+but it has the advantage that it works under more circumstances, e.g. in command-line mode when searching with
+`/` or `?`, and when using the `f` and `t` commands.
+The main disadvantage is that you don't see the whole sequence as you're typing it, and you can't fix mistakes
+with backspace, for example.
+Another difference is that there is a timeout like for any other mapping.
+In any case, it is possible to use this method in parallel with the other two methods, they don't interfere.
+So if you have the <kbd>Tab</kbd> mapping (discussed above) activated, you still get to see completions and
+suggestions. If you have the as-you-type substitution active, and you make a mistake, you can simply press
+backspace and keep going, at least in insert mode, and so on.
+
+This feature might with Vim versions lower then 7.4, but it hasn't been tested.
 
 ### LaTeX-to-Unicode on other file types
 
@@ -123,7 +143,7 @@ the variable `g:latex_to_unicode_file_types` to specify for which file types thi
 The variable must be set to a string containing a pattern (a regular expression) which matches the desired file
 types, or to a list of such patterns. For example, to activate the feature on all file types, you could put
 `let g:latex_to_unicode_file_types = ".*"` in your `.vimrc` file.
-Be aware, however, that enabling the functionality overrides the `omnifunc` setting for that file type.
+Be aware, however, that enabling the functionality overrides the `completefunc` setting.
 
 ### Enabling and disabling the LaTeX-to-Unicode functionality
 
@@ -134,7 +154,7 @@ the mappings:
 
 ```
 noremap <expr> <F7> LaTeXtoUnicode#Toggle()
-inoremap <expr> <F7> LaTeXtoUnicode#Toggle()
+noremap! <expr> <F7> LaTeXtoUnicode#Toggle()
 ```
 
 and then use the <kbd>F7</kbd> key to quickly turn the feature on and off.
@@ -156,27 +176,3 @@ or they can be remapped and/or disabled individually by defining a `g:julia_bloc
 See the documentation for details.
 
 Note that this feature requires Vim version 7.4 or higher.
-
-## Changing syntax highlighting depending on the Julia version
-
-The pluign supports syntax highlighting different versions of Julia. By default, the highlighting scheme assumes
-the latest stable release of Julia (currently, version 0.6), but the previous one and the latest version under
-development are also supported. You can set a global default in your `.vimrc`, e.g. if you follow Julia's master
-you can use:
-
-```
-let g:default_julia_version = "devel"
-```
-
-or if you are still using Julia 0.5 you can use:
-
-```
-let g:default_julia_version = "0.5"
-```
-
-You can also switch version for a particular buffer, by using the `julia#set_syntax_version()` function, e.g.
-by typing in Vim:
-
-```
-:call julia#set_syntax_version("0.5")
-```
