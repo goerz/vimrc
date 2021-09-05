@@ -35,7 +35,13 @@ if has('persistent_undo')
   if $TERM_PROGRAM == "a-Shell"
     set undodir=~/Documents/.vim/undo/
   else
-    set undodir=~/.vim/undo/
+    if has('nvim-0.5')
+      " newer nvim writes undo files that are incompatible with older versions
+      " or standard vim
+      set undodir=~/.vim/undo-nvim5/
+    else
+      set undodir=~/.vim/undo/
+    endif
   endif
   set undofile
   augroup persistent_undo
