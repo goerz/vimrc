@@ -111,6 +111,13 @@ endif
 syntax on
 syntax sync fromstart
 
+" Fix non-standard neovim mapping
+" https://github.com/neovim/neovim/pull/13268
+" https://github.com/neovim/neovim/issues/416
+if has('nvim-0.6')
+  unmap Y
+endif
+
 " use the mouse in xterm (or other terminals that support it)
 " Toggle with ,m
 set mouse=
