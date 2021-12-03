@@ -3,12 +3,16 @@ Before:
   Save g:ale_enabled
   Save g:ale_linters
   Save g:ale_run_synchronously
+  Save g:ale_disable_lsp
 
   call ale#test#SetDirectory('/testplugin/test/completion')
   call ale#test#SetFilename('dummy.txt')
 
   runtime autoload/ale/lsp.vim
+  runtime autoload/ale/lsp_linter.vim
 
+  let g:ale_disable_lsp = 0
+  unlet! b:ale_disable_lsp
   let g:ale_lint_on_save = 1
   let b:ale_enabled = 1
   let g:ale_lsp_next_message_id = 1
@@ -29,8 +33,8 @@ Before:
   \ 'lsp': 'stdio',
   \ 'command': 'cat - > /dev/null',
   \ 'executable': has('win32') ? 'cmd' : 'echo',
-  \ 'language_callback': 'LanguageCallback',
-  \ 'project_root_callback': 'ProjectRootCallback',
+  \ 'language': function('LanguageCallback'),
+  \ 'project_root': function('ProjectRootCallback'),
   \ })
   let g:ale_linters = {'foobar': ['dummy_linter']}
 
@@ -84,6 +88,30 @@ Given foobar (Some imaginary filetype):
   <contents>
 
 Execute(Server should be notified on save):
+  call ale#events#SaveEvent(bufnr(''))
+
+  AssertEqual
+  \ [
+  \   [1, 'textDocument/didChange', {
+  \     'textDocument': {
+  \       'uri': ale#path#ToURI(expand('%:p')),
+  \       'version': g:ale_lsp_next_version_id - 1,
+  \     },
+  \     'contentChanges': [{'text': join(getline(1, '$'), "\n") . "\n"}],
+  \   }],
+  \ ],
+  \ g:message_list
+
+Execute(Server should be notified on save with didSave is supported by server):
+
+  " Replace has capability function to simulate didSave server capability
+  function! ale#lsp#HasCapability(conn_id, capability) abort
+      if a:capability == 'did_save'
+          return 1
+      endif
+      return 0
+  endfunction
+
   call ale#events#SaveEvent(bufnr(''))
 
   AssertEqual

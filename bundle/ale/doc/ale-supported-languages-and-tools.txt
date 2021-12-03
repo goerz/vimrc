@@ -13,13 +13,21 @@ Notes:
 `!!` These linters check only files on disk. See |ale-lint-file-linters|
 
 * Ada
+  * `ada_language_server`
+  * `cspell`
   * `gcc`
+  * `gnatpp`
 * Ansible
-  * `ansible-lint`
+  * `ansible-lint`!!
 * API Blueprint
   * `drafter`
+* APKBUILD
+  * `apkbuild-lint`
+  * `secfixes-check`
 * AsciiDoc
-  * `alex`!!
+  * `alex`
+  * `cspell`
+  * `languagetool`!!
   * `proselint`
   * `redpen`
   * `textlint`
@@ -27,13 +35,21 @@ Notes:
   * `write-good`
 * ASM
   * `gcc`
+* AVRA
+  * `avra`
 * Awk
   * `gawk`
 * Bash
+  * `bashate`
+  * `cspell`
   * `language-server`
   * `shell` (-n flag)
   * `shellcheck`
   * `shfmt`
+* Bats
+  * `shellcheck`
+* Bazel
+  * `buildifier`
 * BibTeX
   * `bibclean`
 * Bourne Shell
@@ -41,38 +57,47 @@ Notes:
   * `shellcheck`
   * `shfmt`
 * C
+  * `astyle`
   * `ccls`
-  * `clang`
-  * `clangd`
+  * `clang` (`cc`)
   * `clang-format`
+  * `clangd`
   * `clangtidy`!!
   * `cppcheck`
   * `cpplint`!!
   * `cquery`
+  * `cspell`
   * `flawfinder`
-  * `gcc`
+  * `gcc` (`cc`)
   * `uncrustify`
 * C#
+  * `csc`!!
+  * `cspell`
+  * `dotnet-format`
   * `mcs`
   * `mcsc`!!
   * `uncrustify`
 * C++ (filetype cpp)
+  * `astyle`
   * `ccls`
-  * `clang`
+  * `clang` (`cc`)
+  * `clang-format`
   * `clangcheck`!!
   * `clangd`
-  * `clang-format`
   * `clangtidy`!!
   * `clazy`!!
   * `cppcheck`
   * `cpplint`!!
   * `cquery`
+  * `cspell`
   * `flawfinder`
-  * `gcc`
+  * `gcc` (`cc`)
   * `uncrustify`
 * Chef
-  * `foodcritic`
+  * `cookstyle`
+  * `foodcritic`!!
 * Clojure
+  * `clj-kondo`
   * `joker`
 * CloudFormation
   * `cfn-python-lint`
@@ -86,50 +111,69 @@ Notes:
   * `ameba`!!
   * `crystal`!!
 * CSS
+  * `cspell`
   * `csslint`
+  * `fecs`
   * `prettier`
   * `stylelint`
 * Cucumber
   * `cucumber`
 * CUDA
+  * `clangd`
   * `nvcc`!!
 * Cypher
   * `cypher-lint`
 * Cython (pyrex filetype)
   * `cython`
 * D
+  * `dfmt`
   * `dls`
   * `dmd`
   * `uncrustify`
 * Dafny
   * `dafny`!!
 * Dart
+  * `analysis_server`
+  * `dart-analyze`!!
+  * `dart-format`!!
   * `dartanalyzer`!!
   * `dartfmt`!!
   * `language_server`
+* desktop
+  * `desktop-file-validate`
+* Dhall
+  * `dhall-format`
+  * `dhall-freeze`
+  * `dhall-lint`
 * Dockerfile
   * `dockerfile_lint`
   * `hadolint`
 * Elixir
   * `credo`
+  * `cspell`
   * `dialyxir`
-  * `dogma`
+  * `dogma`!!
   * `elixir-ls`
   * `mix`!!
 * Elm
   * `elm-format`
-  * `elm-lsp`
+  * `elm-ls`
   * `elm-make`
 * Erb
   * `erb`
+  * `erblint`
   * `erubi`
   * `erubis`
   * `ruumba`
 * Erlang
-  * `erlc`
   * `SyntaxErl`
+  * `dialyzer`!!
+  * `elvis`!!
+  * `erlc`
+  * `erlfmt`
 * Fish
   * `fish` (-n flag)
+  * `fish_indent`
 * Fortran
   * `gcc`
   * `language_server`
@@ -140,21 +184,26 @@ Notes:
 * Git Commit Messages
   * `gitlint`
 * GLSL
-  * glslang
+  * `glslang`
   * `glslls`
 * Go
   * `bingo`
+  * `cspell`
   * `go build`!!
+  * `go mod`!!
+  * `go vet`!!
   * `gofmt`
+  * `gofumpt`
   * `goimports`
   * `golangci-lint`!!
   * `golangserver`
+  * `golines`
   * `golint`
   * `gometalinter`!!
-  * `go mod`!!
+  * `gopls`
   * `gosimple`!!
   * `gotype`!!
-  * `go vet`!!
+  * `revive`!!
   * `staticcheck`!!
 * GraphQL
   * `eslint`
@@ -171,37 +220,55 @@ Notes:
 * Haskell
   * `brittany`
   * `cabal-ghc`
+  * `cspell`
+  * `floskell`
   * `ghc`
   * `ghc-mod`
   * `hdevtools`
   * `hfmt`
   * `hie`
+  * `hindent`
   * `hlint`
+  * `hls`
+  * `ormolu`
   * `stack-build`!!
   * `stack-ghc`
   * `stylish-haskell`
 * HCL
   * `terraform-fmt`
 * HTML
-  * `alex`!!
-  * `HTMLHint`
+  * `alex`
+  * `angular`
+  * `cspell`
+  * `fecs`
+  * `html-beautify`
+  * `htmlhint`
   * `prettier`
   * `proselint`
   * `tidy`
   * `write-good`
 * Idris
   * `idris`
+* Ink
+  * `ink-language-server`
+* Inko
+  * `inko` !!
 * ISPC
   * `ispc`!!
 * Java
-  * `checkstyle`
+  * `PMD`
+  * `checkstyle`!!
+  * `cspell`
+  * `eclipselsp`
   * `google-java-format`
   * `javac`
   * `javalsp`
-  * `PMD`
   * `uncrustify`
 * JavaScript
+  * `cspell`
+  * `deno`
   * `eslint`
+  * `fecs`
   * `flow`
   * `jscs`
   * `jshint`
@@ -212,22 +279,34 @@ Notes:
   * `tsserver`
   * `xo`
 * JSON
+  * `cspell`
+  * `eslint`
   * `fixjson`
   * `jq`
   * `jsonlint`
   * `prettier`
+  * `spectral`
+* JSON5
+  * `eslint`
+* JSONC
+  * `eslint`
+* Jsonnet
+  * `jsonnet-lint`
+  * `jsonnetfmt`
 * Julia
   * `languageserver`
 * Kotlin
   * `kotlinc`!!
-  * `ktlint`!!
+  * `ktlint`
   * `languageserver`
 * LaTeX (tex)
-  * `alex`!!
+  * `alex`
   * `chktex`
+  * `cspell`
   * `lacheck`
   * `proselint`
   * `redpen`
+  * `texlab`
   * `textlint`
   * `vale`
   * `write-good`
@@ -238,20 +317,26 @@ Notes:
 * LLVM
   * `llc`
 * Lua
+  * `cspell`
+  * `lua-format`
   * `luac`
   * `luacheck`
+  * `luafmt`
+  * `stylua`
 * Mail
-  * `alex`!!
+  * `alex`
   * `languagetool`!!
   * `proselint`
   * `vale`
 * Make
   * `checkmake`
 * Markdown
-  * `alex`!!
+  * `alex`
+  * `cspell`
   * `languagetool`!!
   * `markdownlint`!!
   * `mdl`
+  * `pandoc`
   * `prettier`
   * `proselint`
   * `redpen`
@@ -267,10 +352,16 @@ Notes:
   * `nasm`!!
 * Nim
   * `nim check`!!
+  * `nimlsp`
+  * `nimpretty`
 * nix
   * `nix-instantiate`
+  * `nixfmt`
+  * `nixpkgs-fmt`
+  * `rnix-lsp`
+  * `statix`
 * nroff
-  * `alex`!!
+  * `alex`
   * `proselint`
   * `write-good`
 * Objective-C
@@ -285,7 +376,15 @@ Notes:
 * OCaml
   * `merlin` (see |ale-ocaml-merlin|)
   * `ocamlformat`
+  * `ocamllsp`
+  * `ocp-indent`
   * `ols`
+* OpenApi
+  * `ibm_validator`
+  * `prettier`
+  * `yamllint`
+* Pascal
+  * `ptop`
 * Pawn
   * `uncrustify`
 * Perl
@@ -295,94 +394,131 @@ Notes:
 * Perl6
   * `perl6 -c`
 * PHP
+  * `cspell`
+  * `intelephense`
   * `langserver`
   * `phan`
+  * `php -l`
+  * `php-cs-fixer`
+  * `phpactor`
   * `phpcbf`
   * `phpcs`
-  * `php-cs-fixer`
-  * `php -l`
   * `phpmd`
   * `phpstan`
   * `psalm`!!
+  * `tlint`
 * PO
-  * `alex`!!
+  * `alex`
   * `msgfmt`
   * `proselint`
   * `write-good`
 * Pod
-  * `alex`!!
+  * `alex`
   * `proselint`
   * `write-good`
 * Pony
   * `ponyc`
+* PowerShell
+  * `cspell`
+  * `powershell`
+  * `psscriptanalyzer`
 * Prolog
   * `swipl`
 * proto
-  * `protoc-gen-lint`
+  * `protoc-gen-lint`!!
+  * `protolint`!!
 * Pug
   * `pug-lint`
 * Puppet
   * `languageserver`
   * `puppet`
   * `puppet-lint`
+* PureScript
+  * `purescript-language-server`
+  * `purs-tidy`
+  * `purty`
 * Python
+  * `autoflake`!!
+  * `autoimport`
   * `autopep8`
   * `bandit`
   * `black`
+  * `cspell`
   * `flake8`
+  * `flakehell`
   * `isort`
   * `mypy`
-  * `prospector`
+  * `prospector`!!
   * `pycodestyle`
   * `pydocstyle`
+  * `pyflakes`
   * `pylama`!!
   * `pylint`!!
-  * `pyls`
+  * `pylsp`
   * `pyre`
+  * `pyright`
+  * `reorder-python-imports`
   * `vulture`!!
   * `yapf`
 * QML
   * `qmlfmt`
   * `qmllint`
 * R
+  * `languageserver`
   * `lintr`
+  * `styler`
 * Racket
+  * `racket-langserver`
   * `raco`
+* Re:VIEW
+  * `redpen`
 * ReasonML
   * `merlin`
   * `ols`
+  * `reason-language-server`
   * `refmt`
 * reStructuredText
-  * `alex`!!
+  * `alex`
+  * `cspell`
   * `proselint`
   * `redpen`
   * `rstcheck`
   * `textlint`
   * `vale`
   * `write-good`
-* Re:VIEW
-  * `redpen`
+* Robot
+  * `rflint`
 * RPM spec
   * `rpmlint`
 * Ruby
-  * `brakeman`
+  * `brakeman`!!
+  * `cspell`
+  * `debride`
+  * `prettier`
   * `rails_best_practices`!!
   * `reek`
   * `rubocop`
   * `ruby`
   * `rufo`
   * `solargraph`
+  * `sorbet`
   * `standardrb`
 * Rust
   * `cargo`!!
+  * `cspell`
   * `rls`
+  * `rust-analyzer`
   * `rustc` (see |ale-integration-rust|)
   * `rustfmt`
+* Salt
+  * `salt-lint`
 * Sass
   * `sass-lint`
   * `stylelint`
 * Scala
+  * `cspell`
   * `fsc`
+  * `metals`
   * `sbtserver`
   * `scalac`
   * `scalafmt`
@@ -397,29 +533,46 @@ Notes:
 * SML
   * `smlnj`
 * Solidity
+  * `solc`
   * `solhint`
   * `solium`
 * SQL
+  * `pgformatter`
+  * `sql-lint`
   * `sqlfmt`
+  * `sqlformat`
   * `sqlint`
 * Stylus
   * `stylelint`
 * SugarSS
   * `stylelint`
+* Svelte
+  * `prettier`
+  * `svelteserver`
 * Swift
+  * Apple `swift-format`
+  * `cspell`
+  * `sourcekit-lsp`
   * `swiftformat`
   * `swiftlint`
+* systemd
+  * `systemd-analyze`!!
 * Tcl
   * `nagelfar`!!
 * Terraform
-  * `fmt`
+  * `terraform`
+  * `terraform-fmt-fixer`
+  * `terraform-ls`
+  * `terraform-lsp`
   * `tflint`
 * Texinfo
-  * `alex`!!
+  * `alex`
+  * `cspell`
   * `proselint`
   * `write-good`
 * Text^
-  * `alex`!!
+  * `alex`
+  * `cspell`
   * `languagetool`!!
   * `proselint`
   * `redpen`
@@ -428,41 +581,66 @@ Notes:
   * `write-good`
 * Thrift
   * `thrift`
+  * `thriftcheck`
 * TypeScript
+  * `cspell`
+  * `deno`
   * `eslint`
+  * `fecs`
   * `prettier`
+  * `standard`
   * `tslint`
   * `tsserver`
   * `typecheck`
+* V
+  * `v`!!
+  * `vfmt`
 * VALA
   * `uncrustify`
+  * `vala_lint`!!
 * Verilog
+  * `hdl-checker`
   * `iverilog`
   * `verilator`
   * `vlog`
   * `xvlog`
+  * `yosys`!!
 * VHDL
   * `ghdl`
   * `vcom`
   * `xvhdl`
 * Vim
+  * `vimls`
   * `vint`
 * Vim help^
-  * `alex`!!
+  * `alex`
   * `proselint`
   * `write-good`
 * Vue
+  * `cspell`
   * `prettier`
   * `vls`
+  * `volar`
 * XHTML
-  * `alex`!!
+  * `alex`
+  * `cspell`
   * `proselint`
   * `write-good`
 * XML
   * `xmllint`
 * YAML
+  * `circleci`!!
   * `prettier`
+  * `spectral`
   * `swaglint`
+  * `yamlfix`
   * `yamllint`
 * YANG
   * `yang-lsp`
+* Zeek
+  * `zeek`!!
+* Zig
+  * `zls`
+
+===============================================================================
+  vim:tw=78:ts=2:sts=2:sw=2:ft=help:norl:

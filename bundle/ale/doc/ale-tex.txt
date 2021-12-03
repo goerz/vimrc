@@ -21,7 +21,13 @@ g:ale_tex_chktex_options                             *g:ale_tex_chktex_options*
   This variable can be changed to modify flags given to chktex.
 
 
-------------------------------------------------------------------------------
+===============================================================================
+cspell                                                         *ale-tex-cspell*
+
+See |ale-cspell-options|
+
+
+===============================================================================
 lacheck                                                       *ale-tex-lacheck*
 
 g:ale_lacheck_executable                             *g:ale_lacheck_executable*
@@ -30,6 +36,44 @@ g:ale_lacheck_executable                             *g:ale_lacheck_executable*
   Default: '`lacheck`'
 
   This variable can be changed to change the path to lacheck.
+
+
+===============================================================================
+latexindent                                               *ale-tex-latexindent*
+
+g:ale_tex_latexindent_executable             *g:ale_tex_latexindent_executable*
+                                             *b:ale_tex_latexindent_executable*
+  Type: |String|
+  Default: `'latexindent'`
+
+  This variable can be changed to change the path to latexindent.
+
+
+g:ale_tex_latexindent_options                   *g:ale_tex_latexindent_options*
+                                                *b:ale_tex_latexindent_options*
+  Type: |String|
+  Default: `''`
+
+  This variable can be changed to modify flags given to latexindent.
+
+
+===============================================================================
+texlab                                                         *ale-tex-texlab*
+
+g:ale_tex_texlab_executable                       *g:ale_tex_texlab_executable*
+                                                  *b:ale_tex_texlab_executable*
+  Type: |String|
+  Default: `'texlab'`
+
+  This variable can be changed to change the path to texlab.
+
+
+g:ale_tex_texlab_options                             *g:ale_tex_texlab_options*
+                                                     *b:ale_tex_texlab_options*
+  Type: |String|
+  Default: `''`
+
+  This variable can be changed to modify flags given to texlab.
 
 
 ===============================================================================
