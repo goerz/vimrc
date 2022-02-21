@@ -21,6 +21,5 @@ autocmd BufNewFile,BufRead *.md set filetype=pandoc
 autocmd BufNewFile,BufRead *.pdc set filetype=pandoc
 autocmd BufNewFile,BufRead *.pandoc set filetype=pandoc
 autocmd BufNewFile,BufRead *.ipynb set filetype=pandoc
-autocmd BufNewFile,BufRead *.jl set filetype=julia
 autocmd BufNewFile,BufRead *EA_Anki* set filetype=tex
 autocmd BufNewFile,BufRead *EA_Chromium* set filetype=python
