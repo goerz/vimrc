@@ -532,6 +532,27 @@ let g:latex_to_unicode_file_types = [
     \ 'julia', 'python', 'mail', 'markdown', 'pandoc', 'human']
 noremap <silent> <leader>l :call LaTeXtoUnicode#Toggle()<CR>
 
+" Julia
+let g:julia_indent_align_import = 0
+let g:julia_indent_align_brackets = 0
+let g:julia_indent_align_funcargs = 0
+let g:julia_blocks_mappings = {
+  \  "move_n" : "",
+  \  "move_N" : "",
+  \  "move_p" : "",
+  \  "move_P" : "",
+  \
+  \  "moveblock_n" : "",
+  \  "moveblock_N" : "",
+  \  "moveblock_p" : "",
+  \  "moveblock_P" : "",
+  \
+  \  "select_a" : "ab",
+  \  "select_i" : "ib",
+  \
+  \  "whereami" : "",
+  \  }
+
 " signify
 let g:signify_realtime = 0
 
