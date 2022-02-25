@@ -367,7 +367,11 @@ function GetJuliaIndent()
         let st = last_open_bracket
         let ind = virtcol([lnum, st + 1])
       else
-        let ind = indent(lnum) + shiftwidth()
+        if infuncargs
+          let ind = indent(lnum)
+        else
+          let ind = indent(lnum) + shiftwidth()
+        endif
       endif
 
     " Second scenario: some multiline bracketed expression was closed in the
