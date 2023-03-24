@@ -288,8 +288,11 @@ set formatoptions=tcql
 set textwidth=0
 
 " Printing settings
-set printoptions=paper:a4,number:y,left:25pt,right:40pt
-set printheader=%<%f%h%m\ \ (%{strftime('%m/%d/%y\ %X')})%=Page\ %N
+if !has('nvim')
+  " removed in vim 0.9
+  set printoptions=paper:a4,number:y,left:25pt,right:40pt
+  set printheader=%<%f%h%m\ \ (%{strftime('%m/%d/%y\ %X')})%=Page\ %N
+endif
 
 " Follow symlink for current file
 " Sources:
