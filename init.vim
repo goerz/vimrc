@@ -567,7 +567,7 @@ let g:black_skip_string_normalization = 1
 let g:slime_target = 'tmux'
 let g:slime_no_mappings = 1
 nnoremap <silent> <leader>s :SlimeSend<CR>
-xnoremap <silent> <leader>s :'<,'>SlimeSend<CR>
+xnoremap <silent> <leader>s :'<,'>SlimeSend<CR>'>
 
 " Undotree
 nnoremap <silent> <leader>u :UndotreeToggle<CR>
