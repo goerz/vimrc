@@ -276,6 +276,7 @@ if has("gui_running") || &t_Co == 88 || &t_Co == 256
 
   "           type               foreground    background     attribute
   call <SID>X("Normal",          s:normal,     s:background,  "none")
+  call <SID>X("Conceal",         s:normal,     s:background,  "none")
   call <SID>X("Comment",         s:gray50,     s:background,  "none")
   call <SID>X("Constant",        s:darkblue,   s:background,  "none")
   call <SID>X("Directory",       s:blue,       s:background,  "none")
