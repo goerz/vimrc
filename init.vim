@@ -330,8 +330,19 @@ if has('gui_running')
   set guioptions=egmrt
   set mouse=a
   if !has('gui_vimr')
-    set guifont=Menlo\ for\ Powerline,DejaVu\ Sans\ Mono,Courier
+    set guifont=JuliaMono,Courier:h15
   endif
+endif
+
+if exists("g:neovide")
+  let g:neovide_cursor_animation_length = 0
+  let g:neovid_scroll_animation_length = 0
+  nnoremap <D-s> :w<CR>
+  vnoremap <D-c> "*y
+  nnoremap <D-v> "*P
+  vnoremap <D-v> "*P
+  cnoremap <D-v> <C-R>*
+  inoremap <D-v> <ESC>l"*Plie
 endif
 
 if has('autocmd')
