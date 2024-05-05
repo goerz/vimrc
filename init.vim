@@ -577,6 +577,7 @@ let g:black_skip_string_normalization = 1
 " SLIME
 let g:slime_target = 'tmux'
 let g:slime_no_mappings = 1
+let g:slime_python_ipython = 1
 nnoremap <silent> <leader>s :SlimeSend<CR>
 xnoremap <silent> <leader>s :'<,'>SlimeSend<CR>'>
 
@@ -584,12 +585,13 @@ xnoremap <silent> <leader>s :'<,'>SlimeSend<CR>'>
 nnoremap <silent> <leader>u :UndotreeToggle<CR>
 
 " Jupytext
-let g:jupytext_fmt = 'py'
+"let g:jupytext_fmt = 'jl'
 let g:jupytext_print_debug_msgs = 0
 let g:jupytext_command = 'jupytext'
 let g:jupytext_filetype_map = {
 \      'md': 'pandoc',
 \      'py': 'python',
+\      'jl': 'julia',
 \   }
 
 " CtrlP
